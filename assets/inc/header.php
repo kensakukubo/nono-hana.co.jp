@@ -29,6 +29,7 @@
                                 <li><a href="<?php echo $path; ?>#flow" class="main">お申し込みの流れ</a></li>
                                 <li><a href="<?php echo $path; ?>#voice" class="main">ご利用者様の声</a></li>
                                 <li><a href="<?php echo $path; ?>#price" class="main">ご利用料金</a></li>
+                                 <li><a href="<?php echo $path; ?>group-homes/" class="main">グループホーム</a></li> 
                                 <li><a href="<?php echo $path; ?>#company" class="main">会社概要</a></li>
                                 <li><a href="<?php echo $path; ?>news/" class="main">お知らせ</a></li>
                                 <li><a href="<?php echo $path; ?>misson/" class="main">理念・ミッション</a></li>
