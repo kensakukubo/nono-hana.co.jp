@@ -26,6 +26,11 @@
 </section>
 <footer>
     <div class="inner">
+        <nav class="footer-nav">
+            <ul class="l-flex">
+                <li><a href="<?php echo $path; ?>group-homes/">グループホーム</a></li>
+            </ul>
+        </nav>
         <p class="copyright">Copyright © 野の花 All Rights Reserved.</p>
     </div>
 </footer>
