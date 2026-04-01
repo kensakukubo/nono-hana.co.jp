@@ -8,20 +8,19 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <header id="l-header">
-  <div class="l-header__wrapper">
-    <div class="l-header__inner">
-      <div class="logo">
-        <?php the_custom_logo(); ?>
-      </div>
-      <nav class="global-nav">
-        <?php wp_nav_menu( [ 'theme_location' => 'global_nav', 'container' => false ] ); ?>
-      </nav>
-      <div class="header-cta">
-        <a href="tel:<?php echo esc_attr( get_field( 'tel' ) ); ?>" class="tel">
-          <?php echo esc_html( get_field( 'tel' ) ); ?>
-        </a>
-        <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-cta">ご相談はこちら</a>
-      </div>
+  <div class="l-header__inner">
+    <div class="logo">
+      <?php the_custom_logo(); ?>
+      <?php if ( ! has_custom_logo() ) : ?>
+      <a href="<?php echo esc_url( home_url('/grouphome/') ); ?>" class="site-name">障がい者グループホーム わおん花園</a>
+      <?php endif; ?>
+    </div>
+    <nav class="global-nav">
+      <?php wp_nav_menu( [ 'theme_location' => 'global_nav', 'container' => false ] ); ?>
+    </nav>
+    <div class="header-cta">
+      <a href="tel:0643938474" class="tel">06-4393-8474</a>
+      <a href="<?php echo esc_url( home_url( '/grouphome/contact/' ) ); ?>" class="btn-cta">ご相談はこちら</a>
     </div>
   </div>
 </header>

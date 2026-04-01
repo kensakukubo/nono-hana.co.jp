@@ -109,11 +109,22 @@
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     width: 100%;
     z-index: 1000;
     background: #fff;
     border-bottom: 0.5px solid rgba(0,0,0,.08);
     transition: box-shadow .3s;
+  }
+  
+  body.admin-bar #l-header {
+    top: 32px;
+  }
+  
+  @media screen and (max-width: 782px) {
+    body.admin-bar #l-header {
+      top: 46px;
+    }
   }
   
   #l-header.is-scrolled {
@@ -124,10 +135,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
     height: 80px;
     max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 24px;
+  }
+  
+  .logo {
+    flex-shrink: 0;
+    min-width: 0;
   }
   
   .logo img {
@@ -154,6 +172,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-shrink: 0;
   }
   
   .header-cta .tel {
@@ -172,27 +191,58 @@
   }
   
   /* ===========================
+     メイン（全幅・子の flex が潰れないように）
+  =========================== */
+  #l-main {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  
+  /* ===========================
      ヒーロー（案A：左右分割）
   =========================== */
   #l-hero__wrapper {
     display: flex;
-    height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
     padding-top: 80px;
+    box-sizing: border-box;
+  }
+  
+  body.admin-bar #l-hero__wrapper {
+    padding-top: 112px;
+  }
+  
+  @media screen and (max-width: 782px) {
+    body.admin-bar #l-hero__wrapper {
+      padding-top: 126px;
+    }
   }
   
   .hero-left {
-    width: 52%;
+    flex: 0 0 56%;
+    min-width: 0;
     background: #f4f9f6;
     display: flex;
     align-items: center;
-    padding: 48px;
+    justify-content: flex-start;
+    padding: 48px clamp(24px, 5vw, 64px);
     position: relative;
   }
   
+  .hero-content {
+    width: 100%;
+    max-width: none;
+  }
+  
   .hero-right {
-    width: 48%;
+    flex: 0 0 44%;
+    min-width: 0;
     position: relative;
     overflow: hidden;
+    background: #e8efe9;
   }
   
   .hero-right .hero-slider,
@@ -499,6 +549,38 @@
   }
   
   /* ===========================
+     施設紹介・採用 2カラム
+  =========================== */
+  .facility-section,
+  .recruit-section {
+    padding: 80px 0;
+  }
+  
+  .facility-inner,
+  .recruit-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  
+  .facility-photo img,
+  .recruit-photo img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #e0e0e0;
+  }
+  
+  .site-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1D9E75;
+    text-decoration: none;
+  }
+  
+  /* ===========================
      レスポンシブ
   =========================== */
   @media (max-width: 1023px) {
@@ -510,17 +592,21 @@
   @media (max-width: 767px) {
     #l-hero__wrapper {
       flex-direction: column;
+      min-height: 0;
       height: auto;
     }
   
     .hero-left {
+      flex: none;
       width: 100%;
       padding: 40px 24px;
     }
   
     .hero-right {
+      flex: none;
       width: 100%;
       height: 50vw;
+      min-height: 200px;
     }
   
     .hero-catch {
@@ -534,6 +620,11 @@
     .footer-inner {
       flex-direction: column;
       gap: 20px;
+    }
+  
+    .facility-inner,
+    .recruit-inner {
+      grid-template-columns: 1fr;
     }
   
     .floating-cta {
