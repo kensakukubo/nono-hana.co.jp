@@ -3,15 +3,12 @@ name: Deploy to Xserver
 on:
   push:
     branches: [main]
-    paths:
-      - 'grouphome/wp-content/themes/grouphome/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Deploy theme to Xserver
         uses: easingthemes/ssh-deploy@v4
         with:
