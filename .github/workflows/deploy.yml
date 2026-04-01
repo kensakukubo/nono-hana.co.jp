@@ -1,0 +1,24 @@
+name: Deploy to Xserver
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'grouphome/wp-content/themes/grouphome/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy theme to Xserver
+        uses: easingthemes/ssh-deploy@v5
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.XSERVER_KEY }}
+          REMOTE_HOST: ${{ secrets.XSERVER_HOST }}
+          REMOTE_USER: ${{ secrets.XSERVER_USER }}
+          REMOTE_PORT: 10022
+          SOURCE: "grouphome/wp-content/themes/grouphome/"
+          TARGET: ${{ secrets.XSERVER_PATH }}
+          EXCLUDE: ".git/, node_modules/"

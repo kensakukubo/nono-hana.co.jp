@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 2,
+    "settings": {
+      "color": {
+        "palette": [
+          { "slug": "primary",       "color": "#1D9E75", "name": "メインカラー" },
+          { "slug": "primary-light", "color": "#E1F5EE", "name": "メインカラー（薄）" },
+          { "slug": "primary-dark",  "color": "#0F6E56", "name": "メインカラー（濃）" },
+          { "slug": "accent",        "color": "#B39514", "name": "アクセント（ゴールド）" },
+          { "slug": "text-dark",     "color": "#1a2e20", "name": "テキスト（濃）" },
+          { "slug": "neutral-bg",    "color": "#f8f7f4", "name": "背景（ニュートラル）" },
+          { "slug": "text-muted",    "color": "#5a6a5a", "name": "テキスト（薄）" },
+          { "slug": "white",         "color": "#ffffff", "name": "白" }
+        ]
+      },
+      "typography": {
+        "fontFamilies": [
+          {
+            "slug": "base",
+            "name": "ベースフォント",
+            "fontFamily": "\"Yu Gothic Medium\", \"游ゴシック Medium\", YuGothic, \"Hiragino Kaku Gothic ProN\", Arial, sans-serif"
+          }
+        ],
+        "fluid": true
+      },
+      "spacing": {
+        "units": [ "px", "rem", "%" ]
+      },
+      "layout": {
+        "contentSize": "1100px",
+        "wideSize": "1280px"
+      }
+    }
+  }
