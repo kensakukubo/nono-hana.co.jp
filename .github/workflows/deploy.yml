@@ -10,13 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy via SCP
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          host: ${{ secrets.XSERVER_HOST }}
           username: ${{ secrets.XSERVER_USER }}
-          key: ${{ secrets.XSERVER_KEY }}
+          server: ${{ secrets.XSERVER_HOST }}
           port: 10022
-          source: "grouphome/wp-content/themes/grouphome/*"
-          target: ${{ secrets.XSERVER_PATH }}
-          strip_components: 4
+          ssh_private_key: ${{ secrets.XSERVER_KEY }}
+          local_path: grouphome/wp-content/themes/grouphome/*
+          remote_path: ${{ secrets.XSERVER_PATH }}
+          sftp_only: true
