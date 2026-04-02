@@ -9,6 +9,7 @@
   
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
   
   body {
@@ -40,6 +41,324 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
+  }
+  
+  .l-page .w-inner {
+    padding: 80px 20px;
+  }
+  
+  .l-page__title {
+    font-size: 28px;
+    font-weight: 500;
+    color: #1a2e20;
+  }
+  
+  .l-page .page-content {
+    margin-top: 2rem;
+  }
+  
+  .l-page .news-date {
+    margin-bottom: 0.75rem;
+  }
+  
+  .l-page-back {
+    margin-top: 3rem;
+  }
+  
+  .l-page-archive__list {
+    margin-top: 2rem;
+  }
+  
+  .l-page-archive__pagination {
+    margin-top: 2rem;
+  }
+  
+  .l-page__sub {
+    font-size: 12px;
+    letter-spacing: .15em;
+    color: #888;
+    text-align: center;
+    margin-top: 4px;
+  }
+  
+  .l-page--guide .l-page__title {
+    text-align: center;
+  }
+  
+  .l-page--guide > .w-inner > article {
+    margin-top: 2rem;
+  }
+  
+  .l-page--guide .page-content {
+    margin-top: 0;
+  }
+  
+  .l-page--faq .l-page__title {
+    text-align: center;
+  }
+  
+  .l-page--faq > .w-inner > article {
+    margin-top: 2rem;
+  }
+  
+  .l-page--faq .page-content {
+    margin-top: 0;
+  }
+  
+  .l-page--facility .l-page__title {
+    text-align: center;
+  }
+  
+  .l-page--facility > .w-inner > article {
+    margin-top: 2rem;
+  }
+  
+  .l-page--facility .page-content {
+    margin-top: 0;
+  }
+  
+  .facility-intro {
+    margin-bottom: 2.5rem;
+  }
+  
+  .facility-intro p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #444;
+  }
+  
+  .facility-info,
+  .facility-features,
+  .facility-map {
+    margin-top: 3rem;
+  }
+  
+  .facility-info .guide-section__title,
+  .facility-features .guide-section__title,
+  .facility-map .guide-section__title {
+    margin-bottom: 1.25rem;
+  }
+  
+  .facility-map > p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+  }
+  
+  .facility-map__embed {
+    margin-top: 1.5rem;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 0.5px solid #e0e0e0;
+  }
+  
+  .facility-map__embed iframe {
+    display: block;
+    width: 100%;
+    height: 350px;
+    border: 0;
+    vertical-align: bottom;
+  }
+  
+  .guide-table a {
+    color: #1D9E75;
+  }
+  
+  .guide-table a:hover {
+    text-decoration: underline;
+  }
+  
+  .faq-list {
+    margin: 0;
+  }
+  
+  .faq-list dt {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a2e20;
+    margin-top: 1.5rem;
+    padding: 14px 16px 10px 16px;
+    background: #f4f9f6;
+    border-radius: 6px 6px 0 0;
+    border: 0.5px solid #e0ebe6;
+    border-bottom: none;
+  }
+  
+  .faq-list dt:first-of-type {
+    margin-top: 0;
+  }
+  
+  .faq-list dd {
+    margin: 0;
+    padding: 16px 16px 20px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.85;
+    border: 0.5px solid #e0ebe6;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    background: #fff;
+  }
+  
+  .faq-list dd + dt {
+    margin-top: 0.75rem;
+  }
+  
+  .guide-section {
+    margin-top: 3rem;
+  }
+  
+  .l-page--guide .guide-section:first-of-type {
+    margin-top: 0;
+  }
+  
+  .guide-section__title {
+    font-size: 22px;
+    font-weight: 500;
+    color: #1a2e20;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #1D9E75;
+  }
+  
+  .guide-section__title span {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    color: #1D9E75;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  
+  .guide-steps {
+    list-style: none;
+  }
+  
+  .guide-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 0.5px solid #e0e0e0;
+  }
+  
+  .guide-step:first-child {
+    padding-top: 0;
+  }
+  
+  .guide-step__num {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    color: #fff;
+    background: #1D9E75;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+  
+  .guide-step__body h3 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #1a2e20;
+    margin-bottom: 8px;
+  }
+  
+  .guide-step__body p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.85;
+  }
+  
+  .guide-schedule {
+    list-style: none;
+  }
+  
+  .guide-schedule > li {
+    display: grid;
+    grid-template-columns: minmax(100px, 140px) minmax(100px, 160px) 1fr;
+    gap: 12px 20px;
+    padding: 14px 0;
+    border-bottom: 0.5px solid #eee;
+    align-items: start;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  .guide-schedule__time {
+    font-weight: 600;
+    color: #1D9E75;
+    white-space: nowrap;
+  }
+  
+  .guide-schedule__label {
+    font-weight: 500;
+    color: #1a2e20;
+  }
+  
+  .guide-schedule__text {
+    color: #555;
+  }
+  
+  .guide-support {
+    list-style: none;
+  }
+  
+  .guide-support li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.7;
+  }
+  
+  .guide-support li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1D9E75;
+  }
+  
+  .guide-table {
+    width: 100%;
+    max-width: 560px;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .guide-table th,
+  .guide-table td {
+    padding: 14px 16px;
+    border: 0.5px solid #e0e0e0;
+    text-align: left;
+  }
+  
+  .guide-table th {
+    width: 38%;
+    background: #f4f9f6;
+    color: #1a2e20;
+    font-weight: 500;
+  }
+  
+  .guide-table td {
+    color: #444;
+  }
+  
+  @media (max-width: 767px) {
+    .guide-schedule > li {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  
+    .guide-step {
+      flex-direction: column;
+      gap: 12px;
+    }
   }
   
   .btn-primary {
@@ -82,6 +401,7 @@
     margin-bottom: 2.5rem;
   }
   
+  .section-heading h1,
   .section-heading h2 {
     font-size: 26px;
     font-weight: 500;
@@ -200,15 +520,25 @@
   }
   
   /* ===========================
-     ヒーロー（案A：左右分割）
+     ヒーロー（左右分割・ビューポート全幅）
+     ※ main 内だと theme.json / コアの layout で max-width が付くことがあるため
+       front-page では <main> の外に出し、ここでフルブリードを保証する
   =========================== */
   #l-hero__wrapper {
+    --hero-split: 50%;
+    --hero-left-bg: #f4f9f6;
+    --hero-right-bg: #e8efe9;
     display: flex;
-    width: 100%;
-    max-width: 100%;
+    width: 100vw;
+    max-width: none !important;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    position: relative;
     min-height: 100vh;
     padding-top: 80px;
     box-sizing: border-box;
+    /* padding 分は子の背景が届かないため、固定ヘッダー直下が白抜けしないよう全体に分割色 */
+    background: linear-gradient(90deg, var(--hero-left-bg) var(--hero-split), var(--hero-right-bg) var(--hero-split));
   }
   
   body.admin-bar #l-hero__wrapper {
@@ -222,13 +552,13 @@
   }
   
   .hero-left {
-    flex: 0 0 56%;
+    flex: 0 0 50%;
     min-width: 0;
     background: #f4f9f6;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 48px clamp(24px, 5vw, 64px);
+    padding: 48px clamp(20px, 3.5vw, 56px);
     position: relative;
   }
   
@@ -238,7 +568,7 @@
   }
   
   .hero-right {
-    flex: 0 0 44%;
+    flex: 0 0 50%;
     min-width: 0;
     position: relative;
     overflow: hidden;
@@ -266,11 +596,12 @@
   }
   
   .hero-catch {
-    font-size: 36px;
+    font-size: clamp(28px, 3.2vw, 42px);
     font-weight: 500;
     color: #1a2e20;
-    line-height: 1.55;
+    line-height: 1.45;
     margin-bottom: 12px;
+    max-width: none;
   }
   
   .hero-sub {
@@ -562,6 +893,42 @@
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     align-items: center;
+  }
+  
+  .facility-text .section-heading--left,
+  .recruit-text .section-heading--left {
+    text-align: left;
+  }
+  
+  .facility-text .section-heading--left .section-heading__line,
+  .recruit-text .section-heading--left .section-heading__line {
+    margin: 12px 0 0;
+  }
+  
+  .recruit-text__lead {
+    margin-top: 1.5rem;
+  }
+  
+  .recruit-links {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .facility-text__lead {
+    margin-top: 1.5rem;
+  }
+  
+  .btn-wrap--left {
+    text-align: left;
+    margin-top: 1.5rem;
+  }
+  
+  .facility-photo:empty {
+    min-height: 300px;
+    border-radius: 8px;
+    background: #e0e0e0;
   }
   
   .facility-photo img,

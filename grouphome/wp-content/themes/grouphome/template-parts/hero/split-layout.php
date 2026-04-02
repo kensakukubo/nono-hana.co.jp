@@ -3,7 +3,7 @@
     <div class="hero-content">
       <p class="hero-eyebrow">障がい者グループホーム・大阪市西成区</p>
       <h1 class="hero-catch">
-        みんなが家族に<br>なれるように。<br>みんなが笑顔に<br>なれるように。
+        みんなが家族になれるように。<br>みんなが笑顔になれるように。
       </h1>
       <p class="hero-sub">私たちは誰もが笑顔の未来を築きます。</p>
       <div class="hero-btns">

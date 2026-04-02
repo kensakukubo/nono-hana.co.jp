@@ -1,6 +1,6 @@
 <?php get_header(); ?>
+<?php get_template_part( 'template-parts/hero/split-layout' ); ?>
 <main id="l-main">
-  <?php get_template_part( 'template-parts/hero/split-layout' ); ?>
   <?php get_template_part( 'template-parts/home/first-message' ); ?>
   <?php get_template_part( 'template-parts/home/nav-boxes' ); ?>
   <?php get_template_part( 'template-parts/home/facility-section' ); ?>
