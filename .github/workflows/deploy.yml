@@ -11,13 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # XSERVER_HOST は「サイトのドメイン」ではなく、サーバーパネルに表示される
-      # SSH 接続先ホスト名（例: xs123456.xsrv.jp）を入れること。
-      # ドメインのままだと 10022 で Web 以外が応答せず handshake が EOF で落ちることがある。
-      #
-      # それでも EOF のとき: パネルで SSH 利用が ON か、海外からの SSH 制限がないか確認。
-      # GitHub Actions の出口 IP から弾かれる場合は FTP デプロイに切り替えが必要。
-      - name: SCP theme (tar over SSH)
+      # drone-scp は source を tar 化する際にリポジトリ相対パスを保持するため、
+      # そのままだとリモートで .../grouphome/wp-content/themes/grouphome/... に展開され、
+      # WP が読む themes/grouphome/ 直下が更新されない。1 階層に潰してから送る。
+      - name: Stage theme (flat directory)
+        run: |
+          rm -rf _deploy_theme
+          cp -a grouphome/wp-content/themes/grouphome/. _deploy_theme/
+
+      - name: SCP theme
         uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.XSERVER_HOST }}
@@ -29,7 +31,7 @@ jobs:
           use_insecure_cipher: true
           timeout: 120s
           command_timeout: 15m
-          source: grouphome/wp-content/themes/grouphome
+          source: _deploy_theme
+          strip_components: 1
           target: ${{ secrets.XSERVER_PATH }}
           overwrite: true
-          debug: true
