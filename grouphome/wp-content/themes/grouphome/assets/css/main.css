@@ -48,6 +48,23 @@
     padding: 80px 20px;
   }
   
+  .l-page:has(> .page-hero) .w-inner {
+    padding-top: 28px;
+    padding-bottom: 64px;
+  }
+  
+  .l-page:has(> .page-hero) > .w-inner > article {
+    margin-top: 0;
+  }
+  
+  .l-page:has(> .page-hero) .page-content {
+    margin-top: 0;
+  }
+  
+  .l-page:has(> .page-hero) .faq-list {
+    margin-top: 0;
+  }
+  
   .l-page__title {
     font-size: 28px;
     font-weight: 500;
@@ -394,6 +411,12 @@
     max-width: 640px;
     margin-left: auto;
     margin-right: auto;
+  }
+  
+  .l-page--location .facility-overview {
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
   }
   
   .facility-access-address {
