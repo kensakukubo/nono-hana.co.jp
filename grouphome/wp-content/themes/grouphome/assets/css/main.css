@@ -377,15 +377,6 @@
     margin-bottom: 0;
   }
   
-  .facility-overview__photo .facility-overview__img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 320px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
   .facility-service-areas {
     font-size: 15px;
     color: #444;
@@ -400,26 +391,9 @@
   }
   
   .facility-overview {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
-  }
-  
-  .guide-step__photo--facility-lg {
-    margin-top: 0;
-    min-height: 280px;
-    height: 280px;
-    border-radius: 8px;
-    background: #e0e0e0;
-  }
-  
-  .guide-step__photo--facility-md {
-    margin-top: 0;
-    min-height: 200px;
-    height: 200px;
-    border-radius: 8px;
-    background: #e0e0e0;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .facility-access-address {
@@ -1004,15 +978,6 @@
   
   .guide-table td {
     color: #444;
-  }
-  
-  .location-pricing-note {
-    max-width: 560px;
-    margin: 1.25rem auto 0;
-    padding: 0 4px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #555;
   }
   
   @media (max-width: 767px) {

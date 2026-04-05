@@ -14,7 +14,6 @@
         <li><a href="#step">入居の流れ</a></li>
         <li><a href="#schedule">1日の生活の流れ</a></li>
         <li><a href="#support">主なサポート</a></li>
-        <li><a href="#price">料金体系</a></li>
       </ul>
     </div>
   </div>
@@ -247,23 +246,6 @@
               <p class="guide-support-tile__text">ペットとのお散歩同行</p>
             </li>
           </ul>
-        </section>
-
-        <section class="guide-section" id="price">
-          <div class="section-heading">
-            <h2>料金体系</h2>
-            <p class="section-heading__sub">PRICE</p>
-            <div class="section-heading__line"></div>
-          </div>
-          <table class="guide-table">
-            <tbody>
-              <tr><th>家賃</th><td>39,000円/月</td></tr>
-              <tr><th>食費</th><td>27,000円/月</td></tr>
-              <tr><th>水道光熱費</th><td>実費でのご精算</td></tr>
-              <tr><th>日用品費</th><td>5,000円/月</td></tr>
-              <tr><th>体験入居</th><td>2,895円/一泊</td></tr>
-            </tbody>
-          </table>
         </section>
 
         <div class="l-page-back">
