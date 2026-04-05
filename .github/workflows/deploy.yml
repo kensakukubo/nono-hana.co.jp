@@ -11,21 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # SFTP 専用アクションは Docker 内の put -r と相性問題がありやすいため、
-      # ssh-agent + rsync で同期（ログも追いやすい）
-      - uses: webfactory/ssh-agent@v0.9.0
+      # Xserver 共有ではリモートに rsync が無く rsync over SSH が失敗しやすい。
+      # drone-scp（tar + ssh で展開）ならリモートに rsync 不要。
+      # XSERVER_PATH: サーバー上のテーマの絶対パス（例: .../wp-content/themes/grouphome）
+      - name: SCP theme (tar over SSH)
+        uses: appleboy/scp-action@v1.0.0
         with:
-          ssh-private-key: ${{ secrets.XSERVER_KEY }}
-
-      - name: Rsync theme to Xserver
-        env:
-          SSH_HOST: ${{ secrets.XSERVER_HOST }}
-          SSH_USER: ${{ secrets.XSERVER_USER }}
-          REMOTE_PATH: ${{ secrets.XSERVER_PATH }}
-        run: |
-          set -eux
-          test -n "${SSH_HOST}" && test -n "${SSH_USER}" && test -n "${REMOTE_PATH}"
-          rsync -avz \
-            -e "ssh -p 10022 -o StrictHostKeyChecking=accept-new" \
-            ./grouphome/wp-content/themes/grouphome/ \
-            "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
+          host: ${{ secrets.XSERVER_HOST }}
+          username: ${{ secrets.XSERVER_USER }}
+          key: ${{ secrets.XSERVER_KEY }}
+          port: 10022
+          timeout: 60s
+          command_timeout: 15m
+          source: grouphome/wp-content/themes/grouphome
+          target: ${{ secrets.XSERVER_PATH }}
+          overwrite: true
+          debug: true
