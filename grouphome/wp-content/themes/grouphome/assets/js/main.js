@@ -1,14 +1,63 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ヘッダー：スクロールでクラス付与
+    // スマホ・タブレット：ハンバーガーメニュー
     const header = document.getElementById('l-header');
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 100) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
+    const menuToggle = document.getElementById('menuToggle');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    if (header && menuToggle) {
+      function closeMenu() {
+        header.classList.remove('is-menu-open');
+        document.body.classList.remove('is-menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        if (menuBackdrop) {
+          menuBackdrop.hidden = true;
+          menuBackdrop.setAttribute('aria-hidden', 'true');
+        }
       }
-    });
+      function openMenu() {
+        header.classList.add('is-menu-open');
+        document.body.classList.add('is-menu-open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        if (menuBackdrop) {
+          menuBackdrop.hidden = false;
+          menuBackdrop.setAttribute('aria-hidden', 'false');
+        }
+      }
+      menuToggle.addEventListener('click', function () {
+        if (header.classList.contains('is-menu-open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+      if (menuBackdrop) {
+        menuBackdrop.addEventListener('click', closeMenu);
+      }
+      header.querySelectorAll('.global-nav a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeMenu();
+        }
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 1023) {
+          closeMenu();
+        }
+      });
+    }
+
+    // ヘッダー：スクロールでクラス付与
+    if (header) {
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 100) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
+      });
+    }
   
     // SCROLLヒント：スクロールで非表示
     const scrollHint = document.querySelector('.hero-scroll-hint');
