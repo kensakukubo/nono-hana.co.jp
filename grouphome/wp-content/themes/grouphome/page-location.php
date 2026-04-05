@@ -3,17 +3,19 @@
 <?php
 while ( have_posts() ) :
 	the_post();
-	$facility_name = function_exists( 'get_field' ) ? get_field( 'facility_name' ) : '';
-	$hero_title    = $facility_name ? $facility_name : get_the_title();
-	$postal        = function_exists( 'get_field' ) ? get_field( 'postal_code' ) : '';
-	$pref          = function_exists( 'get_field' ) ? get_field( 'prefecture' ) : '';
-	$city          = function_exists( 'get_field' ) ? get_field( 'city' ) : '';
-	$street        = function_exists( 'get_field' ) ? get_field( 'street_address' ) : '';
-	$tel           = function_exists( 'get_field' ) ? get_field( 'tel' ) : '';
-	$line_url      = function_exists( 'get_field' ) ? get_field( 'line_url' ) : '';
-	$map_url       = function_exists( 'get_field' ) ? get_field( 'google_map_url' ) : '';
-	$service_areas = function_exists( 'get_field' ) ? get_field( 'service_areas' ) : '';
-	$summary       = function_exists( 'get_field' ) ? get_field( 'facility_summary' ) : '';
+	$g = 'grouphome_acf_textish';
+	$facility_name = $g( function_exists( 'get_field' ) ? get_field( 'facility_name' ) : '' );
+	$hero_title    = $facility_name !== '' ? $facility_name : get_the_title();
+	$postal        = trim( $g( function_exists( 'get_field' ) ? get_field( 'postal_code' ) : '' ) );
+	$pref          = trim( $g( function_exists( 'get_field' ) ? get_field( 'prefecture' ) : '' ) );
+	$city          = trim( $g( function_exists( 'get_field' ) ? get_field( 'city' ) : '' ) );
+	$street        = trim( $g( function_exists( 'get_field' ) ? get_field( 'street_address' ) : '' ) );
+	$tel           = trim( $g( function_exists( 'get_field' ) ? get_field( 'tel' ) : '' ) );
+	$line_url      = trim( $g( function_exists( 'get_field' ) ? get_field( 'line_url' ) : '' ) );
+	$map_url       = trim( $g( function_exists( 'get_field' ) ? get_field( 'google_map_url' ) : '' ) );
+	$service_areas = trim( $g( function_exists( 'get_field' ) ? get_field( 'service_areas' ) : '' ) );
+	$summary_raw   = function_exists( 'get_field' ) ? get_field( 'facility_summary' ) : '';
+	$summary       = is_string( $summary_raw ) ? $summary_raw : '';
 
 	if ( function_exists( 'grouphome_apply_location_default_address' ) ) {
 		grouphome_apply_location_default_address( $pref, $city, $street );
@@ -68,7 +70,7 @@ while ( have_posts() ) :
 										<th>電話番号</th>
 										<td>
 											<?php if ( $tel ) : ?>
-											<a href="tel:<?php echo esc_attr( preg_replace( '/\D/', '', $tel ) ); ?>"><?php echo esc_html( $tel ); ?></a>
+											<a href="tel:<?php echo esc_attr( preg_replace( '/\D/', '', (string) $tel ) ); ?>"><?php echo esc_html( $tel ); ?></a>
 											<?php else : ?>
 											<a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_main_display() ); ?></a>
 											<?php endif; ?>
