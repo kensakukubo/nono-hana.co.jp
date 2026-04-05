@@ -11,17 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Xserver 共有ではリモートに rsync が無く rsync over SSH が失敗しやすい。
-      # drone-scp（tar + ssh で展開）ならリモートに rsync 不要。
-      # XSERVER_PATH: サーバー上のテーマの絶対パス（例: .../wp-content/themes/grouphome）
+      # XSERVER_HOST は「サイトのドメイン」ではなく、サーバーパネルに表示される
+      # SSH 接続先ホスト名（例: xs123456.xsrv.jp）を入れること。
+      # ドメインのままだと 10022 で Web 以外が応答せず handshake が EOF で落ちることがある。
+      #
+      # それでも EOF のとき: パネルで SSH 利用が ON か、海外からの SSH 制限がないか確認。
+      # GitHub Actions の出口 IP から弾かれる場合は FTP デプロイに切り替えが必要。
       - name: SCP theme (tar over SSH)
         uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.XSERVER_HOST }}
           username: ${{ secrets.XSERVER_USER }}
           key: ${{ secrets.XSERVER_KEY }}
+          passphrase: ${{ secrets.XSERVER_KEY_PASSPHRASE }}
           port: 10022
-          timeout: 60s
+          protocol: tcp4
+          use_insecure_cipher: true
+          timeout: 120s
           command_timeout: 15m
           source: grouphome/wp-content/themes/grouphome
           target: ${{ secrets.XSERVER_PATH }}
