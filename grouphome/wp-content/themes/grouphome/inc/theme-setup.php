@@ -15,3 +15,66 @@ function grouphome_setup() {
     ]);
 }
 add_action( 'after_setup_theme', 'grouphome_setup' );
+
+function grouphome_acf_json_save_path( $path ) {
+	return get_template_directory() . '/acf-json';
+}
+
+function grouphome_acf_json_load_paths( $paths ) {
+	$paths[] = get_template_directory() . '/acf-json';
+	return $paths;
+}
+
+function grouphome_register_acf_json_paths() {
+	if ( ! function_exists( 'acf_get_setting' ) ) {
+		return;
+	}
+	add_filter( 'acf/settings/save_json', 'grouphome_acf_json_save_path' );
+	add_filter( 'acf/settings/load_json', 'grouphome_acf_json_load_paths' );
+}
+add_action( 'after_setup_theme', 'grouphome_register_acf_json_paths', 5 );
+
+/**
+ * 入居のご案内を page-guide.php で表示する。
+ *
+ * 固定ページが「デフォルトテンプレート」のままだと page.php が使われ、
+ * ブロック／クラシック本文に残った古い HTML（写真枠・料金表など）だけが
+ * 出力され、テーマの page-guide.php の変更が反映されないことがある。
+ */
+function grouphome_force_page_guide_template( $template ) {
+	if ( ! is_singular( 'page' ) ) {
+		return $template;
+	}
+
+	$post = get_queried_object();
+	if ( ! $post instanceof WP_Post ) {
+		return $template;
+	}
+
+	if ( basename( $template ) === 'page-guide.php' ) {
+		return $template;
+	}
+
+	$assigned = get_page_template_slug( $post );
+	if ( $assigned && 'default' !== $assigned ) {
+		if ( basename( $assigned ) !== 'page-guide.php' ) {
+			return $template;
+		}
+	}
+
+	$slugs = (array) apply_filters( 'grouphome_guide_page_slugs', [ 'guide' ] );
+	$slug  = $post->post_name;
+	$use   = $slug && in_array( $slug, $slugs, true );
+
+	if ( ! $use && strpos( $post->post_content, 'guide-step__photo' ) !== false ) {
+		$use = true;
+	}
+
+	if ( ! $use ) {
+		return $template;
+	}
+
+	$path = get_template_directory() . '/page-guide.php';
+	return is_readable( $path ) ? $path : $template;
+}
+add_filter( 'template_include', 'grouphome_force_page_guide_template', 99 );
