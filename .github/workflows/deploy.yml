@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # local_path に * を付けると、バッチ内でグロブ展開されず put が失敗することがある
+      # remote は Xserver 上のテーマディレクトリ（例: .../wp-content/themes/grouphome）
       - name: Deploy via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
@@ -18,6 +20,8 @@ jobs:
           server: ${{ secrets.XSERVER_HOST }}
           port: 10022
           ssh_private_key: ${{ secrets.XSERVER_KEY }}
-          local_path: grouphome/wp-content/themes/grouphome/*
+          local_path: grouphome/wp-content/themes/grouphome/
           remote_path: ${{ secrets.XSERVER_PATH }}
-          sftp_only: true
+          # false: 先に ssh で mkdir（リモートにフォルダが無いと put がコケるのを防ぐ）
+          # サーバーが SFTP 専用で ssh が弾かれる場合は true に戻し、リモートにフォルダを手作業で用意する
+          sftp_only: false
