@@ -9,7 +9,7 @@
       <?php the_content(); ?>
     </div>
     <div class="l-page-back">
-      <a href="<?php echo esc_url( home_url( '/grouphome/news/' ) ); ?>" class="btn-secondary">一覧に戻る</a>
+      <a href="<?php echo esc_url( home_url( '/news/' ) ); ?>" class="btn-secondary">一覧に戻る</a>
     </div>
       <?php endwhile; ?>
     <?php endif; ?>

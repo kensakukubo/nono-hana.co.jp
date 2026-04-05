@@ -18,17 +18,65 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   
-    // Splide.js：ヒーロースライダー
-    if (document.getElementById('heroSlider')) {
-      new Splide('#heroSlider', {
-        type       : 'fade',
-        autoplay   : true,
-        interval   : 5000,
-        arrows     : false,
-        pagination : true,
-        pauseOnHover: false,
-      }).mount();
+    // ヒーロースライダー（Splide があれば使用、なければフォールバックでフェード切替）
+    const heroSlider = document.getElementById('heroSlider');
+    if (heroSlider) {
+      if (window.Splide) {
+        new Splide('#heroSlider', {
+          type        : 'fade',
+          autoplay    : true,
+          interval    : 5000,
+          arrows      : false,
+          pagination  : true,
+          pauseOnHover: false,
+        }).mount();
+      } else {
+        const slides = heroSlider.querySelectorAll('.hero-slide');
+        if (slides.length > 1) {
+          let index = 0;
+          slides.forEach((s, i) => s.classList.toggle('is-active', i === 0));
+          window.setInterval(() => {
+            slides[index].classList.remove('is-active');
+            index = (index + 1) % slides.length;
+            slides[index].classList.add('is-active');
+          }, 5000);
+        } else if (slides.length === 1) {
+          slides[0].classList.add('is-active');
+        }
+      }
     }
+  
+    // 室内ギャラリー：1枚表示・手動切替
+    document.querySelectorAll('[data-room-slider]').forEach(function (root) {
+      var slides = root.querySelectorAll('[data-room-slide]');
+      var prev = root.querySelector('[data-room-prev]');
+      var next = root.querySelector('[data-room-next]');
+      var dots = root.querySelectorAll('[data-room-dot]');
+      var curEl = root.querySelector('.facility-room-slider__current');
+      var n = slides.length;
+      if (n < 1) return;
+      var index = 0;
+      function show(i) {
+        index = (i + n) % n;
+        slides.forEach(function (s, j) {
+          s.classList.toggle('is-active', j === index);
+        });
+        dots.forEach(function (d, j) {
+          var on = j === index;
+          d.classList.toggle('is-active', on);
+          d.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        if (curEl) curEl.textContent = String(index + 1);
+      }
+      if (prev) prev.addEventListener('click', function () { show(index - 1); });
+      if (next) next.addEventListener('click', function () { show(index + 1); });
+      dots.forEach(function (d) {
+        d.addEventListener('click', function () {
+          var go = parseInt(d.getAttribute('data-go'), 10);
+          if (!isNaN(go)) show(go);
+        });
+      });
+    });
   
     // IntersectionObserver：フェードイン
     const observer = new IntersectionObserver(function (entries) {

@@ -1,71 +1,94 @@
+<?php /* Template Name: 施設紹介 */ ?>
 <?php get_header(); ?>
-<?php if ( have_posts() ) : ?>
-  <?php while ( have_posts() ) : the_post(); ?>
-<main class="l-page l-page--facility">
-  <div class="w-inner">
-    <h1 class="l-page__title">施設紹介</h1>
-    <p class="l-page__sub">FACILITY</p>
+<main class="l-page l-page--facility-pick">
+	<div class="page-hero">
+		<div class="page-hero__inner">
+			<h1 class="page-hero__title">施設紹介</h1>
+			<p class="page-hero__sub">FACILITY</p>
+		</div>
+	</div>
 
-    <article <?php post_class(); ?>>
-      <div class="page-content">
+	<div class="w-inner">
+		<?php if ( have_posts() ) : ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+		<article <?php post_class(); ?>>
+			<div class="page-content">
+				<?php if ( grouphome_page_has_visible_content() ) : ?>
+				<section class="guide-section">
+					<div class="entry-content facility-pick-intro">
+						<?php the_content(); ?>
+					</div>
+				</section>
+				<?php endif; ?>
 
-        <section class="facility-intro">
-          <p>駅にも近く生活に大変便利な環境の中で、自分らしくのびのびとした毎日を送ることができます。</p>
-        </section>
+				<section class="guide-section">
+					<div class="facility-lead facility-pick-lead">
+						<p>設備や生活のイメージは<strong>各拠点のページ</strong>でご紹介しています。見学・ご相談はお電話・LINE・お問い合わせフォームよりお気軽にどうぞ。</p>
+					</div>
+				</section>
 
-        <section class="facility-info">
-          <h2 class="guide-section__title">施設概要</h2>
-          <table class="guide-table">
-            <tbody>
-              <tr><th>名称</th><td>障がい者グループホーム わおん花園</td></tr>
-              <tr><th>所在地</th><td>〒557-0015 大阪府大阪市西成区花園南1-9-32</td></tr>
-              <tr><th>電話番号</th><td><a href="tel:0643938474">06-4393-8474</a></td></tr>
-              <tr><th>定員</th><td>応相談</td></tr>
-              <tr><th>タイプ</th><td>戸建てタイプ</td></tr>
-              <tr><th>備考</th><td>※同居のペットとして犬がいます。</td></tr>
-            </tbody>
-          </table>
-        </section>
+				<section class="guide-section">
+					<div class="section-heading">
+						<h2>拠点を選ぶ</h2>
+						<p class="section-heading__sub">LOCATIONS</p>
+						<div class="section-heading__line"></div>
+					</div>
+					<?php
+					$location_pages = function_exists( 'grouphome_get_location_pages' ) ? grouphome_get_location_pages() : [];
+					if ( $location_pages ) :
+						?>
+					<ul class="facility-location-pick__list" role="list">
+						<?php foreach ( $location_pages as $loc ) : ?>
+							<?php
+							$loc_title = function_exists( 'get_field' ) ? get_field( 'facility_name', $loc->ID ) : '';
+							$loc_title = $loc_title ? $loc_title : get_the_title( $loc );
+							$addr      = '';
+							if ( function_exists( 'get_field' ) ) {
+								$p = (string) get_field( 'prefecture', $loc->ID );
+								$c = (string) get_field( 'city', $loc->ID );
+								$s = (string) get_field( 'street_address', $loc->ID );
+								$addr = trim( $p . $c . $s );
+							}
+							$card_img = function_exists( 'grouphome_get_location_card_image' ) ? grouphome_get_location_card_image( $loc->ID ) : null;
+							?>
+						<li class="facility-location-pick__item">
+							<a class="facility-location-pick__card" href="<?php echo esc_url( get_permalink( $loc ) ); ?>">
+								<div class="facility-location-pick__media">
+									<?php if ( $card_img ) : ?>
+									<img
+										class="facility-location-pick__thumb"
+										src="<?php echo esc_url( $card_img['url'] ); ?>"
+										alt="<?php echo esc_attr( $card_img['alt'] ); ?>"
+										loading="lazy"
+										decoding="async"
+									/>
+									<?php else : ?>
+									<div class="facility-location-pick__thumb facility-location-pick__thumb--placeholder" aria-hidden="true"></div>
+									<?php endif; ?>
+								</div>
+								<div class="facility-location-pick__body">
+									<span class="facility-location-pick__name"><?php echo esc_html( $loc_title ); ?></span>
+									<?php if ( $addr !== '' ) : ?>
+									<span class="facility-location-pick__addr"><?php echo esc_html( $addr ); ?></span>
+									<?php endif; ?>
+									<span class="facility-location-pick__cta btn-secondary">この拠点を見る</span>
+								</div>
+							</a>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+					<?php else : ?>
+					<p class="facility-location-pick__empty">拠点ページ（テンプレート「拠点」）がまだありません。管理画面で固定ページを作成し、テンプレートを割り当ててください。</p>
+					<?php endif; ?>
+				</section>
 
-        <section class="facility-features">
-          <h2 class="guide-section__title">施設の特徴</h2>
-          <ul class="guide-support">
-            <li>全室鍵付きのプライベート個室</li>
-            <li>夜間・休日も世話人が常駐</li>
-            <li>各個室にテレビ、ベッド、テーブルなどの家具・家電を設置済み</li>
-            <li>無料Wi-Fiあり</li>
-            <li>冷暖房完備</li>
-            <li>高速インターネット</li>
-            <li>リビングルームに液晶テレビ設置（共用）</li>
-            <li>カメラ付きインターフォンあり</li>
-            <li>屋外に喫煙スペースあり</li>
-          </ul>
-        </section>
-
-        <section class="facility-map">
-          <h2 class="guide-section__title">アクセス</h2>
-          <p>大阪府大阪市西成区花園南1-9-32</p>
-          <div class="facility-map__embed">
-            <iframe
-              title="障がい者グループホーム わおん花園の地図"
-              src="https://maps.google.com/maps?q=<?php echo rawurlencode( '〒557-0015 大阪府大阪市西成区花園南1-9-32' ); ?>&hl=ja&z=16&output=embed"
-              width="600"
-              height="350"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              allowfullscreen="">
-            </iframe>
-          </div>
-        </section>
-
-        <div class="l-page-back">
-          <a href="<?php echo esc_url( home_url( '/grouphome/' ) ); ?>" class="btn-secondary">トップページへ戻る</a>
-        </div>
-
-      </div>
-    </article>
-  </div>
+				<div class="l-page-back">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn-secondary">トップページへ戻る</a>
+				</div>
+			</div>
+		</article>
+			<?php endwhile; ?>
+		<?php endif; ?>
+	</div>
 </main>
-  <?php endwhile; ?>
-<?php endif; ?>
 <?php get_footer(); ?>

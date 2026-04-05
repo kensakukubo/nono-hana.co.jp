@@ -26,7 +26,7 @@
       ?>
     </ul>
     <div class="btn-wrap">
-      <a href="<?php echo esc_url( home_url( '/grouphome/news/' ) ); ?>" class="btn-secondary">一覧を見る</a>
+      <a href="<?php echo esc_url( home_url( '/news/' ) ); ?>" class="btn-secondary">一覧を見る</a>
     </div>
   </div>
 </section>

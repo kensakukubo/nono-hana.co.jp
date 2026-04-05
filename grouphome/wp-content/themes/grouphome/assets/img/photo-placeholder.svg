@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="phg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8f5ef"/>
+      <stop offset="50%" stop-color="#c5e9d6"/>
+      <stop offset="100%" stop-color="#9dd9b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#phg)"/>
+  <g fill="#1D9E75" opacity=".22" transform="translate(420 200)">
+    <path d="M180 360 L360 180 L540 180 L720 360 L720 540 L0 540 Z"/>
+    <rect x="292" y="300" width="136" height="136" rx="6"/>
+  </g>
+</svg>

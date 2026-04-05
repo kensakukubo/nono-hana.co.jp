@@ -12,15 +12,15 @@
     <div class="logo">
       <?php the_custom_logo(); ?>
       <?php if ( ! has_custom_logo() ) : ?>
-      <a href="<?php echo esc_url( home_url('/grouphome/') ); ?>" class="site-name">障がい者グループホーム わおん花園</a>
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-name">障がい者グループホーム わおん花園</a>
       <?php endif; ?>
     </div>
     <nav class="global-nav">
       <?php wp_nav_menu( [ 'theme_location' => 'global_nav', 'container' => false ] ); ?>
     </nav>
     <div class="header-cta">
-      <a href="tel:0643938474" class="tel">06-4393-8474</a>
-      <a href="<?php echo esc_url( home_url( '/grouphome/contact/' ) ); ?>" class="btn-cta">ご相談はこちら</a>
+      <a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>" class="tel"><?php echo esc_html( grouphome_phone_main_display() ); ?></a>
+      <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-cta">ご相談はこちら</a>
     </div>
   </div>
 </header>

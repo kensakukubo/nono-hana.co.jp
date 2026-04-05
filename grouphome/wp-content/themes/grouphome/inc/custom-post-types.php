@@ -38,7 +38,7 @@ function grouphome_register_post_types() {
         ],
         'public'        => false,
         'show_ui'       => true,
-        'supports'      => [ 'title', 'thumbnail' ],
+        'supports'      => [ 'title', 'thumbnail', 'page-attributes' ],
         'menu_icon'     => 'dashicons-images-alt2',
     ]);
 

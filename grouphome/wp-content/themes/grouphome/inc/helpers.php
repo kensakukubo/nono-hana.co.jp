@@ -240,6 +240,27 @@ function grouphome_uploads_public_url( $path ) {
 }
 
 /**
+ * uploads 配下に実ファイルがあるか（メディア未同期の本番で URL だけ生成されるのを防ぐ）。
+ */
+function grouphome_uploads_file_exists_relative( $path ) {
+	$path = trim( str_replace( '\\', '/', (string) $path ), '/' );
+	if ( $path === '' ) {
+		return false;
+	}
+	$upload = wp_upload_dir();
+	if ( ! empty( $upload['error'] ) ) {
+		return false;
+	}
+	$file = path_join( $upload['basedir'], $path );
+	return is_string( $file ) && $file !== '' && file_exists( $file );
+}
+
+/** トップ等：メディア未配置時のテーマ内プレースホルダ（SVG） */
+function grouphome_theme_photo_placeholder_url() {
+	return get_template_directory_uri() . '/assets/img/photo-placeholder.svg';
+}
+
+/**
  * わおん西天下茶屋「室内の様子」に追加する固定画像（メディアライブラリURL）。
  *
  * @return array<int, array{url:string, alt:string, caption:string}>

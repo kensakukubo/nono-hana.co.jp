@@ -11,7 +11,7 @@
       <p>さらに、入居者様だけではなくそのご家族にも安心して暮らしていただきたいと考えています。お仕事探しのサポートなども行っておりますので、どうぞお気軽にご相談ください。</p>
     </div>
     <div class="btn-wrap">
-      <a href="<?php echo esc_url( home_url( '/grouphome/message/' ) ); ?>" class="btn-primary">私たちの想い</a>
+      <a href="<?php echo esc_url( home_url( '/message/' ) ); ?>" class="btn-primary">私たちの想い</a>
     </div>
   </div>
 </section>

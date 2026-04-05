@@ -7,12 +7,16 @@
       </h1>
       <p class="hero-sub">私たちは誰もが笑顔の未来を築きます。</p>
       <div class="hero-btns">
-        <a href="<?php echo esc_url( home_url( '/grouphome/guide/' ) ); ?>" class="btn-primary">入居のご案内</a>
-        <a href="<?php echo esc_url( home_url( '/grouphome/message/' ) ); ?>" class="btn-secondary">私たちの想い</a>
+        <a href="<?php echo esc_url( home_url( '/guide/' ) ); ?>" class="btn-primary">入居のご案内</a>
+        <a href="<?php echo esc_url( home_url( '/message/' ) ); ?>" class="btn-secondary">私たちの想い</a>
       </div>
       <p class="hero-tel">
         <span class="hero-tel__label">お問い合わせ</span>
-        <a href="tel:0643938474" class="hero-tel__number">06-4393-8474</a>
+        <a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>" class="hero-tel__number"><?php echo esc_html( grouphome_phone_main_display() ); ?></a>
+      </p>
+      <p class="hero-tel hero-tel--emergency">
+        <span class="hero-tel__label">緊急連絡先</span>
+        <a href="tel:<?php echo esc_attr( grouphome_phone_emergency_tel_digits() ); ?>" class="hero-tel__number hero-tel__number--emergency"><?php echo esc_html( grouphome_phone_emergency_display() ); ?></a>
       </p>
     </div>
   </div>
@@ -24,14 +28,29 @@
       'orderby'        => 'menu_order',
       'order'          => 'ASC',
     ] );
-    if ( $slides ) :
+    $slides = array_values(
+      array_filter(
+        $slides,
+        static function ( $p ) {
+          return $p instanceof WP_Post && has_post_thumbnail( $p->ID );
+        }
+      )
+    );
+    $placeholder = function_exists( 'grouphome_theme_photo_placeholder_url' ) ? grouphome_theme_photo_placeholder_url() : '';
     ?>
+    <?php if ( $slides ) : ?>
     <div class="hero-slider" id="heroSlider">
       <?php foreach ( $slides as $slide ) : ?>
       <div class="hero-slide">
         <?php echo get_the_post_thumbnail( $slide->ID, 'full', [ 'alt' => esc_attr( $slide->post_title ) ] ); ?>
       </div>
       <?php endforeach; ?>
+    </div>
+    <?php elseif ( $placeholder ) : ?>
+    <div class="hero-slider" id="heroSlider">
+      <div class="hero-slide">
+        <img src="<?php echo esc_url( $placeholder ); ?>" alt="" width="1200" height="750" loading="eager" decoding="async" />
+      </div>
     </div>
     <?php endif; ?>
     <div class="hero-scroll-hint">

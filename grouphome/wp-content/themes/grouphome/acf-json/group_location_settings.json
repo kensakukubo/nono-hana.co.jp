@@ -1,0 +1,177 @@
+{
+  "key": "group_location_settings",
+  "title": "拠点設定",
+  "fields": [
+    {
+      "key": "field_facility_name",
+      "label": "施設名",
+      "name": "facility_name",
+      "type": "text",
+      "default_value": "",
+      "placeholder": "",
+      "prepend": "",
+      "append": "",
+      "maxlength": ""
+    },
+    {
+      "key": "field_location_slug",
+      "label": "URLスラッグ",
+      "name": "location_slug",
+      "type": "text",
+      "instructions": "内部識別用（メニューや連携で使用する場合）",
+      "default_value": "",
+      "placeholder": ""
+    },
+    {
+      "key": "field_postal_code",
+      "label": "郵便番号",
+      "name": "postal_code",
+      "type": "text",
+      "default_value": "",
+      "placeholder": "例: 557-0015"
+    },
+    {
+      "key": "field_prefecture",
+      "label": "都道府県",
+      "name": "prefecture",
+      "type": "text",
+      "default_value": ""
+    },
+    {
+      "key": "field_city",
+      "label": "市区町村",
+      "name": "city",
+      "type": "text",
+      "default_value": ""
+    },
+    {
+      "key": "field_street_address",
+      "label": "番地以降",
+      "name": "street_address",
+      "type": "text",
+      "default_value": ""
+    },
+    {
+      "key": "field_tel",
+      "label": "電話番号",
+      "name": "tel",
+      "type": "text",
+      "default_value": ""
+    },
+    {
+      "key": "field_google_map_url",
+      "label": "GoogleマップURL",
+      "name": "google_map_url",
+      "type": "url",
+      "instructions": "共有URLまたは埋め込み用URL。未入力の場合は住所から地図を表示します。"
+    },
+    {
+      "key": "field_service_areas",
+      "label": "対応エリア（カンマ区切り）",
+      "name": "service_areas",
+      "type": "textarea",
+      "rows": 3,
+      "new_lines": ""
+    },
+    {
+      "key": "field_line_url",
+      "label": "LINE URL",
+      "name": "line_url",
+      "type": "url"
+    },
+    {
+      "key": "field_facility_summary",
+      "label": "施設概要テキスト",
+      "name": "facility_summary",
+      "type": "wysiwyg",
+      "tabs": "all",
+      "toolbar": "full",
+      "media_upload": 1
+    },
+    {
+      "key": "field_facility_image",
+      "label": "施設写真",
+      "name": "facility_image",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_location_card_image",
+      "label": "拠点一覧カード用写真",
+      "name": "location_card_image",
+      "type": "image",
+      "instructions": "施設紹介ページ「拠点を選ぶ」のカードに表示する画像です。メインの施設写真とは別に、ここで載せたい1枚を選んでください。",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_room_gallery",
+      "label": "室内の様子（ギャラリー）",
+      "name": "room_gallery",
+      "type": "gallery",
+      "instructions": "複数枚選ぶと1枚ずつ切り替えて表示します。未設定の場合はサイト既定の写真を1枚表示します。",
+      "return_format": "array",
+      "preview_size": "medium",
+      "insert": "append",
+      "library": "all",
+      "min": 0,
+      "max": 0,
+      "min_width": "",
+      "min_height": "",
+      "min_size": "",
+      "max_width": "",
+      "max_height": "",
+      "max_size": "",
+      "mime_types": ""
+    },
+    {
+      "key": "field_pricing_variant",
+      "label": "料金表パターン",
+      "name": "pricing_variant",
+      "type": "select",
+      "instructions": "花園・千本・西天下茶屋など、拠点ごとの料金表を選びます。未選択のときは「URLスラッグ」または投稿スラッグから自動判定します。",
+      "required": 0,
+      "choices": {
+        "hanazono": "花園（光熱費 15,000円）",
+        "senbon_nishitenkachaya": "千本・西天下茶屋（光熱費 10,000円）"
+      },
+      "default_value": "",
+      "allow_null": 1,
+      "multiple": 0,
+      "ui": 0,
+      "return_format": "value",
+      "ajax": 0,
+      "placeholder": ""
+    },
+    {
+      "key": "field_page_description",
+      "label": "Meta Description",
+      "name": "page_description",
+      "type": "textarea",
+      "rows": 3,
+      "new_lines": ""
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "page_template",
+        "operator": "==",
+        "value": "page-location.php"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "",
+  "show_in_rest": 0,
+  "modified": 1774915200
+}

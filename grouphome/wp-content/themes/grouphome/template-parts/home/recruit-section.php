@@ -9,12 +9,21 @@
         </div>
         <p class="recruit-text__lead">入居者様が充実した毎日を送れるよう、様々な方面からサポートするお仕事です。明るく、働きやすい職場を作っていきませんか？</p>
         <div class="recruit-links">
-          <a href="<?php echo esc_url( home_url( '/grouphome/recruit/' ) ); ?>" class="btn-secondary">採用について</a>
-          <a href="<?php echo esc_url( home_url( '/grouphome/recruit-faq/' ) ); ?>" class="btn-secondary">採用のよくある質問</a>
+          <a href="<?php echo esc_url( home_url( '/recruit/' ) ); ?>" class="btn-secondary">採用について</a>
+          <a href="<?php echo esc_url( home_url( '/recruit-faq/' ) ); ?>" class="btn-secondary">採用のよくある質問</a>
         </div>
       </div>
       <div class="recruit-photo">
-        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/recruit.jpg' ); ?>" alt="採用情報" loading="lazy" onerror="this.style.display='none'">
+        <?php
+        $recruit_img = get_template_directory_uri() . '/assets/images/recruit.jpg';
+        if ( function_exists( 'grouphome_theme_photo_placeholder_url' ) ) {
+          $recruit_path = path_join( get_template_directory(), 'assets/images/recruit.jpg' );
+          if ( ! is_string( $recruit_path ) || ! file_exists( $recruit_path ) ) {
+            $recruit_img = grouphome_theme_photo_placeholder_url();
+          }
+        }
+        ?>
+        <img src="<?php echo esc_url( $recruit_img ); ?>" alt="採用情報" loading="lazy" decoding="async" width="1200" height="750" />
       </div>
     </div>
   </div>
