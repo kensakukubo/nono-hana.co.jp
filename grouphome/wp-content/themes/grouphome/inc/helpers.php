@@ -380,7 +380,7 @@ function grouphome_room_slide_urls_for_dedup( $slides ) {
 
 /**
  * 拠点ページ・メイン写真（概要左・テーブル横）：ACF「施設写真」が空のときの既定URL。
- * 花園・千本は uploads の固定ファイル、西天下茶屋はテーマ同梱の廊下写真。
+ * 花園・千本・西天下茶屋は uploads の固定ファイル（西天下茶屋は外観写真）。
  */
 function grouphome_location_default_facility_image_url( $post = null ) {
 	$post = $post ?: get_post();
@@ -395,7 +395,7 @@ function grouphome_location_default_facility_image_url( $post = null ) {
 		return grouphome_uploads_public_url( '2026/04/S__56811553.jpg' );
 	}
 	if ( grouphome_location_matches_nishitenkachaya( $post ) ) {
-		return grouphome_facility_default_interior_image_url();
+		return grouphome_uploads_public_url( '2026/04/Gemini_Generated_Image_xk2mm7xk2mm7xk2m.png' );
 	}
 	return '';
 }
@@ -405,7 +405,7 @@ function grouphome_location_default_facility_image_url( $post = null ) {
  *
  * 本番URL:
  * - 花園 …/uploads/2026/04/S__56811553.jpg
- * - 西天下茶屋 …/uploads/2026/04/わおん天下茶屋.webp
+ * - 西天下茶屋 …/uploads/2026/04/Gemini_Generated_Image_xk2mm7xk2mm7xk2m.png
  * - 千本 …/uploads/2026/04/わおん千本.webp
  *
  * @return string 相対パス（例 2026/04/わおん千本.webp）／該当なしは空文字
@@ -414,7 +414,7 @@ function grouphome_location_card_fixed_upload_relative( $post_name ) {
 	$post_name = is_string( $post_name ) ? $post_name : '';
 	$map       = [
 		'hanazono'         => '2026/04/S__56811553.jpg',
-		'nishi-tengachaya' => '2026/04/わおん天下茶屋.webp',
+		'nishi-tengachaya' => '2026/04/Gemini_Generated_Image_xk2mm7xk2mm7xk2m.png',
 		'senboncho'        => '2026/04/わおん千本.webp',
 	];
 	return isset( $map[ $post_name ] ) ? $map[ $post_name ] : '';
