@@ -95,10 +95,21 @@ while ( have_posts() ) :
 										<th>タイプ</th>
 										<td><?php echo esc_html( $facility_building_type ); ?></td>
 									</tr>
+									<?php
+									$loc_is_nishitenkachaya = function_exists( 'grouphome_location_matches_nishitenkachaya' ) && grouphome_location_matches_nishitenkachaya();
+									$loc_is_senbon          = false !== strpos( $slug_l, 'senbon' );
+									if ( $loc_is_senbon ) :
+										?>
+									<tr>
+										<th>備考</th>
+										<td>猫の部屋があり、そこで保護猫を飼っています。</td>
+									</tr>
+									<?php elseif ( ! $loc_is_nishitenkachaya ) : ?>
 									<tr>
 										<th>備考</th>
 										<td>※同居のペットとして犬がいます。</td>
 									</tr>
+									<?php endif; ?>
 								</tbody>
 							</table>
 						</div>
@@ -110,7 +121,9 @@ while ( have_posts() ) :
 					'template-parts/facility/facility-features',
 					null,
 					[
-						'is_hanazono' => function_exists( 'grouphome_location_matches_hanazono' ) && grouphome_location_matches_hanazono(),
+						'is_hanazono'        => function_exists( 'grouphome_location_matches_hanazono' ) && grouphome_location_matches_hanazono(),
+						'is_nishitenkachaya' => function_exists( 'grouphome_location_matches_nishitenkachaya' ) && grouphome_location_matches_nishitenkachaya(),
+						'is_senbon'          => false !== strpos( $slug_l, 'senbon' ),
 					]
 				);
 				?>

@@ -40,10 +40,6 @@
             <p class="faq-item__a">家賃及び諸経費は基本は手渡しで、振込みも可能です。</p>
           </div>
           <div class="faq-item">
-            <p class="faq-item__q">土日等の昼食は自分で用意しなくてはいけませんか？</p>
-            <p class="faq-item__a">ご自身で用意して召し上がられても良いですし、グループホームの方でも、1食500円で提供しています。月末締めで家賃等の請求書に合算しています。</p>
-          </div>
-          <div class="faq-item">
             <p class="faq-item__q">通所できない時などの日中は誰か居ますか？</p>
             <p class="faq-item__a">はい、スタッフがいますので、ご安心ください。</p>
           </div>

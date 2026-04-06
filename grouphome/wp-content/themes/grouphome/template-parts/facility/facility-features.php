@@ -1,12 +1,21 @@
 <?php
 /**
- * 施設の特徴（拠点により一部文言差分）
+ * 施設の特徴（拠点により一部文言・項目差分）
  *
- * @var array $args { @type bool $is_hanazono 花園拠点のとき true }
+ * @var array $args {
+ *     @type bool $is_hanazono          花園拠点
+ *     @type bool $is_nishitenkachaya   西天下茶屋拠点
+ *     @type bool $is_senbon            千本拠点
+ * }
  */
-$is_hanazono = isset( $args ) && is_array( $args ) && ! empty( $args['is_hanazono'] );
-$night_text    = $is_hanazono ? '夜間は世話人が常駐' : '夜間・休日も世話人が常駐';
-$smoking_text  = $is_hanazono ? '屋内に喫煙スペースあり' : '屋外に喫煙スペースあり';
+$is_hanazono        = isset( $args ) && is_array( $args ) && ! empty( $args['is_hanazono'] );
+$is_nishitenkachaya = isset( $args ) && is_array( $args ) && ! empty( $args['is_nishitenkachaya'] );
+$is_senbon          = isset( $args ) && is_array( $args ) && ! empty( $args['is_senbon'] );
+$night_short        = $is_hanazono || $is_nishitenkachaya || $is_senbon;
+$night_text         = $night_short ? '夜間は世話人が常駐' : '夜間・休日も世話人が常駐';
+$smoking_indoor     = $is_hanazono || $is_nishitenkachaya || $is_senbon;
+$smoking_text       = $smoking_indoor ? '屋内に喫煙スペースあり' : '屋外に喫煙スペースあり';
+$hide_intercom      = $is_nishitenkachaya || $is_senbon;
 ?>
 <section class="guide-section">
 	<div class="section-heading">
@@ -39,18 +48,22 @@ $smoking_text  = $is_hanazono ? '屋内に喫煙スペースあり' : '屋外に
 			</div>
 			<span>冷暖房完備</span>
 		</li>
+		<?php if ( ! $is_senbon ) : ?>
 		<li class="facility-feature">
 			<div class="facility-feature__icon" aria-hidden="true">
 				<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4zm-2 22l-6-6 1.4-1.4L18 23.2l8.6-8.6L28 16l-10 10z" fill="white"/></svg>
 			</div>
 			<span>リビングルームに液晶テレビ設置（共用）</span>
 		</li>
+		<?php endif; ?>
+		<?php if ( ! $hide_intercom ) : ?>
 		<li class="facility-feature">
 			<div class="facility-feature__icon" aria-hidden="true">
 				<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4zm-2 22l-6-6 1.4-1.4L18 23.2l8.6-8.6L28 16l-10 10z" fill="white"/></svg>
 			</div>
 			<span>カメラ付きインターフォンあり</span>
 		</li>
+		<?php endif; ?>
 		<li class="facility-feature">
 			<div class="facility-feature__icon" aria-hidden="true">
 				<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4zm-2 22l-6-6 1.4-1.4L18 23.2l8.6-8.6L28 16l-10 10z" fill="white"/></svg>
