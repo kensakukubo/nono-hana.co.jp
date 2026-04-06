@@ -1124,6 +1124,7 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px;
+    gap: 12px;
   }
   
   .logo {
@@ -1244,8 +1245,9 @@
     font-weight: 500;
   }
   
+  /* デフォルト表示＋デスクトップで非表示（max-width クエリが効かない端末でもメニューが開けるようにする） */
   .menu-toggle {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -1259,11 +1261,19 @@
     background: transparent;
     cursor: pointer;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1002;
     -webkit-tap-highlight-color: transparent;
   }
   
   .menu-toggle:hover {
     background: rgba(29, 158, 117, 0.08);
+  }
+  
+  @media (min-width: 1024px) {
+    .menu-toggle {
+      display: none;
+    }
   }
   
   .menu-toggle__bar {
@@ -1709,10 +1719,80 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+    gap: 40px 48px;
+    align-items: start;
     margin-bottom: 24px;
+  }
+  
+  .footer-brand {
+    min-width: 0;
+  }
+  
+  .footer-home-link {
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  
+  .footer-home-link a {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  
+  .footer-home-link a:hover {
+    color: #fff;
+  }
+  
+  .footer-sitemap {
+    min-width: 0;
+  }
+  
+  .footer-sitemap__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 24px 28px;
+  }
+  
+  .footer-sitemap__heading {
+    margin: 0 0 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  .footer-sitemap__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .footer-sitemap__list a {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+  }
+  
+  .footer-sitemap__list a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  
+  .footer-nav-wrap {
+    max-width: 1100px;
+    margin: 0 auto 20px;
+    padding: 0 24px;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.22);
+    padding-top: 20px;
   }
   
   .footer-name {
@@ -1727,7 +1807,7 @@
     opacity: .85;
   }
   
-  .footer-info .footer-tel {
+  .footer-brand .footer-tel {
     margin-top: 10px;
     font-size: 13px;
     line-height: 1.6;
@@ -1753,12 +1833,23 @@
   .footer-nav ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 24px;
+    gap: 10px 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
   }
   
   .footer-nav ul li a {
     font-size: 13px;
-    color: rgba(255,255,255,.85);
+    color: rgba(255,255,255,.88);
+    text-decoration: none;
+  }
+  
+  .footer-nav ul li a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   
   .copyright {
@@ -1876,10 +1967,6 @@
      レスポンシブ
   =========================== */
   @media (max-width: 1023px) {
-    .menu-toggle {
-      display: flex;
-    }
-  
     .global-nav {
       display: block;
       position: fixed;
@@ -1960,6 +2047,18 @@
       padding: 8px 12px;
       font-size: 12px;
     }
+  
+    .header-cta {
+      min-width: 0;
+      flex-shrink: 1;
+    }
+  }
+  
+  /* 極狭幅：電話はフローティングCTA等からかけられるためヘッダーでは省略してハンバーガー領域を確保 */
+  @media (max-width: 520px) {
+    .header-cta .tel {
+      display: none;
+    }
   }
   
   /* 管理バー+狭幅：ネスト @media だと古いブラウザで 1023px ブロック全体が無視されるのを避ける */
@@ -2002,8 +2101,16 @@
     }
   
     .footer-inner {
-      flex-direction: column;
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  
+    .footer-sitemap__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  
+    .footer-nav-wrap {
+      padding-top: 16px;
     }
   
     .facility-inner,
