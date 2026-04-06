@@ -1408,6 +1408,21 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+  }
+  
+  /*
+   * タブレット以下：縦長・横長どちらの写真も大きく切れないよう contain（余白は .hero-right の背景色）
+   * デスクトップ（1024px〜）は従来どおり cover
+   */
+  @media (max-width: 1023px) {
+    .hero-right {
+      min-height: clamp(260px, 42vh, 420px);
+    }
+    .hero-right .hero-slide img {
+      object-fit: contain;
+      object-position: center center;
+    }
   }
   
   .hero-eyebrow {
@@ -1966,6 +1981,36 @@
       padding: 8px 12px;
       font-size: 12px;
     }
+  
+    .facility-photo img,
+    .recruit-photo img {
+      height: auto;
+      min-height: 200px;
+      max-height: min(52vw, 440px);
+      object-fit: contain;
+    }
+  
+    .facility-location-pick__thumb {
+      object-fit: contain;
+      object-position: center;
+    }
+  
+    .facility-room-slider__viewport {
+      max-height: none;
+      min-height: 260px;
+      aspect-ratio: 4 / 3;
+    }
+  
+    .facility-room-slider__img {
+      object-fit: contain;
+      object-position: center;
+    }
+  
+    .l-page--dogs .dog-intro-card__img {
+      height: auto;
+      max-height: min(85vw, 480px);
+      object-fit: contain;
+    }
   }
   
   @media (max-width: 767px) {
@@ -1984,8 +2029,8 @@
     .hero-right {
       flex: none;
       width: 100%;
-      height: 50vw;
-      min-height: 200px;
+      min-height: min(88vw, 400px);
+      height: min(88vw, 400px);
     }
   
     .hero-catch {
@@ -2023,7 +2068,8 @@
     }
   
     .facility-room-slider__viewport {
-      max-height: min(42vw, 260px);
+      min-height: min(72vw, 280px);
+      max-height: none;
       aspect-ratio: 4 / 3;
     }
   
