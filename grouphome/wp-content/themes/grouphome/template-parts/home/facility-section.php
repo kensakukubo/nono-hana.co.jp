@@ -1,5 +1,5 @@
 <?php
-$facility_rel = '2026/04/名称未設定のデザイン-22.png';
+$facility_rel = '2026/04/名称未設定のデザイン-24.png';
 $facility_section_img = '';
 if ( function_exists( 'grouphome_uploads_public_url' ) && function_exists( 'grouphome_uploads_file_exists_relative' )
 	&& grouphome_uploads_file_exists_relative( $facility_rel ) ) {

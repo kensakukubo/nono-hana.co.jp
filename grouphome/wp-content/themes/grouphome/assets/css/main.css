@@ -1950,13 +1950,31 @@
     margin-top: 1.5rem;
   }
   
-  .facility-photo:empty {
-    min-height: 300px;
+  /* 施設紹介：写真全体を枠内に収める（cover+固定高さだと縦横どちらでも大きく途切れる） */
+  .facility-photo {
+    margin: 0;
     border-radius: 8px;
     background: #e0e0e0;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
   }
   
-  .facility-photo img,
+  .facility-photo:empty {
+    min-height: 260px;
+  }
+  
+  .facility-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+  }
+  
   .recruit-photo img {
     width: 100%;
     height: 300px;
@@ -2052,17 +2070,9 @@
       font-size: 15px;
     }
   
+    /* ハンバーガーと横並びで食い合うため、狭い幅では非表示（連絡はメニュー内・フッター・フローティングCTAから） */
     .header-cta .btn-cta {
-      padding: 8px 12px;
-      font-size: 12px;
-    }
-  
-    .header-cta .btn-cta__label--full {
       display: none;
-    }
-  
-    .header-cta .btn-cta__label--compact {
-      display: inline;
     }
   
     .header-cta {
