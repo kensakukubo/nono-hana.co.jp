@@ -169,7 +169,7 @@
               <span class="guide-schedule__time">17:30〜18:30</span>
               <div class="guide-schedule__body">
                 <span class="guide-schedule__label">夕食</span>
-                <span class="guide-schedule__text">夕食の支度を整えております。ご準備ができた方から食堂にてお召し上がりください。</span>
+                <span class="guide-schedule__text">夕食はできるかぎり皆で一緒に食べます。</span>
               </div>
             </li>
             <li>
