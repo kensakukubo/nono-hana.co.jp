@@ -634,6 +634,60 @@ function grouphome_get_location_pages() {
 	);
 }
 
+/**
+ * フッターサイトマップ（内部リンク・クローラ向け）。URL はテンプレートと同じスラッグ前提。
+ *
+ * @return array<int, array{heading: string, links: array<int, array{text: string, url: string}>}>
+ */
+function grouphome_get_footer_sitemap_groups() {
+	$groups = [
+		[
+			'heading' => 'ご利用案内',
+			'links'   => [
+				[ 'text' => '入居のご案内', 'url' => home_url( '/guide/' ) ],
+				[ 'text' => '施設紹介', 'url' => home_url( '/facility/' ) ],
+				[ 'text' => 'よくあるご質問', 'url' => home_url( '/faq/' ) ],
+				[ 'text' => '一緒に暮らす犬と猫', 'url' => home_url( '/dogs/' ) ],
+				[ 'text' => '私たちの想い', 'url' => home_url( '/message/' ) ],
+			],
+		],
+	];
+
+	$loc_links = [];
+	if ( function_exists( 'grouphome_get_location_pages' ) ) {
+		foreach ( grouphome_get_location_pages() as $loc ) {
+			if ( ! $loc instanceof WP_Post ) {
+				continue;
+			}
+			$name = function_exists( 'get_field' ) ? get_field( 'facility_name', $loc->ID ) : '';
+			$name = is_string( $name ) && $name !== '' ? $name : get_the_title( $loc );
+			$loc_links[] = [
+				'text' => $name,
+				'url'  => get_permalink( $loc ),
+			];
+		}
+	}
+	if ( $loc_links !== [] ) {
+		$groups[] = [
+			'heading' => '拠点',
+			'links'   => $loc_links,
+		];
+	}
+
+	$groups[] = [
+		'heading' => '情報・お問い合わせ',
+		'links'   => [
+			[ 'text' => 'お知らせ', 'url' => home_url( '/news/' ) ],
+			[ 'text' => '採用について', 'url' => home_url( '/recruit/' ) ],
+			[ 'text' => '採用のよくある質問', 'url' => home_url( '/recruit-faq/' ) ],
+			[ 'text' => '会社概要', 'url' => home_url( '/company/' ) ],
+			[ 'text' => 'お問い合わせ・ご相談', 'url' => home_url( '/contact/' ) ],
+		],
+	];
+
+	return (array) apply_filters( 'grouphome_footer_sitemap_groups', $groups );
+}
+
 function grouphome_page_has_visible_content( $post = null ) {
     $post = $post ?: get_post();
     if ( ! $post instanceof WP_Post ) {
