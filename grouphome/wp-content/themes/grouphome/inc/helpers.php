@@ -1,5 +1,12 @@
 <?php
 /**
+ * サイトの正式表示名（ヘッダー・フッター、HTML タイトル、構造化データのフォールバック等）。
+ */
+function grouphome_site_display_name() {
+	return 'ペット共生型グループホームわおん花園';
+}
+
+/**
  * Google マップ iframe 用の src。埋め込みURLの場合はそのまま、それ以外は住所を q= に渡す。
  *
  * @param string $google_map_url 管理画面の「GoogleマップURL」。

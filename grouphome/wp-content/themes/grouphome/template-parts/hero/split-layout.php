@@ -1,7 +1,7 @@
 <section id="l-hero__wrapper">
   <div class="hero-left">
     <div class="hero-content">
-      <p class="hero-eyebrow">障がい者グループホーム・大阪市西成区</p>
+      <p class="hero-eyebrow"><?php echo esc_html( grouphome_site_display_name() ); ?>・大阪市西成区</p>
       <h1 class="hero-catch">
         みんなが家族になれるように。<br>みんなが笑顔になれるように。
       </h1>

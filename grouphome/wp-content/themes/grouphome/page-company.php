@@ -23,12 +23,12 @@
           <table class="guide-table">
             <tbody>
               <tr><th>会社名</th><td>株式会社野の花</td></tr>
-              <tr><th>事業所名</th><td>障がい者グループホーム わおん花園</td></tr>
+              <tr><th>事業所名</th><td><?php echo esc_html( grouphome_site_display_name() ); ?></td></tr>
               <tr><th>代表取締役</th><td>窪 萬利子</td></tr>
               <tr><th>所在地</th><td>〒557-0015<br>大阪府大阪市西成区花園南1-9-32</td></tr>
               <tr><th>電話番号</th><td><a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_main_display() ); ?></a></td></tr>
               <tr><th>緊急連絡先</th><td><a href="tel:<?php echo esc_attr( grouphome_phone_emergency_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_emergency_display() ); ?></a></td></tr>
-              <tr><th>事業内容</th><td>障がい者グループホームの運営</td></tr>
+              <tr><th>事業内容</th><td>ペット共生型グループホームの運営</td></tr>
               <tr><th>関連事業</th><td>訪問看護ステーション野の花</td></tr>
             </tbody>
           </table>

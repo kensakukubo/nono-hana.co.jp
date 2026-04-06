@@ -19,7 +19,7 @@ function grouphome_output_json_ld() {
 	$data = [
 		'@context'  => 'https://schema.org',
 		'@type'     => 'LocalBusiness',
-		'name'      => get_field( 'facility_name' ) ?: get_bloginfo( 'name' ),
+		'name'      => get_field( 'facility_name' ) ?: ( function_exists( 'grouphome_site_display_name' ) ? grouphome_site_display_name() : get_bloginfo( 'name' ) ),
 		'telephone' => get_field( 'tel' ),
 		'address'   => $address,
 	];

@@ -78,3 +78,14 @@ function grouphome_force_page_guide_template( $template ) {
 	return is_readable( $path ) ? $path : $template;
 }
 add_filter( 'template_include', 'grouphome_force_page_guide_template', 99 );
+
+/**
+ * <title> のサイト名部分（管理画面「サイトのタイトル」と差があってもフロントを統一）。
+ */
+function grouphome_document_title_parts_site( $parts ) {
+	if ( function_exists( 'grouphome_site_display_name' ) ) {
+		$parts['site'] = grouphome_site_display_name();
+	}
+	return $parts;
+}
+add_filter( 'document_title_parts', 'grouphome_document_title_parts_site' );

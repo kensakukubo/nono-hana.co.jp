@@ -11,7 +11,7 @@ function grouphome_get_service_area_text() {
 	}
 	$facility_raw = get_field( 'facility_name' );
 	$facility     = function_exists( 'grouphome_acf_textish' ) ? grouphome_acf_textish( $facility_raw ) : ( is_string( $facility_raw ) ? $facility_raw : '' );
-	$facility     = $facility !== '' ? $facility : get_bloginfo( 'name' );
+	$facility     = $facility !== '' ? $facility : ( function_exists( 'grouphome_site_display_name' ) ? grouphome_site_display_name() : get_bloginfo( 'name' ) );
 	$list         = implode( '・', array_map( 'trim', explode( ',', $areas ) ) );
 	return "{$facility}では、{$list}などからも入居のご相談をいただいています。お気軽にお問い合わせください。";
 }

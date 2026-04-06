@@ -12,7 +12,7 @@
     <div class="logo">
       <?php the_custom_logo(); ?>
       <?php if ( ! has_custom_logo() ) : ?>
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-name">障がい者グループホーム わおん花園</a>
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-name"><?php echo esc_html( grouphome_site_display_name() ); ?></a>
       <?php endif; ?>
     </div>
     <nav class="global-nav" id="primary-navigation" aria-label="<?php echo esc_attr__( 'メインメニュー', 'grouphome' ); ?>">

@@ -30,7 +30,7 @@ $dog_rows = [
 				<section class="guide-section dog-intro-lead">
 					<h2 class="dog-intro-lead__title">ふれあいでホッとする、“わんダフル”な仲間</h2>
 					<div class="facility-lead dog-intro-lead__text">
-						<p>障がい者グループホーム わおん花園では、ホームで犬と暮らしており、みんなのアイドルとして親しまれています。お散歩をしたり、いっしょに過ごしたり。そばにいるだけで自然と笑顔になれる、楽しい時間を共有しています。</p>
+						<p><?php echo esc_html( grouphome_site_display_name() ); ?>では、ホームで犬と暮らしており、みんなのアイドルとして親しまれています。お散歩をしたり、いっしょに過ごしたり。そばにいるだけで自然と笑顔になれる、楽しい時間を共有しています。</p>
 					</div>
 				</section>
 

@@ -3,7 +3,7 @@
 <footer id="l-footer">
   <div class="footer-inner">
     <div class="footer-info">
-      <p class="footer-name">障がい者グループホーム わおん花園</p>
+      <p class="footer-name"><?php echo esc_html( grouphome_site_display_name() ); ?></p>
       <p class="footer-address">〒557-0015<br>大阪府大阪市西成区花園南1-9-32</p>
       <p class="footer-tel">TEL：<a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_main_display() ); ?></a></p>
       <p class="footer-tel footer-tel--emergency">緊急連絡先：<a href="tel:<?php echo esc_attr( grouphome_phone_emergency_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_emergency_display() ); ?></a></p>
@@ -22,7 +22,7 @@
     </nav>
     <?php endif; ?>
   </div>
-  <p class="copyright">&copy; <?php echo date( 'Y' ); ?> 障がい者グループホーム わおん花園</p>
+  <p class="copyright">&copy; <?php echo date( 'Y' ); ?> <?php echo esc_html( grouphome_site_display_name() ); ?></p>
 </footer>
 <?php wp_footer(); ?>
 </body>
