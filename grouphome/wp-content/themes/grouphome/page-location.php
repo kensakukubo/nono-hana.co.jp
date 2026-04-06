@@ -24,6 +24,11 @@ while ( have_posts() ) :
 	$address_line = trim( implode( '', [ $pref, $city, $street ] ) );
 	$address_full = trim( ( $postal ? '〒' . $postal . ' ' : '' ) . $address_line );
 	$map_src      = function_exists( 'grouphome_map_embed_src' ) ? grouphome_map_embed_src( $map_url, $address_full ) : '';
+
+	$slug_l                = strtolower( (string) get_post()->post_name );
+	$is_mansion_location   = ( false !== strpos( $slug_l, 'senbon' ) )
+		|| ( function_exists( 'grouphome_location_matches_nishitenkachaya' ) && grouphome_location_matches_nishitenkachaya() );
+	$facility_building_type = $is_mansion_location ? 'マンションタイプ' : '戸建てタイプ';
 	?>
 <main class="l-page l-page--location">
 	<div class="page-hero">
@@ -88,7 +93,7 @@ while ( have_posts() ) :
 									<?php endif; ?>
 									<tr>
 										<th>タイプ</th>
-										<td>戸建てタイプ</td>
+										<td><?php echo esc_html( $facility_building_type ); ?></td>
 									</tr>
 									<tr>
 										<th>備考</th>
@@ -100,7 +105,15 @@ while ( have_posts() ) :
 					</div>
 				</section>
 
-				<?php get_template_part( 'template-parts/facility/facility-features' ); ?>
+				<?php
+				get_template_part(
+					'template-parts/facility/facility-features',
+					null,
+					[
+						'is_hanazono' => function_exists( 'grouphome_location_matches_hanazono' ) && grouphome_location_matches_hanazono(),
+					]
+				);
+				?>
 				<?php get_template_part( 'template-parts/facility/facility-gallery-slider', null, [ 'post_id' => get_the_ID() ] ); ?>
 
 				<?php if ( $service_areas ) : ?>

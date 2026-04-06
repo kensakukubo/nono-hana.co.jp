@@ -309,6 +309,16 @@ function grouphome_get_hanazono_extra_room_slides() {
 			'alt'     => 'わおん花園',
 			'caption' => '',
 		],
+		[
+			'url'     => grouphome_uploads_public_url( '2026/04/S__57057350-scaled.jpg' ),
+			'alt'     => 'わおん花園',
+			'caption' => '',
+		],
+		[
+			'url'     => grouphome_uploads_public_url( '2026/04/名称未設定のデザイン-21-scaled.png' ),
+			'alt'     => 'わおん花園',
+			'caption' => '',
+		],
 	];
 }
 
