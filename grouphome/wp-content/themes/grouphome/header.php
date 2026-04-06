@@ -20,7 +20,10 @@
     </nav>
     <div class="header-cta">
       <a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>" class="tel"><?php echo esc_html( grouphome_phone_main_display() ); ?></a>
-      <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-cta">ご相談はこちら</a>
+      <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-cta">
+        <span class="btn-cta__label btn-cta__label--full">ご相談はこちら</span>
+        <span class="btn-cta__label btn-cta__label--compact">お問い合わせ</span>
+      </a>
     </div>
     <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="<?php echo esc_attr__( 'メニューを開閉', 'grouphome' ); ?>">
       <span class="menu-toggle__bar" aria-hidden="true"></span>

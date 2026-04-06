@@ -1237,12 +1237,21 @@
   }
   
   .header-cta .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    white-space: nowrap;
     padding: 10px 20px;
     background: #1D9E75;
     color: #fff;
     border-radius: 4px;
     font-size: 13px;
     font-weight: 500;
+  }
+  
+  .header-cta .btn-cta__label--compact {
+    display: none;
   }
   
   /* デフォルト表示＋デスクトップで非表示（max-width クエリが効かない端末でもメニューが開けるようにする） */
@@ -2046,6 +2055,14 @@
     .header-cta .btn-cta {
       padding: 8px 12px;
       font-size: 12px;
+    }
+  
+    .header-cta .btn-cta__label--full {
+      display: none;
+    }
+  
+    .header-cta .btn-cta__label--compact {
+      display: inline;
     }
   
     .header-cta {
