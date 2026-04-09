@@ -9,7 +9,7 @@
         </div>
         <p class="recruit-text__lead">入居者様が充実した毎日を送れるよう、様々な方面からサポートするお仕事です。明るく、働きやすい職場を作っていきませんか？</p>
         <div class="recruit-links">
-          <a href="<?php echo esc_url( home_url( '/recruit/' ) ); ?>" class="btn-secondary">採用について</a>
+          <a href="<?php echo esc_url( 'https://jp.indeed.com/viewjob?jk=de196088a1abe430&from=mobRdr&utm_source=%2Fm%2F&utm_medium=redir&utm_campaign=dt' ); ?>" class="btn-secondary" target="_blank" rel="noopener noreferrer">募集要項（Indeed）</a>
           <a href="<?php echo esc_url( home_url( '/recruit-faq/' ) ); ?>" class="btn-secondary">採用のよくある質問</a>
         </div>
       </div>
