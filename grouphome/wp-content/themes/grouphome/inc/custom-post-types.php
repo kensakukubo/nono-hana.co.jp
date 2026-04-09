@@ -42,6 +42,22 @@ function grouphome_register_post_types() {
         'menu_icon'     => 'dashicons-images-alt2',
     ]);
 
+    // 求人（Indeed 等に拾わせる前提の「1求人=1投稿」）
+    register_post_type( 'job', [
+        'labels'        => [
+            'name'          => '求人',
+            'singular_name' => '求人',
+            'add_new_item'  => '求人を追加',
+            'edit_item'     => '求人を編集',
+        ],
+        'public'        => true,
+        'has_archive'   => true,
+        'rewrite'       => [ 'slug' => 'jobs' ],
+        'supports'      => [ 'title', 'editor', 'excerpt', 'thumbnail' ],
+        'menu_icon'     => 'dashicons-id',
+        'show_in_rest'  => true,
+    ]);
+
     register_taxonomy( 'news_category', 'news', [
         'labels'        => [
             'name'          => 'お知らせカテゴリー',
@@ -59,6 +75,17 @@ function grouphome_register_post_types() {
         ],
         'hierarchical'  => true,
         'rewrite'       => [ 'slug' => 'news-location' ],
+        'show_in_rest'  => true,
+    ]);
+
+    // 勤務地（拠点）: /job-location/{slug}/ で場所ごとの求人一覧を作る
+    register_taxonomy( 'job_location', 'job', [
+        'labels'        => [
+            'name'          => '勤務地',
+            'singular_name' => '勤務地',
+        ],
+        'hierarchical'  => true,
+        'rewrite'       => [ 'slug' => 'job-location' ],
         'show_in_rest'  => true,
     ]);
 }
