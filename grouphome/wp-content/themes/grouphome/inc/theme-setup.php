@@ -103,6 +103,40 @@ function grouphome_force_page_guide_template( $template ) {
 add_filter( 'template_include', 'grouphome_force_page_guide_template', 99 );
 
 /**
+ * お問い合わせを page-contact.php で表示する（スラッグ contact・テンプレート未指定時）。
+ */
+function grouphome_force_page_contact_template( $template ) {
+	if ( ! is_singular( 'page' ) ) {
+		return $template;
+	}
+
+	$post = get_queried_object();
+	if ( ! $post instanceof WP_Post ) {
+		return $template;
+	}
+
+	if ( basename( $template ) === 'page-contact.php' ) {
+		return $template;
+	}
+
+	$assigned = get_page_template_slug( $post );
+	if ( $assigned && 'default' !== $assigned ) {
+		if ( basename( $assigned ) !== 'page-contact.php' ) {
+			return $template;
+		}
+	}
+
+	$slugs = (array) apply_filters( 'grouphome_contact_page_slugs', [ 'contact' ] );
+	if ( ! $post->post_name || ! in_array( $post->post_name, $slugs, true ) ) {
+		return $template;
+	}
+
+	$path = get_template_directory() . '/page-contact.php';
+	return is_readable( $path ) ? $path : $template;
+}
+add_filter( 'template_include', 'grouphome_force_page_contact_template', 98 );
+
+/**
  * <title> のサイト名部分（管理画面「サイトのタイトル」と差があってもフロントを統一）。
  */
 function grouphome_document_title_parts_site( $parts ) {
