@@ -679,7 +679,6 @@ function grouphome_get_footer_sitemap_groups() {
 		'links'   => [
 			[ 'text' => 'お知らせ', 'url' => home_url( '/news/' ) ],
 			[ 'text' => '採用について', 'url' => home_url( '/recruit/' ) ],
-			[ 'text' => '採用のよくある質問', 'url' => home_url( '/recruit-faq/' ) ],
 			[ 'text' => '会社概要', 'url' => home_url( '/company/' ) ],
 			[ 'text' => 'お問い合わせ・ご相談', 'url' => home_url( '/contact/' ) ],
 		],
