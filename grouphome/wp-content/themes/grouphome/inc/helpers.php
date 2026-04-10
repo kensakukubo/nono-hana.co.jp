@@ -690,7 +690,7 @@ function grouphome_get_footer_sitemap_groups() {
 
 /**
  * 求人の勤務地表示（一覧・概要用）。
- * 勤務地タクソノミー（チェックした拠点）を優先し、未設定ならメタ「勤務地（住所やエリア）」を使う。
+ * 勤務地タクソノミー（チェックした拠点）を優先。未設定のときだけメタ（旧データ用）を表示名として使う。
  *
  * @param int $post_id 投稿ID。
  * @return string
@@ -714,6 +714,98 @@ function grouphome_job_location_display( $post_id ) {
 		}
 	}
 	return (string) get_post_meta( $post_id, 'grouphome_job_work_location', true );
+}
+
+/**
+ * 勤務地ターム1件に対応する既定の所在地（拠点ページの既定住所と整合）。
+ *
+ * @param WP_Term $term 勤務地ターム。
+ * @return string
+ */
+function grouphome_job_default_address_for_term( $term ) {
+	if ( ! $term instanceof WP_Term ) {
+		return '';
+	}
+	$name = (string) $term->name;
+	$slug = strtolower( (string) $term->slug );
+	$utf8 = 'UTF-8';
+
+	if ( function_exists( 'mb_strpos' ) ) {
+		// 西天下茶屋を千本より先に判定（拠点名に「千本」が含まれる場合があるため）。
+		if ( mb_strpos( $name, '西天下茶屋', 0, $utf8 ) !== false ) {
+			return '〒557-0015 大阪府大阪市西成区橘3丁目5-24';
+		}
+		if ( mb_strpos( $name, '千本', 0, $utf8 ) !== false ) {
+			return '〒557-0015 大阪府大阪市西成区千本北1-11-4';
+		}
+		if ( mb_strpos( $name, '花園', 0, $utf8 ) !== false ) {
+			return '〒557-0015 大阪府大阪市西成区花園南1-9-32';
+		}
+	}
+
+	if ( strpos( $slug, 'nishiten' ) !== false || strpos( $slug, 'tenkachaya' ) !== false || strpos( $slug, 'tengachaya' ) !== false ) {
+		return '〒557-0015 大阪府大阪市西成区橘3丁目5-24';
+	}
+	if ( strpos( $slug, 'senbon' ) !== false ) {
+		return '〒557-0015 大阪府大阪市西成区千本北1-11-4';
+	}
+	if ( strpos( $slug, 'hanazon' ) !== false ) {
+		return '〒557-0015 大阪府大阪市西成区花園南1-9-32';
+	}
+
+	return (string) apply_filters( 'grouphome_job_default_address_for_term', '', $term );
+}
+
+/**
+ * チェックした勤務地タームから、所在地行用の文字列を組み立てる（複数拠点は改行）。
+ *
+ * @param int $post_id 投稿ID。
+ * @return string
+ */
+function grouphome_job_address_from_terms( $post_id ) {
+	$post_id = (int) $post_id;
+	if ( $post_id <= 0 ) {
+		return '';
+	}
+	$terms = get_the_terms( $post_id, 'job_location' );
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return '';
+	}
+	$lines = [];
+	foreach ( $terms as $t ) {
+		$line = grouphome_job_default_address_for_term( $t );
+		if ( $line !== '' && ! in_array( $line, $lines, true ) ) {
+			$lines[] = $line;
+		}
+	}
+	return implode( "\n", $lines );
+}
+
+/**
+ * 求人の「所在地」表示用。メタが空で拠点が選ばれていれば既定住所を返す（自動）。
+ *
+ * @param int $post_id 投稿ID。
+ * @return string
+ */
+function grouphome_job_work_address_for_display( $post_id ) {
+	$post_id = (int) $post_id;
+	if ( $post_id <= 0 ) {
+		return '';
+	}
+	$meta = trim( (string) get_post_meta( $post_id, 'grouphome_job_work_location', true ) );
+	$terms = get_the_terms( $post_id, 'job_location' );
+	$has_terms = ! is_wp_error( $terms ) && ! empty( $terms );
+
+	if ( $has_terms ) {
+		if ( $meta !== '' ) {
+			return $meta;
+		}
+		return grouphome_job_address_from_terms( $post_id );
+	}
+	if ( $meta !== '' ) {
+		return $meta;
+	}
+	return '';
 }
 
 function grouphome_page_has_visible_content( $post = null ) {

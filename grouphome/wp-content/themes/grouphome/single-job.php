@@ -5,10 +5,10 @@ while ( have_posts() ) :
 	$post_id = get_the_ID();
 
 	$emp        = (string) get_post_meta( $post_id, 'grouphome_job_employment_type', true );
-	$loc        = (string) get_post_meta( $post_id, 'grouphome_job_work_location', true );
-	$loc_label  = function_exists( 'grouphome_job_location_display' ) ? grouphome_job_location_display( $post_id ) : $loc;
 	$loc_terms  = get_the_terms( $post_id, 'job_location' );
 	$has_loc_tax = ! is_wp_error( $loc_terms ) && ! empty( $loc_terms );
+	$loc_label  = function_exists( 'grouphome_job_location_display' ) ? grouphome_job_location_display( $post_id ) : '';
+	$addr_line  = function_exists( 'grouphome_job_work_address_for_display' ) ? grouphome_job_work_address_for_display( $post_id ) : '';
 	$sal        = (string) get_post_meta( $post_id, 'grouphome_job_salary', true );
 	$hours      = (string) get_post_meta( $post_id, 'grouphome_job_hours', true );
 	$indeed_url = (string) get_post_meta( $post_id, 'grouphome_job_indeed_url', true );
@@ -42,18 +42,16 @@ while ( have_posts() ) :
 					<table class="guide-table">
 						<tbody>
 							<?php if ( $emp !== '' ) : ?><tr><th>雇用形態</th><td><?php echo esc_html( $emp ); ?></td></tr><?php endif; ?>
-							<?php if ( $loc_label !== '' || $loc !== '' ) : ?>
+							<?php if ( $has_loc_tax && $loc_label !== '' ) : ?>
 								<tr>
-									<th>勤務地</th>
-									<td>
-										<?php echo esc_html( $loc_label !== '' ? $loc_label : $loc ); ?>
-										<?php
-										// 拠点はタクソノミー優先。メタの住所が別のときだけ補足（拠点名と手入力の食い違い対策）。
-										if ( $has_loc_tax && $loc !== '' && trim( $loc ) !== trim( $loc_label ) ) :
-											?>
-											<br><span class="guide-table__note"><?php echo esc_html( $loc ); ?></span>
-										<?php endif; ?>
-									</td>
+									<th>勤務地（拠点）</th>
+									<td><?php echo esc_html( $loc_label ); ?></td>
+								</tr>
+							<?php endif; ?>
+							<?php if ( $addr_line !== '' ) : ?>
+								<tr>
+									<th><?php echo $has_loc_tax ? '所在地' : '勤務地'; ?></th>
+									<td><?php echo nl2br( esc_html( $addr_line ) ); ?></td>
 								</tr>
 							<?php endif; ?>
 							<?php if ( $sal !== '' ) : ?><tr><th>給与</th><td><?php echo esc_html( $sal ); ?></td></tr><?php endif; ?>

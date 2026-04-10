@@ -54,8 +54,8 @@ function grouphome_job_meta_box_fields() {
 		],
 		[
 			'key'   => 'grouphome_job_work_location',
-			'label' => '勤務地（住所やエリア）',
-			'type'  => 'text',
+			'label' => '所在地（住所）※右の「勤務地」で拠点を選ぶと、未入力時は自動で入ります。上書きも可。',
+			'type'  => 'textarea',
 		],
 		[
 			'key'   => 'grouphome_job_salary',
@@ -171,4 +171,40 @@ function grouphome_save_job_meta_box( $post_id ) {
 	}
 }
 add_action( 'save_post', 'grouphome_save_job_meta_box' );
+
+/**
+ * 拠点（勤務地タクソノミー）が選ばれていて、所在地メタが空のときは既定住所を保存する（管理画面でも自動反映）。
+ */
+function grouphome_job_maybe_fill_address_meta_from_terms( $post_id, $post, $update ) {
+	unset( $update );
+	if ( ! $post instanceof WP_Post || $post->post_type !== 'job' ) {
+		return;
+	}
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+	if ( wp_is_post_revision( $post_id ) ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+	$meta = trim( (string) get_post_meta( $post_id, 'grouphome_job_work_location', true ) );
+	if ( $meta !== '' ) {
+		return;
+	}
+	$terms = get_the_terms( $post_id, 'job_location' );
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return;
+	}
+	if ( ! function_exists( 'grouphome_job_address_from_terms' ) ) {
+		return;
+	}
+	$addr = grouphome_job_address_from_terms( $post_id );
+	if ( $addr === '' ) {
+		return;
+	}
+	update_post_meta( $post_id, 'grouphome_job_work_location', $addr );
+}
+add_action( 'save_post_job', 'grouphome_job_maybe_fill_address_meta_from_terms', 50, 3 );
 
