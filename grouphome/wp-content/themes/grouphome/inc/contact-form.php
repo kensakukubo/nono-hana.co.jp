@@ -76,12 +76,10 @@
  * G. 自動入力（オートフィル）について
  * -----------------------------------------------------------------------------
  *  「自動入力」＝主に **ブラウザが保存している氏名・メール・電話** を、入力欄に候補として出す機能。
- *  下のフォーム例では、CF7 のオプションで次を付けている。
- *    お名前 … autocomplete:name
- *    メール … autocomplete:email
- *    電話 … autocomplete:tel
- *  ユーザー側でブラウザの自動入力をオフにしている場合は、候補が出ない。
- *  **郵便番号から住所を自動で埋める**（郵便番号API連携など）は、このテーマ・CF7標準には含めていない。必要なら別プラグインや項目追加で検討。
+ *  ブラウザのオートフィルは、CF7 のバージョンによっては `autocomplete:name` 等のオプションが
+ *  **フォームタブで「設定エラー」になる**ことがある。その場合はオプションを付けず、
+ *  必要なら CF7 を最新にしてからフィールドごとに `autocomplete:email` 等を試す。
+ *  **郵便番号→住所の自動入力**はテーマ・CF7標準では未対応。
  *
  * =============================================================================
  * ■フォームタブ用 HTML（B の (2) に貼る）
@@ -89,14 +87,14 @@
  * <div class="grouphome-cf7-fields">
  * <p class="grouphome-cf7__hint">まずは内容に近いものをお選びください。種類が分かると、担当からのご返信が早くなります。</p>
  * <p class="grouphome-cf7__field"><label>お問い合わせの種類 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [select* inquiry-type include_blank "入居・見学のご相談" "採用について" "法人・取材・メディア" "その他のお問い合わせ"]</label></p>
- * <p class="grouphome-cf7__field"><label>お名前 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [text* your-name autocomplete:name placeholder "山田 太郎"]</label></p>
- * <p class="grouphome-cf7__field"><label>メールアドレス <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [email* your-email autocomplete:email placeholder "mail@example.com"]</label></p>
- * <p class="grouphome-cf7__field"><label>電話番号 <span class="grouphome-cf7__opt">任意</span> [tel your-tel autocomplete:tel placeholder "例: 090-1234-5678"]</label></p>
- * <p class="grouphome-cf7__field"><label>ご希望の連絡方法 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [radio preferred-contact use_label_element default:1 "メール" "お電話"]</label></p>
+ * <p class="grouphome-cf7__field"><label>お名前 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [text* your-name placeholder "山田 太郎"]</label></p>
+ * <p class="grouphome-cf7__field"><label>メールアドレス <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [email* your-email placeholder "メールアドレスを入力"]</label></p>
+ * <p class="grouphome-cf7__field"><label>電話番号 <span class="grouphome-cf7__opt">任意</span> [tel your-tel placeholder "例: 090-1234-5678"]</label></p>
+ * <p class="grouphome-cf7__field"><label>ご希望の連絡方法 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [radio preferred-contact use_label_element "メール" "お電話"]</label></p>
  * <p class="grouphome-cf7__field"><label>件名の補足 <span class="grouphome-cf7__opt">任意</span> [text your-subject placeholder "（例）見学希望の日時など、一言あれば"]</label></p>
  * <p class="grouphome-cf7__field grouphome-cf7__field--full"><label>お問い合わせ内容 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [textarea* your-message placeholder "ご相談内容を具体的にご記入ください"]</label></p>
  * <p class="grouphome-cf7__accept">[acceptance acceptance-privacy] 個人情報の取り扱いに同意する</p>
- * <p class="grouphome-cf7__submit">[submit class:grouphome-cf7__btn "送信する"]</p>
+ * <p class="grouphome-cf7__submit">[submit "送信する"]</p>
  * </div>
  *
  * =============================================================================

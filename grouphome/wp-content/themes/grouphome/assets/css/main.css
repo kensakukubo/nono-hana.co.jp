@@ -1122,6 +1122,7 @@
     text-align: center;
   }
 
+  .l-page--contact .grouphome-cf7 input[type="submit"].wpcf7-submit,
   .l-page--contact .grouphome-cf7 input[type="submit"].grouphome-cf7__btn,
   .l-page--contact .grouphome-cf7 .wpcf7-submit.grouphome-cf7__btn {
     display: inline-flex;
@@ -1139,11 +1140,13 @@
     transition: opacity .2s, transform .05s;
   }
 
+  .l-page--contact .grouphome-cf7 input[type="submit"].wpcf7-submit:hover,
   .l-page--contact .grouphome-cf7 input[type="submit"].grouphome-cf7__btn:hover,
   .l-page--contact .grouphome-cf7 .wpcf7-submit.grouphome-cf7__btn:hover {
     opacity: 0.92;
   }
 
+  .l-page--contact .grouphome-cf7 input[type="submit"].wpcf7-submit:active,
   .l-page--contact .grouphome-cf7 input[type="submit"].grouphome-cf7__btn:active,
   .l-page--contact .grouphome-cf7 .wpcf7-submit.grouphome-cf7__btn:active {
     transform: translateY(1px);
@@ -1208,6 +1211,7 @@
       padding: 20px 16px 24px;
     }
 
+    .l-page--contact .grouphome-cf7 input[type="submit"].wpcf7-submit,
     .l-page--contact .grouphome-cf7 input[type="submit"].grouphome-cf7__btn,
     .l-page--contact .grouphome-cf7 .wpcf7-submit.grouphome-cf7__btn {
       width: 100%;
