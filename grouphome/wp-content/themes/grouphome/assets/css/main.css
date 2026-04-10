@@ -1005,6 +1005,17 @@
     margin: 0 0 1.25rem;
   }
 
+  .l-page--contact .grouphome-cf7 .grouphome-cf7__hint {
+    margin: 0 0 1.25rem;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: #3d5245;
+    background: #eef6f1;
+    border: 0.5px solid #cfe5d8;
+    border-radius: 8px;
+  }
+
   .l-page--contact .grouphome-cf7 .grouphome-cf7__field label {
     display: block;
     font-size: 14px;
@@ -1012,6 +1023,21 @@
     color: #1a2e20;
     margin-bottom: 8px;
     line-height: 1.5;
+  }
+
+  .l-page--contact .grouphome-cf7 .wpcf7-radio .wpcf7-list-item {
+    display: inline-block;
+    margin: 0 1.25rem 0.35rem 0;
+  }
+
+  .l-page--contact .grouphome-cf7 .wpcf7-radio label {
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .l-page--contact .grouphome-cf7 .wpcf7-radio input[type="radio"] {
+    margin-right: 6px;
+    vertical-align: 0.1em;
   }
 
   .l-page--contact .grouphome-cf7 .grouphome-cf7__req {

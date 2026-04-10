@@ -29,10 +29,10 @@ while ( have_posts() ) :
 					</div>
 					<div class="contact-lead__body">
 						<p class="contact-lead__text">
-							<?php echo esc_html( grouphome_site_display_name() ); ?>へのご入居・ご見学、採用、その他ご不明点など、お気軽にお問い合わせください。下記フォームに必要事項をご入力のうえ、送信してください。
+							<?php echo esc_html( grouphome_site_display_name() ); ?>へのご入居・ご見学、採用、取材、その他のご相談は、下記フォームからお送りください。フォームでは<strong>お問い合わせの種類</strong>を最初に選べます。種類が分かると、担当の振り分けが早くなり、ご返信までの時間を短くできます。
 						</p>
 						<p class="contact-lead__text">
-							内容を確認のうえ、担当よりメールまたはお電話にてご連絡いたします。お急ぎの場合は、ページ下部の電話番号またはLINEからもお問い合わせいただけます。
+							内容を確認のうえ、担当よりご連絡いたします（ご希望に応じてメールまたはお電話）。お急ぎの場合は、ページ下部の電話番号またはLINEからもお問い合わせいただけます。
 						</p>
 						<ul class="contact-lead__list" role="list">
 							<li>フォーム送信後、自動返信メールが届く設定になっている場合は、受信フォルダをご確認ください。</li>
@@ -65,7 +65,7 @@ while ( have_posts() ) :
 						<div class="section-heading__line"></div>
 					</div>
 					<p class="contact-form-section__lead">
-						入力内容にお間違いがないかご確認のうえ、「送信する」ボタンを押してください。送信が完了すると、送信完了ページへ移動します。
+						<strong>お問い合わせの種類</strong>から最も近いものを選び、続けてお名前・メールなどをご入力ください。送信が完了すると、送信完了ページへ移動します。
 					</p>
 
 					<div class="contact-form-wrap">

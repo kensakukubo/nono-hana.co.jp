@@ -7,6 +7,10 @@
  * 【全体のゴール】
  *  訪問者が /contact/ でフォーム送信 → 管理者にメール → 送信者は /thanks/ へ遷移。
  *
+ * 【フォーム設計の意図（CVR・運用）】
+ *  先頭に「お問い合わせの種類」を置き、入居／採用／取材などで**担当振り分け**しやすくする。
+ *  ユーザーは自分の用件に合わせて選ぶだけなので、迷いが減り、受け側も返信が早くなる。
+ *
  * -----------------------------------------------------------------------------
  * A. プラグインを入れる（WordPress 管理画面）
  * -----------------------------------------------------------------------------
@@ -72,11 +76,14 @@
  * ■フォームタブ用 HTML（B の (2) に貼る）
  * =============================================================================
  * <div class="grouphome-cf7-fields">
+ * <p class="grouphome-cf7__hint">まずは内容に近いものをお選びください。種類が分かると、担当からのご返信が早くなります。</p>
+ * <p class="grouphome-cf7__field"><label>お問い合わせの種類 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [select* inquiry-type include_blank "入居・見学のご相談" "採用について" "法人・取材・メディア" "その他のお問い合わせ"]</label></p>
  * <p class="grouphome-cf7__field"><label>お名前 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [text* your-name autocomplete:name placeholder "山田 太郎"]</label></p>
  * <p class="grouphome-cf7__field"><label>メールアドレス <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [email* your-email autocomplete:email placeholder "mail@example.com"]</label></p>
  * <p class="grouphome-cf7__field"><label>電話番号 <span class="grouphome-cf7__opt">任意</span> [tel your-tel placeholder "例: 090-1234-5678"]</label></p>
- * <p class="grouphome-cf7__field"><label>件名 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [text* your-subject placeholder "件名"]</label></p>
- * <p class="grouphome-cf7__field grouphome-cf7__field--full"><label>お問い合わせ内容 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [textarea* your-message placeholder "お問い合わせ内容をご記入ください"]</label></p>
+ * <p class="grouphome-cf7__field"><label>ご希望の連絡方法 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [radio preferred-contact use_label_element default:1 "メール" "お電話"]</label></p>
+ * <p class="grouphome-cf7__field"><label>件名の補足 <span class="grouphome-cf7__opt">任意</span> [text your-subject placeholder "（例）見学希望の日時など、一言あれば"]</label></p>
+ * <p class="grouphome-cf7__field grouphome-cf7__field--full"><label>お問い合わせ内容 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [textarea* your-message placeholder "ご相談内容を具体的にご記入ください"]</label></p>
  * <p class="grouphome-cf7__accept">[acceptance acceptance-privacy] 個人情報の取り扱いに同意する</p>
  * <p class="grouphome-cf7__submit">[submit class:grouphome-cf7__btn "送信する"]</p>
  * </div>
@@ -85,15 +92,17 @@
  * ■管理者宛メール文面（B の (3) メールタブ「メッセージ本文」に貼る）
  * =============================================================================
  * 件名（メールタブの「件名」欄）:
- * [your-subject]（お問い合わせ／ペット共生型グループホームわおん花園）
+ * [inquiry-type]｜お問い合わせ（ペット共生型グループホームわおん花園）
  *
  * 本文:
  * 以下のとおりお問い合わせがありました。
  *
+ * 種類: [inquiry-type]
  * お名前: [your-name]
  * メール: [your-email]
  * 電話: [your-tel]
- * 件名: [your-subject]
+ * ご希望の連絡方法: [preferred-contact]
+ * 件名の補足: [your-subject]
  *
  * ---- メッセージ ----
  * [your-message]
@@ -106,14 +115,14 @@
  * ■自動返信メール文面（B の (4) メール (2) 用・任意）
  * =============================================================================
  * 送信先 (To): [your-email]
- * 件名: 【自動返信】お問い合わせを受け付けました（ペット共生型グループホームわおん花園）
+ * 件名: 【自動返信】[inquiry-type]について（ペット共生型グループホームわおん花園）
  * 本文:
  * [your-name] 様
  *
  * この度は、お問い合わせいただきありがとうございます。
- * 以下の内容で受け付けました。担当より改めてご連絡いたします。
+ * 以下の内容で受け付けました。担当よりご連絡いたします（ご希望の連絡方法：[preferred-contact]）。
  *
- * 件名: [your-subject]
+ * お問い合わせの種類: [inquiry-type]
  *
  * ----
  * [your-message]
