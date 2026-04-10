@@ -137,6 +137,40 @@ function grouphome_force_page_contact_template( $template ) {
 add_filter( 'template_include', 'grouphome_force_page_contact_template', 98 );
 
 /**
+ * お問い合わせ完了（サンクス）を page-thanks.php で表示する。
+ */
+function grouphome_force_page_thanks_template( $template ) {
+	if ( ! is_singular( 'page' ) ) {
+		return $template;
+	}
+
+	$post = get_queried_object();
+	if ( ! $post instanceof WP_Post ) {
+		return $template;
+	}
+
+	if ( basename( $template ) === 'page-thanks.php' ) {
+		return $template;
+	}
+
+	$assigned = get_page_template_slug( $post );
+	if ( $assigned && 'default' !== $assigned ) {
+		if ( basename( $assigned ) !== 'page-thanks.php' ) {
+			return $template;
+		}
+	}
+
+	$slugs = (array) apply_filters( 'grouphome_thanks_page_slugs', [ 'thanks' ] );
+	if ( ! $post->post_name || ! in_array( $post->post_name, $slugs, true ) ) {
+		return $template;
+	}
+
+	$path = get_template_directory() . '/page-thanks.php';
+	return is_readable( $path ) ? $path : $template;
+}
+add_filter( 'template_include', 'grouphome_force_page_thanks_template', 97 );
+
+/**
  * <title> のサイト名部分（管理画面「サイトのタイトル」と差があってもフロントを統一）。
  */
 function grouphome_document_title_parts_site( $parts ) {

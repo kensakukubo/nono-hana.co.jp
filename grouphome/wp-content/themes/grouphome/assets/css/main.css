@@ -911,6 +911,39 @@
   }
 
   /* お問い合わせ（Contact Form 7） */
+  .l-page--contact .contact-lead {
+    margin-top: 0;
+  }
+
+  .l-page--contact .contact-lead__body {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .l-page--contact .contact-lead__text {
+    margin: 0 0 1rem;
+    font-size: 15px;
+    line-height: 1.95;
+    color: #444;
+  }
+
+  .l-page--contact .contact-lead__text:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .l-page--contact .contact-lead__list {
+    margin: 1.35rem 0 0;
+    padding-left: 1.35rem;
+    list-style: disc;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .l-page--contact .contact-lead__list li {
+    margin: 0.5rem 0;
+  }
+
   .l-page--contact .contact-intro {
     margin-top: 0;
   }
@@ -1154,6 +1187,57 @@
       width: 100%;
       min-width: 0;
     }
+  }
+
+  /* お問い合わせ完了（サンクス） */
+  .l-page--thanks .thanks-card__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .l-page--thanks .thanks-card__icon {
+    margin: 0 auto 1.25rem;
+  }
+
+  .l-page--thanks .thanks-card__lead {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a2e20;
+    line-height: 1.75;
+    margin: 0 0 1.25rem;
+  }
+
+  .l-page--thanks .thanks-card__text {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.9;
+    margin: 0 0 1rem;
+    text-align: left;
+  }
+
+  .l-page--thanks .thanks-card__cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin: 2rem 0 0;
+  }
+
+  .l-page--thanks .thanks-card__extra {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 0.5px solid #e0ebe6;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.85;
+    color: #444;
+  }
+
+  .l-page--thanks .thanks-card__back {
+    margin-top: 2.5rem;
+    justify-content: center;
   }
   
   .guide-section {
