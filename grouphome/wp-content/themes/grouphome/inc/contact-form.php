@@ -25,8 +25,7 @@
  *  (1) 画面上部の「タイトル」にフォーム名（例: サイトお問い合わせ）を入力
  *
  *  (2) タブ「フォーム」を開く
- *      → エディタの中身を一度まるごと消してよい
- *      → 下記「■フォームタブ用 HTML」をコピーして貼り付け
+ *      → 下記「■フォームタブ用 HTML」と同一の内容を `grouphome_get_cf7_form_template_html()` からコピーして貼る。
  *
  *  (3) タブ「メール」を開く（管理者に届く通知）
  *      →「送信先 (To)」に受信したいメールアドレス（必ず実在する宛先）
@@ -43,11 +42,10 @@
  *      → [contact-form-7 id="123" ...] の **数字 123 だけメモ**（これがフォーム ID）
  *
  * -----------------------------------------------------------------------------
- * C. テーマとフォーム ID を一致させる（FTP / Git / エディタ）
+ * C. フォーム ID（任意）
  * -----------------------------------------------------------------------------
- *  このファイル内の grouphome_get_contact_cf7_shortcode() の
- *  [contact-form-7 id="1" ...] の **1 を、B(6) でメモした数字に書き換える**
- *  → 保存してサーバーへデプロイ（普段の更新と同じ）
+ *  デフォルトは id="1" を想定。存在しない場合は **最初に作成された CF7 フォーム**を自動で使う。
+ *  特定のフォームだけ使う場合は `grouphome_contact_cf7_form_post_id` フィルタで投稿 ID を返す。
  *
  * -----------------------------------------------------------------------------
  * D. お問い合わせ用「固定ページ」を作る / 確認する（WordPress 管理画面）
@@ -82,20 +80,13 @@
  *  **郵便番号→住所の自動入力**はテーマ・CF7標準では未対応。
  *
  * =============================================================================
- * ■フォームタブ用 HTML（B の (2) に貼る）
+ * ■フォームタブ用 HTML（手動貼り付け用・上記と同一）
  * =============================================================================
- * <div class="grouphome-cf7-fields">
- * <p class="grouphome-cf7__hint">まずは内容に近いものをお選びください。種類が分かると、担当からのご返信が早くなります。</p>
- * <p class="grouphome-cf7__field"><label>お問い合わせの種類 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [select* inquiry-type include_blank "入居・見学のご相談" "採用について" "法人・取材・メディア" "その他のお問い合わせ"]</label></p>
- * <p class="grouphome-cf7__field"><label>お名前 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [text* your-name placeholder "山田 太郎"]</label></p>
- * <p class="grouphome-cf7__field"><label>メールアドレス <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [email* your-email placeholder "メールアドレスを入力"]</label></p>
- * <p class="grouphome-cf7__field"><label>電話番号 <span class="grouphome-cf7__opt">任意</span> [tel your-tel placeholder "例: 090-1234-5678"]</label></p>
- * <p class="grouphome-cf7__field"><label>ご希望の連絡方法 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [radio preferred-contact use_label_element "メール" "お電話"]</label></p>
- * <p class="grouphome-cf7__field"><label>件名の補足 <span class="grouphome-cf7__opt">任意</span> [text your-subject placeholder "（例）見学希望の日時など、一言あれば"]</label></p>
- * <p class="grouphome-cf7__field grouphome-cf7__field--full"><label>お問い合わせ内容 <span class="grouphome-cf7__req" aria-hidden="true">必須</span> [textarea* your-message placeholder "ご相談内容を具体的にご記入ください"]</label></p>
- * <p class="grouphome-cf7__accept">[acceptance acceptance-privacy] 個人情報の取り扱いに同意する</p>
- * <p class="grouphome-cf7__submit">[submit "送信する"]</p>
- * </div>
+ * CF7 の「Multiple form controls are in a single label」対策:
+ *  ラジオは <label> で囲まない。見出しは <span class="grouphome-cf7__field-title">。
+ *  https://contactform7.com/configuration-errors/multiple-controls-in-label/
+ *
+ * 実体は grouphome_get_cf7_form_template_html() が返す文字列（改行含む）のみ。編集はその関数を直す。
  *
  * =============================================================================
  * ■管理者宛メール文面（B の (3) メールタブ「メッセージ本文」に貼る）
@@ -140,6 +131,28 @@
  */
 
 /**
+ * Contact Form 7 の「フォーム」タブ本文（コピー用の参照）。
+ *
+ * @return string
+ */
+function grouphome_get_cf7_form_template_html() {
+	return <<<'GHCF7'
+<div class="grouphome-cf7-fields">
+<p class="grouphome-cf7__hint">まずは内容に近いものをお選びください。種類が分かると、担当からのご返信が早くなります。</p>
+<p class="grouphome-cf7__field"><label><span class="grouphome-cf7__field-title">お問い合わせの種類 <span class="grouphome-cf7__req" aria-hidden="true">必須</span></span> [select* inquiry-type include_blank "入居・見学のご相談" "採用について" "法人・取材・メディア" "その他のお問い合わせ"]</label></p>
+<p class="grouphome-cf7__field"><label><span class="grouphome-cf7__field-title">お名前 <span class="grouphome-cf7__req" aria-hidden="true">必須</span></span> [text* your-name placeholder "山田 太郎"]</label></p>
+<p class="grouphome-cf7__field"><label><span class="grouphome-cf7__field-title">メールアドレス <span class="grouphome-cf7__req" aria-hidden="true">必須</span></span> [email* your-email placeholder "メールアドレスを入力"]</label></p>
+<p class="grouphome-cf7__field"><label><span class="grouphome-cf7__field-title">電話番号 <span class="grouphome-cf7__opt">任意</span></span> [tel your-tel placeholder "例: 090-1234-5678"]</label></p>
+<p class="grouphome-cf7__field grouphome-cf7__field--radio"><span class="grouphome-cf7__field-title">ご希望の連絡方法 <span class="grouphome-cf7__req" aria-hidden="true">必須</span></span> [radio preferred-contact use_label_element "メール" "お電話"]</p>
+<p class="grouphome-cf7__field"><label><span class="grouphome-cf7__field-title">件名の補足 <span class="grouphome-cf7__opt">任意</span></span> [text your-subject placeholder "（例）見学希望の日時など、一言あれば"]</label></p>
+<p class="grouphome-cf7__field grouphome-cf7__field--full"><label><span class="grouphome-cf7__field-title">お問い合わせ内容 <span class="grouphome-cf7__req" aria-hidden="true">必須</span></span> [textarea* your-message placeholder "ご相談内容を具体的にご記入ください"]</label></p>
+<p class="grouphome-cf7__accept">[acceptance acceptance-privacy] 個人情報の取り扱いに同意する</p>
+<p class="grouphome-cf7__submit">[submit "送信する"]</p>
+</div>
+GHCF7;
+}
+
+/**
  * お問い合わせページかどうか（スラッグはフィルタで変更可）。
  *
  * @return bool
@@ -167,11 +180,79 @@ function grouphome_get_contact_thanks_url() {
 }
 
 /**
+ * ショートコードのデフォルト文字列（フィルタの比較用）。
+ *
+ * @return string
+ */
+function grouphome_get_contact_cf7_shortcode_default() {
+	return '[contact-form-7 id="1" html_class="grouphome-cf7"]';
+}
+
+/**
+ * 実在する CF7 フォームの投稿 ID。ショートコードの id が無効なら先頭のフォームを使う。
+ *
+ * @return int 0 はフォーム未作成。
+ */
+function grouphome_resolve_cf7_form_post_id() {
+	$forced = (int) apply_filters( 'grouphome_contact_cf7_form_post_id', 0 );
+	if ( $forced > 0 && 'wpcf7_contact_form' === get_post_type( $forced ) ) {
+		return $forced;
+	}
+	$default = grouphome_get_contact_cf7_shortcode_default();
+	$config  = apply_filters( 'grouphome_contact_cf7_shortcode', $default );
+	if ( preg_match( '/\[contact-form-7\s+id="(\d+)"/', $config, $m ) ) {
+		$cid = (int) $m[1];
+		if ( $cid && 'wpcf7_contact_form' === get_post_type( $cid ) ) {
+			return $cid;
+		}
+	}
+	$forms = get_posts(
+		array(
+			'post_type'              => 'wpcf7_contact_form',
+			'posts_per_page'         => 1,
+			'post_status'            => 'publish',
+			'orderby'                => 'ID',
+			'order'                  => 'ASC',
+			'fields'                 => 'ids',
+			'suppress_filters'       => false,
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		)
+	);
+	return ! empty( $forms ) ? (int) $forms[0] : 0;
+}
+
+/**
+ * フロント用ショートコード。デフォルト id=1 が無いときは resolve で差し替える。
+ *
  * @return string
  */
 function grouphome_get_contact_cf7_shortcode() {
-	$default = '[contact-form-7 id="1" html_class="grouphome-cf7"]';
-	return apply_filters( 'grouphome_contact_cf7_shortcode', $default );
+	$default = grouphome_get_contact_cf7_shortcode_default();
+	$config  = apply_filters( 'grouphome_contact_cf7_shortcode', $default );
+	if ( $config !== $default ) {
+		return $config;
+	}
+	$id = grouphome_resolve_cf7_form_post_id();
+	if ( $id <= 0 ) {
+		return '[contact-form-7 id="0" html_class="grouphome-cf7"]';
+	}
+	return sprintf( '[contact-form-7 id="%d" html_class="grouphome-cf7"]', $id );
+}
+
+/**
+ * フロントで CF7 を表示してよいか（フォーム未作成時は false）。
+ *
+ * @return bool
+ */
+function grouphome_contact_cf7_can_render() {
+	$default = grouphome_get_contact_cf7_shortcode_default();
+	$config  = apply_filters( 'grouphome_contact_cf7_shortcode', $default );
+	if ( $config !== $default ) {
+		return true;
+	}
+	return grouphome_resolve_cf7_form_post_id() > 0;
 }
 
 /**

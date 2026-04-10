@@ -71,10 +71,16 @@ while ( have_posts() ) :
 					<div class="contact-form-wrap">
 						<?php
 						if ( function_exists( 'shortcode_exists' ) && shortcode_exists( 'contact-form-7' ) ) {
-							echo do_shortcode( grouphome_get_contact_cf7_shortcode() );
+							if ( function_exists( 'grouphome_contact_cf7_can_render' ) && grouphome_contact_cf7_can_render() ) {
+								echo do_shortcode( grouphome_get_contact_cf7_shortcode() );
+							} else {
+								?>
+								<p class="contact-form-wrap__notice">Contact Form 7 のフォームが見つかりません。管理画面の「お問い合わせ」→「コンタクトフォーム」でフォームを作成するか、<code>inc/contact-form.php</code> のショートコード設定を確認してください。</p>
+								<?php
+							}
 						} else {
 							?>
-							<p class="contact-form-wrap__notice">Contact Form 7 をインストールして有効化してください。有効化後、<code>inc/contact-form.php</code> のフォーム ID を、管理画面で作成したフォームの ID に合わせてください。</p>
+							<p class="contact-form-wrap__notice">Contact Form 7 をインストールして有効化してください。</p>
 							<?php
 						}
 						?>

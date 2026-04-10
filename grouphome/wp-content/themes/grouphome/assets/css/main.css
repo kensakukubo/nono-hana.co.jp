@@ -1025,6 +1025,19 @@
     line-height: 1.5;
   }
 
+  .l-page--contact .grouphome-cf7 .grouphome-cf7__field-title {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a2e20;
+    line-height: 1.5;
+  }
+
+  .l-page--contact .grouphome-cf7 .grouphome-cf7__field--radio .grouphome-cf7__field-title {
+    margin-bottom: 10px;
+  }
+
   .l-page--contact .grouphome-cf7 .wpcf7-radio .wpcf7-list-item {
     display: inline-block;
     margin: 0 1.25rem 0.35rem 0;
