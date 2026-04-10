@@ -748,6 +748,61 @@
     align-self: flex-start;
     margin-top: 4px;
   }
+
+  /* 求人詳細（single job）本文の可読性改善 */
+  .l-page--job .entry-content {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    line-height: 1.95;
+    color: #333;
+  }
+
+  .l-page--job .entry-content > *:first-child {
+    margin-top: 0;
+  }
+
+  .l-page--job .entry-content h3 {
+    margin: 1.75rem 0 0.75rem;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a2e20;
+    padding-left: 12px;
+    border-left: 4px solid #1D9E75;
+    line-height: 1.5;
+  }
+
+  .l-page--job .entry-content p {
+    margin: 0.75rem 0;
+  }
+
+  .l-page--job .entry-content ul,
+  .l-page--job .entry-content ol {
+    margin: 0.75rem 0 1rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .l-page--job .entry-content ol {
+    list-style: decimal;
+  }
+
+  .l-page--job .entry-content li {
+    margin: 0.35rem 0;
+  }
+
+  @media (max-width: 600px) {
+    .l-page--job .entry-content {
+      font-size: 14px;
+      line-height: 2.0;
+    }
+
+    .l-page--job .entry-content h3 {
+      font-size: 16px;
+      margin-top: 1.5rem;
+    }
+  }
   
   .recruit-job__title {
     font-size: 18px;
