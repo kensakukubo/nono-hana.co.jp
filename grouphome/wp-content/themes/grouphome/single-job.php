@@ -10,6 +10,14 @@ while ( have_posts() ) :
 	$hours      = (string) get_post_meta( $post_id, 'grouphome_job_hours', true );
 	$indeed_url = (string) get_post_meta( $post_id, 'grouphome_job_indeed_url', true );
 	$indeed_url = $indeed_url !== '' ? esc_url( $indeed_url ) : '';
+
+	$desc         = (string) get_post_meta( $post_id, 'grouphome_job_description', true );
+	$req          = (string) get_post_meta( $post_id, 'grouphome_job_requirements', true );
+	$sal_detail   = (string) get_post_meta( $post_id, 'grouphome_job_salary_detail', true );
+	$hours_detail = (string) get_post_meta( $post_id, 'grouphome_job_hours_detail', true );
+	$holidays     = (string) get_post_meta( $post_id, 'grouphome_job_holidays', true );
+	$benefits     = (string) get_post_meta( $post_id, 'grouphome_job_benefits', true );
+	$notes        = (string) get_post_meta( $post_id, 'grouphome_job_notes', true );
 	?>
 <main class="l-page l-page--job">
 	<div class="page-hero">
@@ -45,7 +53,41 @@ while ( have_posts() ) :
 						<div class="section-heading__line"></div>
 					</div>
 					<div class="entry-content">
-						<?php the_content(); ?>
+						<?php
+						$has_split_fields = ( $desc . $req . $sal_detail . $hours_detail . $holidays . $benefits . $notes ) !== '';
+						if ( $has_split_fields ) :
+							?>
+							<?php if ( $desc !== '' ) : ?>
+								<h3>仕事内容</h3>
+								<?php echo wpautop( wp_kses_post( $desc ) ); ?>
+							<?php endif; ?>
+							<?php if ( $req !== '' ) : ?>
+								<h3>応募資格・経験</h3>
+								<?php echo wpautop( wp_kses_post( $req ) ); ?>
+							<?php endif; ?>
+							<?php if ( $sal_detail !== '' ) : ?>
+								<h3>給与詳細</h3>
+								<?php echo wpautop( wp_kses_post( $sal_detail ) ); ?>
+							<?php endif; ?>
+							<?php if ( $hours_detail !== '' ) : ?>
+								<h3>勤務時間詳細</h3>
+								<?php echo wpautop( wp_kses_post( $hours_detail ) ); ?>
+							<?php endif; ?>
+							<?php if ( $holidays !== '' ) : ?>
+								<h3>休日・休暇</h3>
+								<?php echo wpautop( wp_kses_post( $holidays ) ); ?>
+							<?php endif; ?>
+							<?php if ( $benefits !== '' ) : ?>
+								<h3>待遇・福利厚生</h3>
+								<?php echo wpautop( wp_kses_post( $benefits ) ); ?>
+							<?php endif; ?>
+							<?php if ( $notes !== '' ) : ?>
+								<h3>備考</h3>
+								<?php echo wpautop( wp_kses_post( $notes ) ); ?>
+							<?php endif; ?>
+						<?php else : ?>
+							<?php the_content(); ?>
+						<?php endif; ?>
 					</div>
 				</section>
 

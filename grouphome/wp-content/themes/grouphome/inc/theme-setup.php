@@ -16,6 +16,29 @@ function grouphome_setup() {
 }
 add_action( 'after_setup_theme', 'grouphome_setup' );
 
+/**
+ * カスタム投稿タイプ/タクソノミーのリライトルールを安全に更新する。
+ *
+ * - テーマ更新や移行直後に /jobs/ 等が 404 になるのは、リライトルールが古いままのことがあるため。
+ * - 毎回 flush すると重いので「必要なときだけ」1回実行する。
+ */
+function grouphome_mark_rewrite_flush_needed() {
+	update_option( 'grouphome_needs_rewrite_flush', 1, false );
+}
+add_action( 'after_switch_theme', 'grouphome_mark_rewrite_flush_needed' );
+
+function grouphome_maybe_flush_rewrite_rules() {
+	$needs = (int) get_option( 'grouphome_needs_rewrite_flush', 0 );
+	if ( $needs !== 1 ) {
+		return;
+	}
+
+	// CPT/タクソノミー登録（init）後に実行される想定。
+	flush_rewrite_rules( false );
+	delete_option( 'grouphome_needs_rewrite_flush' );
+}
+add_action( 'init', 'grouphome_maybe_flush_rewrite_rules', 99 );
+
 function grouphome_acf_json_save_path( $path ) {
 	return get_template_directory() . '/acf-json';
 }
