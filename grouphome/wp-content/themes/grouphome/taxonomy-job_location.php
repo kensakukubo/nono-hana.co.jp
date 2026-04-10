@@ -24,7 +24,7 @@ $term_name = ( isset( $term->name ) && is_string( $term->name ) ) ? $term->name 
 						<?php while ( have_posts() ) : the_post(); ?>
 							<?php
 							$emp   = (string) get_post_meta( get_the_ID(), 'grouphome_job_employment_type', true );
-							$loc   = (string) get_post_meta( get_the_ID(), 'grouphome_job_work_location', true );
+							$loc   = function_exists( 'grouphome_job_location_display' ) ? grouphome_job_location_display( get_the_ID() ) : (string) get_post_meta( get_the_ID(), 'grouphome_job_work_location', true );
 							$sal   = (string) get_post_meta( get_the_ID(), 'grouphome_job_salary', true );
 							$hours = (string) get_post_meta( get_the_ID(), 'grouphome_job_hours', true );
 							?>

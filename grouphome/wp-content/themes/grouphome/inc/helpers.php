@@ -688,6 +688,34 @@ function grouphome_get_footer_sitemap_groups() {
 	return (array) apply_filters( 'grouphome_footer_sitemap_groups', $groups );
 }
 
+/**
+ * 求人の勤務地表示（一覧・概要用）。
+ * 勤務地タクソノミー（チェックした拠点）を優先し、未設定ならメタ「勤務地（住所やエリア）」を使う。
+ *
+ * @param int $post_id 投稿ID。
+ * @return string
+ */
+function grouphome_job_location_display( $post_id ) {
+	$post_id = (int) $post_id;
+	if ( $post_id <= 0 ) {
+		return '';
+	}
+	$terms = get_the_terms( $post_id, 'job_location' );
+	if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+		$names = [];
+		foreach ( $terms as $t ) {
+			if ( isset( $t->name ) && is_string( $t->name ) && $t->name !== '' ) {
+				$names[] = $t->name;
+			}
+		}
+		$names = array_values( array_unique( $names ) );
+		if ( ! empty( $names ) ) {
+			return implode( '、', $names );
+		}
+	}
+	return (string) get_post_meta( $post_id, 'grouphome_job_work_location', true );
+}
+
 function grouphome_page_has_visible_content( $post = null ) {
     $post = $post ?: get_post();
     if ( ! $post instanceof WP_Post ) {

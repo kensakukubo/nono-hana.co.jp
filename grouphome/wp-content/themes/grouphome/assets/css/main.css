@@ -749,11 +749,57 @@
     margin-top: 4px;
   }
 
+  /* 求人詳細：見出し・表・本文を左揃えで統一（中央/左の混在を解消） */
+  .l-page--job .page-hero {
+    text-align: left;
+  }
+
+  .l-page--job .guide-section .section-heading {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  .l-page--job .section-heading__line {
+    margin: 12px 0 0;
+  }
+
+  .l-page--job .guide-table {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+  }
+
+  .l-page--job .recruit-entry .section-heading {
+    text-align: left;
+  }
+
+  .l-page--job .recruit-entry__lead {
+    text-align: left;
+  }
+
+  .l-page--job .recruit-entry__actions {
+    justify-content: flex-start;
+  }
+
+  .l-page--job .l-page-back--dual {
+    justify-content: flex-start;
+  }
+
+  /* 求人一覧・アーカイブも見出しを左揃えで統一 */
+  .l-page--jobs .guide-section .section-heading {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  .l-page--jobs .section-heading__line {
+    margin: 12px 0 0;
+  }
+
   /* 求人詳細（single job）本文の可読性改善 */
   .l-page--job .entry-content {
-    max-width: 760px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
     font-size: 15px;
     line-height: 1.95;
     color: #333;
@@ -1120,6 +1166,12 @@
   
   .guide-table td {
     color: #444;
+  }
+
+  .guide-table .guide-table__note {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
   }
   
   @media (max-width: 767px) {

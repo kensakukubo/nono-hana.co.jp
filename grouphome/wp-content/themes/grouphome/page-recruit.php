@@ -52,7 +52,7 @@
                   $jobs->the_post();
                   $post_id = get_the_ID();
                   $emp   = (string) get_post_meta( $post_id, 'grouphome_job_employment_type', true );
-                  $loc   = (string) get_post_meta( $post_id, 'grouphome_job_work_location', true );
+                  $loc   = function_exists( 'grouphome_job_location_display' ) ? grouphome_job_location_display( $post_id ) : (string) get_post_meta( $post_id, 'grouphome_job_work_location', true );
                   $sal   = (string) get_post_meta( $post_id, 'grouphome_job_salary', true );
                   $hours = (string) get_post_meta( $post_id, 'grouphome_job_hours', true );
                   ?>
