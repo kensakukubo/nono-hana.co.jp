@@ -113,8 +113,9 @@ function grouphome_resolve_location_pricing_variant( $post = null ) {
 		return '';
 	}
 	$acf_v = get_field( 'pricing_variant', $post->ID );
-	if ( is_string( $acf_v ) && $acf_v !== '' ) {
-		return $acf_v;
+	$acf_s = grouphome_acf_textish( $acf_v );
+	if ( $acf_s !== '' && in_array( $acf_s, [ 'hanazono', 'senbon_nishitenkachaya' ], true ) ) {
+		return $acf_s;
 	}
 	$slug = get_field( 'location_slug', $post->ID );
 	$slug = is_string( $slug ) ? strtolower( preg_replace( '/\s+/', '', $slug ) ) : '';

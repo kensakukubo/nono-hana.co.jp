@@ -116,6 +116,37 @@ while ( have_posts() ) :
 					</div>
 				</section>
 
+				<?php
+				$pricing_variant = function_exists( 'grouphome_resolve_location_pricing_variant' ) ? grouphome_resolve_location_pricing_variant() : '';
+				$pricing_rows    = ( $pricing_variant !== '' && function_exists( 'grouphome_location_pricing_rows' ) )
+					? grouphome_location_pricing_rows( $pricing_variant )
+					: [];
+				?>
+				<?php if ( $pricing_rows !== [] ) : ?>
+				<section class="guide-section">
+					<div class="section-heading">
+						<h2>料金の目安</h2>
+						<p class="section-heading__sub">PRICE</p>
+						<div class="section-heading__line"></div>
+					</div>
+					<table class="guide-table">
+						<tbody>
+							<?php foreach ( $pricing_rows as $row ) : ?>
+							<tr>
+								<th><?php echo esc_html( $row[0] ); ?></th>
+								<td><?php echo esc_html( $row[1] ); ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="2" class="guide-table__note">※表示は税込・目安です。詳細はお問い合わせください。</td>
+							</tr>
+						</tfoot>
+					</table>
+				</section>
+				<?php endif; ?>
+
 				<?php get_template_part( 'template-parts/facility/facility-exterior-gallery', null, [ 'post_id' => get_the_ID() ] ); ?>
 
 				<?php
