@@ -14,21 +14,7 @@
       </div>
       <div class="recruit-photo">
         <?php
-        $recruit_rel = '2026/04/Gemini_Generated_Image_tpzavxtpzavxtpza.webp';
-        $recruit_img = '';
-        if ( function_exists( 'grouphome_uploads_public_url' ) && function_exists( 'grouphome_uploads_file_exists_relative' )
-          && grouphome_uploads_file_exists_relative( $recruit_rel ) ) {
-          $recruit_img = grouphome_uploads_public_url( $recruit_rel );
-        }
-        if ( $recruit_img === '' ) {
-          $recruit_img = get_template_directory_uri() . '/assets/images/recruit.jpg';
-          if ( function_exists( 'grouphome_theme_photo_placeholder_url' ) ) {
-            $recruit_path = path_join( get_template_directory(), 'assets/images/recruit.jpg' );
-            if ( ! is_string( $recruit_path ) || ! file_exists( $recruit_path ) ) {
-              $recruit_img = grouphome_theme_photo_placeholder_url();
-            }
-          }
-        }
+        $recruit_img = function_exists( 'grouphome_recruit_section_image_url' ) ? grouphome_recruit_section_image_url() : '';
         ?>
         <img src="<?php echo esc_url( $recruit_img ); ?>" alt="採用情報" loading="lazy" decoding="async" width="1200" height="750" />
       </div>

@@ -17,7 +17,34 @@
         <section class="guide-section">
           <div class="recruit-lead">
             <div class="recruit-lead__photo">
-              <div class="guide-step__photo guide-step__photo--recruit" aria-hidden="true"></div>
+              <?php
+              $recruit_img = '';
+              if ( has_post_thumbnail() ) {
+                $recruit_img = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+              }
+              if ( $recruit_img === '' && function_exists( 'grouphome_recruit_section_image_url' ) ) {
+                $recruit_img = grouphome_recruit_section_image_url();
+              }
+              $recruit_alt = __( '採用情報', 'grouphome' );
+              if ( has_post_thumbnail() ) {
+                $tid = (int) get_post_thumbnail_id();
+                if ( $tid > 0 ) {
+                  $alt = get_post_meta( $tid, '_wp_attachment_image_alt', true );
+                  if ( is_string( $alt ) && $alt !== '' ) {
+                    $recruit_alt = $alt;
+                  }
+                }
+              }
+              ?>
+              <img
+                class="recruit-lead__img"
+                src="<?php echo esc_url( $recruit_img ); ?>"
+                alt="<?php echo esc_attr( $recruit_alt ); ?>"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="750"
+              />
             </div>
             <div class="recruit-lead__text">
               <h2>明るい方そして元気な方、<br>グループホームで一緒に働いてみませんか？</h2>

@@ -276,6 +276,30 @@ function grouphome_theme_photo_placeholder_url() {
 }
 
 /**
+ * トップ「採用情報」ブロック・採用固定ページと共通のリード写真URL。
+ *
+ * 優先: uploads 内 webp（既存互換）→ テーマ assets/images/recruit.jpg → プレースホルダー
+ *
+ * @return string
+ */
+function grouphome_recruit_section_image_url() {
+	$rel = '2026/04/Gemini_Generated_Image_tpzavxtpzavxtpza.webp';
+	if ( function_exists( 'grouphome_uploads_public_url' ) && function_exists( 'grouphome_uploads_file_exists_relative' )
+		&& grouphome_uploads_file_exists_relative( $rel ) ) {
+		return grouphome_uploads_public_url( $rel );
+	}
+	$theme_uri  = get_template_directory_uri() . '/assets/images/recruit.jpg';
+	$theme_path = path_join( get_template_directory(), 'assets/images/recruit.jpg' );
+	if ( is_string( $theme_path ) && file_exists( $theme_path ) ) {
+		return $theme_uri;
+	}
+	if ( function_exists( 'grouphome_theme_photo_placeholder_url' ) ) {
+		return grouphome_theme_photo_placeholder_url();
+	}
+	return $theme_uri;
+}
+
+/**
  * わおん西天下茶屋「室内の様子」に追加する固定画像（メディアライブラリURL）。
  *
  * @return array<int, array{url:string, alt:string, caption:string}>
