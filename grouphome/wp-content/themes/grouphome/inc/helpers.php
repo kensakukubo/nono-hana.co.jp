@@ -45,6 +45,13 @@ function grouphome_phone_emergency_tel_digits() {
 }
 
 /**
+ * LINE 友だち追加 URL（lin.ee）。変更はフィルタ grouphome_line_add_friend_url で。
+ */
+function grouphome_line_add_friend_url() {
+	return apply_filters( 'grouphome_line_add_friend_url', 'https://lin.ee/poTVuY4' );
+}
+
+/**
  * ACF のテキスト系フィールドが配列（選択肢の value 配列など）・数値のときに表示用の文字列へ。
  * PHP 8 で preg_replace / explode / esc_html に非文字列を渡さないため。
  */
@@ -522,6 +529,60 @@ function grouphome_is_same_attachment_url_as_facility_image( $url, $facility_att
 }
 
 /**
+ * ACF gallery フィールドの行配列をスライド用配列に変換。
+ *
+ * @param mixed $rows
+ * @return array<int, array{id?:int, url?:string, alt:string, caption:string}>
+ */
+function grouphome_acf_gallery_rows_to_slides( $rows ) {
+	$slides = [];
+	if ( ! is_array( $rows ) ) {
+		return $slides;
+	}
+	foreach ( $rows as $row ) {
+		if ( ! is_array( $row ) ) {
+			continue;
+		}
+		$id = isset( $row['ID'] ) ? (int) $row['ID'] : 0;
+		if ( $id > 0 ) {
+			$alt = isset( $row['alt'] ) ? (string) $row['alt'] : '';
+			if ( $alt === '' ) {
+				$alt = (string) get_post_meta( $id, '_wp_attachment_image_alt', true );
+			}
+			$caption = isset( $row['caption'] ) && $row['caption'] !== '' ? (string) $row['caption'] : (string) wp_get_attachment_caption( $id );
+			$slides[] = [
+				'id'      => $id,
+				'alt'     => $alt,
+				'caption' => $caption,
+			];
+			continue;
+		}
+		if ( ! empty( $row['url'] ) ) {
+			$slides[] = [
+				'url'     => (string) $row['url'],
+				'alt'     => isset( $row['alt'] ) ? (string) $row['alt'] : '',
+				'caption' => isset( $row['caption'] ) ? (string) $row['caption'] : '',
+			];
+		}
+	}
+	return $slides;
+}
+
+/**
+ * 拠点ページ「外観」用スライド。ACF exterior_gallery のみ（未設定は空）。
+ *
+ * @return array<int, array{id?:int, url?:string, alt:string, caption:string}>
+ */
+function grouphome_get_exterior_gallery_slides( $post_id ) {
+	$post_id = (int) $post_id;
+	if ( ! $post_id || ! function_exists( 'get_field' ) ) {
+		return [];
+	}
+	$g = get_field( 'exterior_gallery', $post_id );
+	return grouphome_acf_gallery_rows_to_slides( $g );
+}
+
+/**
  * 拠点ページ「室内の様子」用スライド配列。ACF room_gallery が空なら既定1枚。
  * メイン施設写真（facility_image）と同じ画像は室内に出さない（誤登録時の除外）。
  *
@@ -531,35 +592,8 @@ function grouphome_get_room_gallery_slides( $post_id ) {
 	$post_id = (int) $post_id;
 	$slides  = [];
 	if ( $post_id && function_exists( 'get_field' ) ) {
-		$g = get_field( 'room_gallery', $post_id );
-		if ( is_array( $g ) ) {
-			foreach ( $g as $row ) {
-				if ( ! is_array( $row ) ) {
-					continue;
-				}
-				$id = isset( $row['ID'] ) ? (int) $row['ID'] : 0;
-				if ( $id > 0 ) {
-					$alt = isset( $row['alt'] ) ? (string) $row['alt'] : '';
-					if ( $alt === '' ) {
-						$alt = (string) get_post_meta( $id, '_wp_attachment_image_alt', true );
-					}
-					$caption = isset( $row['caption'] ) && $row['caption'] !== '' ? (string) $row['caption'] : (string) wp_get_attachment_caption( $id );
-					$slides[] = [
-						'id'      => $id,
-						'alt'     => $alt,
-						'caption' => $caption,
-					];
-					continue;
-				}
-				if ( ! empty( $row['url'] ) ) {
-					$slides[] = [
-						'url'     => (string) $row['url'],
-						'alt'     => isset( $row['alt'] ) ? (string) $row['alt'] : '',
-						'caption' => isset( $row['caption'] ) ? (string) $row['caption'] : '',
-					];
-				}
-			}
-		}
+		$g      = get_field( 'room_gallery', $post_id );
+		$slides = grouphome_acf_gallery_rows_to_slides( $g );
 	}
 	$main_id = grouphome_get_facility_image_attachment_id( $post_id );
 	if ( $main_id > 0 && $slides !== [] ) {

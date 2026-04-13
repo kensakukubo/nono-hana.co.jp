@@ -477,7 +477,8 @@
     margin-top: 8px;
   }
   
-  .facility-room-section .facility-room-slider {
+  .facility-room-section .facility-room-slider,
+  .facility-exterior-section .facility-room-slider {
     max-width: 480px;
     margin: 1.5rem auto 0;
   }

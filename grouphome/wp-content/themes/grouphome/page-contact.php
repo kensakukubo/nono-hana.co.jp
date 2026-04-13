@@ -43,7 +43,15 @@ while ( have_posts() ) :
 					</div>
 				</section>
 
-				<?php if ( function_exists( 'grouphome_page_has_visible_content' ) && grouphome_page_has_visible_content() ) : ?>
+				<?php
+				// 本文に別フォームを貼っていると二重表示になるため、デフォルトは出さない。
+				// 追加のご案内が必要なら子テーマ等で grouphome_contact_show_additional_content を true にする。
+				if (
+					apply_filters( 'grouphome_contact_show_additional_content', false )
+					&& function_exists( 'grouphome_page_has_visible_content' )
+					&& grouphome_page_has_visible_content()
+				) :
+					?>
 					<section class="guide-section contact-intro">
 						<div class="section-heading">
 							<h2>追加のご案内</h2>
@@ -90,7 +98,7 @@ while ( have_posts() ) :
 					<p class="contact-alt__lead">お急ぎの方は、お電話またはLINEからもお問い合わせいただけます。</p>
 					<div class="contact-alt__actions">
 						<a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>" class="btn-primary btn-primary--lg"><?php echo esc_html( grouphome_phone_main_display() ); ?></a>
-						<a href="<?php echo esc_url( home_url( '/line/' ) ); ?>" class="btn-secondary btn-secondary--lg">LINEで相談</a>
+						<a href="<?php echo esc_url( grouphome_line_add_friend_url() ); ?>" class="btn-secondary btn-secondary--lg" target="_blank" rel="noopener noreferrer">LINEで相談</a>
 					</div>
 				</section>
 

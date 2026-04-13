@@ -4,14 +4,14 @@ function grouphome_enqueue_scripts() {
         'grouphome-style',
         get_template_directory_uri() . '/assets/css/main.css',
         [],
-        '1.7.1'
+        '1.7.4'
     );
 
     wp_enqueue_script(
         'grouphome-main',
         get_template_directory_uri() . '/assets/js/main.js',
         [],
-        '1.7.1',
+        '1.7.4',
         true
     );
 }

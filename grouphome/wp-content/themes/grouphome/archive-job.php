@@ -80,7 +80,7 @@ get_header();
 				<div class="recruit-entry__actions">
 					<a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>" class="btn-primary btn-primary--lg"><?php echo esc_html( grouphome_phone_main_display() ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="btn-secondary btn-secondary--lg">お問い合わせフォーム</a>
-					<a href="<?php echo esc_url( home_url( '/line/' ) ); ?>" class="btn-secondary btn-secondary--lg">LINEで相談</a>
+					<a href="<?php echo esc_url( grouphome_line_add_friend_url() ); ?>" class="btn-secondary btn-secondary--lg" target="_blank" rel="noopener noreferrer">LINEで相談</a>
 				</div>
 			</section>
 		</article>

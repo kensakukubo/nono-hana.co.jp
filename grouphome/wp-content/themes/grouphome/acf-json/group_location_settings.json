@@ -108,6 +108,26 @@
       "library": "all"
     },
     {
+      "key": "field_exterior_gallery",
+      "label": "外観写真",
+      "name": "exterior_gallery",
+      "type": "gallery",
+      "instructions": "建物の外観など。複数枚選ぶとスライド表示します。未設定の場合はこのブロックは表示されません。",
+      "return_format": "array",
+      "preview_size": "medium",
+      "insert": "append",
+      "library": "all",
+      "min": 0,
+      "max": 0,
+      "min_width": "",
+      "min_height": "",
+      "min_size": "",
+      "max_width": "",
+      "max_height": "",
+      "max_size": "",
+      "mime_types": ""
+    },
+    {
       "key": "field_room_gallery",
       "label": "室内の様子（ギャラリー）",
       "name": "room_gallery",
@@ -173,5 +193,5 @@
   "active": true,
   "description": "",
   "show_in_rest": 0,
-  "modified": 1774915200
+  "modified": 1775000000
 }

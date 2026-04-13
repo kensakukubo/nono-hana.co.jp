@@ -116,6 +116,8 @@ while ( have_posts() ) :
 					</div>
 				</section>
 
+				<?php get_template_part( 'template-parts/facility/facility-exterior-gallery', null, [ 'post_id' => get_the_ID() ] ); ?>
+
 				<?php
 				get_template_part(
 					'template-parts/facility/facility-features',
