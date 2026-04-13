@@ -694,20 +694,85 @@ function grouphome_get_location_pages() {
 }
 
 /**
- * フッターサイトマップ（内部リンク・クローラ向け）。URL はテンプレートと同じスラッグ前提。
+ * 固定ページのURLを解決する（スラッグが英語と一致しない環境でもテンプレートで特定）。
+ *
+ * @param string $slug            想定スラッグ（例 guide）。フォールバック用。
+ * @param string $template_basename 例 page-guide.php。空のときはテンプレート検索をしない。
+ */
+function grouphome_get_public_page_url( $slug, $template_basename = '' ) {
+	static $cache = [];
+	$key = (string) $slug . "\0" . (string) $template_basename;
+	if ( isset( $cache[ $key ] ) ) {
+		return $cache[ $key ];
+	}
+	$slug = trim( (string) $slug, '/' );
+	$url  = '';
+	if ( $template_basename !== '' ) {
+		$pages = get_posts(
+			[
+				'post_type'      => 'page',
+				'post_status'    => 'publish',
+				'posts_per_page' => 1,
+				'orderby'        => 'menu_order',
+				'order'          => 'ASC',
+				'meta_key'       => '_wp_page_template',
+				'meta_value'     => $template_basename,
+			]
+		);
+		if ( ! empty( $pages[0] ) && $pages[0] instanceof WP_Post ) {
+			$url = get_permalink( $pages[0]->ID );
+		}
+	}
+	if ( $url === '' && $slug !== '' ) {
+		$page = get_page_by_path( $slug );
+		if ( $page instanceof WP_Post && $page->post_status === 'publish' ) {
+			$url = get_permalink( $page );
+		}
+	}
+	if ( $url === '' && $slug !== '' ) {
+		$url = home_url( '/' . $slug . '/' );
+	}
+	if ( $url === '' ) {
+		$url = home_url( '/' );
+	}
+	$cache[ $key ] = $url;
+	return $url;
+}
+
+/**
+ * お知らせ（news CPT）アーカイブのURL。
+ */
+function grouphome_get_news_archive_url() {
+	static $cached = null;
+	if ( $cached !== null ) {
+		return $cached;
+	}
+	$cached = home_url( '/news/' );
+	if ( post_type_exists( 'news' ) ) {
+		$u = get_post_type_archive_link( 'news' );
+		if ( is_string( $u ) && $u !== '' ) {
+			$cached = $u;
+		}
+	}
+	return $cached;
+}
+
+/**
+ * フッターサイトマップ（内部リンク・クローラ向け）。固定ページはテンプレート／スラッグから実URLを解決。
  *
  * @return array<int, array{heading: string, links: array<int, array{text: string, url: string}>}>
  */
 function grouphome_get_footer_sitemap_groups() {
-	$groups = [
+	$message_slug = apply_filters( 'grouphome_message_page_slug', 'message' );
+	$groups       = [
 		[
 			'heading' => 'ご利用案内',
 			'links'   => [
-				[ 'text' => '入居のご案内', 'url' => home_url( '/guide/' ) ],
-				[ 'text' => '施設紹介', 'url' => home_url( '/facility/' ) ],
-				[ 'text' => 'よくあるご質問', 'url' => home_url( '/faq/' ) ],
-				[ 'text' => '一緒に暮らす犬と猫', 'url' => home_url( '/dogs/' ) ],
-				[ 'text' => '私たちの想い', 'url' => home_url( '/message/' ) ],
+				[ 'text' => '入居のご案内', 'url' => grouphome_get_public_page_url( 'guide', 'page-guide.php' ) ],
+				[ 'text' => '施設紹介', 'url' => grouphome_get_public_page_url( 'facility', 'page-facility.php' ) ],
+				[ 'text' => 'よくあるご質問', 'url' => grouphome_get_public_page_url( 'faq', 'page-faq.php' ) ],
+				[ 'text' => '一緒に暮らす犬と猫', 'url' => grouphome_get_public_page_url( 'dogs', 'page-dogs.php' ) ],
+				[ 'text' => '私たちの想い', 'url' => grouphome_get_public_page_url( $message_slug, '' ) ],
 			],
 		],
 	];
@@ -736,10 +801,10 @@ function grouphome_get_footer_sitemap_groups() {
 	$groups[] = [
 		'heading' => '情報・お問い合わせ',
 		'links'   => [
-			[ 'text' => 'お知らせ', 'url' => home_url( '/news/' ) ],
-			[ 'text' => '採用について', 'url' => home_url( '/recruit/' ) ],
-			[ 'text' => '会社概要', 'url' => home_url( '/company/' ) ],
-			[ 'text' => 'お問い合わせ・ご相談', 'url' => home_url( '/contact/' ) ],
+			[ 'text' => 'お知らせ', 'url' => grouphome_get_news_archive_url() ],
+			[ 'text' => '採用について', 'url' => grouphome_get_public_page_url( 'recruit', 'page-recruit.php' ) ],
+			[ 'text' => '会社概要', 'url' => grouphome_get_public_page_url( 'company', 'page-company.php' ) ],
+			[ 'text' => 'お問い合わせ・ご相談', 'url' => grouphome_get_public_page_url( 'contact', 'page-contact.php' ) ],
 		],
 	];
 
