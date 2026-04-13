@@ -1,8 +1,6 @@
 <?php
 /**
  * Template Name: お問い合わせ
- *
- * Contact Form 7 を利用。設定は inc/contact-form.php を参照。
  */
 ?>
 <?php get_header(); ?>
@@ -70,18 +68,14 @@ while ( have_posts() ) :
 
 					<div class="contact-form-wrap">
 						<?php
-						if ( function_exists( 'shortcode_exists' ) && shortcode_exists( 'contact-form-7' ) ) {
-							if ( function_exists( 'grouphome_contact_cf7_can_render' ) && grouphome_contact_cf7_can_render() ) {
-								echo do_shortcode( grouphome_get_contact_cf7_shortcode() );
-							} else {
-								?>
-								<p class="contact-form-wrap__notice">Contact Form 7 のフォームが見つかりません。管理画面の「お問い合わせ」→「コンタクトフォーム」でフォームを作成するか、<code>inc/contact-form.php</code> のショートコード設定を確認してください。</p>
-								<?php
+						if ( function_exists( 'grouphome_contact_notice_text' ) ) {
+							$gh_notice = grouphome_contact_notice_text();
+							if ( $gh_notice !== '' ) {
+								echo '<p class="contact-form-wrap__notice" role="alert">' . esc_html( $gh_notice ) . '</p>';
 							}
-						} else {
-							?>
-							<p class="contact-form-wrap__notice">Contact Form 7 をインストールして有効化してください。</p>
-							<?php
+						}
+						if ( function_exists( 'grouphome_render_contact_form' ) ) {
+							grouphome_render_contact_form();
 						}
 						?>
 					</div>
