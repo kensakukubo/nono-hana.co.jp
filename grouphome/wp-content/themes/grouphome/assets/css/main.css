@@ -1212,10 +1212,25 @@
   }
 
   /* お問い合わせ完了（サンクス） */
-  .l-page--thanks .thanks-card__inner {
+  .l-page--thanks .page-content--thanks {
+    padding-bottom: 3rem;
+  }
+
+  .l-page--thanks .thanks-section {
+    margin-top: 0;
+  }
+
+  .l-page--thanks .thanks-card {
     max-width: 640px;
     margin: 0 auto;
-    padding: 2.5rem 1.5rem 3rem;
+    padding: 28px 24px 32px;
+    background: #f9fbf9;
+    border: 0.5px solid #e0ebe6;
+    border-radius: 16px;
+    box-sizing: border-box;
+  }
+
+  .l-page--thanks .thanks-card__inner {
     text-align: center;
   }
 
@@ -1239,12 +1254,41 @@
     text-align: left;
   }
 
+  .l-page--thanks .thanks-card__tel-line {
+    margin: 0 0 1.5rem;
+    font-size: 15px;
+    line-height: 1.95;
+    color: #444;
+    text-align: center;
+  }
+
+  .l-page--thanks .thanks-card__tel-sep {
+    margin: 0 0.35rem;
+    color: #aaa;
+  }
+
+  .l-page--thanks .thanks-card__tel-link {
+    font-weight: 600;
+    color: #B39514;
+    text-decoration: none;
+  }
+
+  .l-page--thanks .thanks-card__tel-link:hover {
+    text-decoration: underline;
+  }
+
+  .l-page--thanks .thanks-card__tel-link--sub {
+    font-weight: 500;
+    font-size: 14px;
+    color: #666;
+  }
+
   .l-page--thanks .thanks-card__cta {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 14px;
-    margin: 2rem 0 0;
+    margin: 0.5rem 0 0;
   }
 
   .l-page--thanks .thanks-card__extra {
@@ -1260,6 +1304,16 @@
   .l-page--thanks .thanks-card__back {
     margin-top: 2.5rem;
     justify-content: center;
+  }
+
+  @media (max-width: 600px) {
+    .l-page--thanks .thanks-card {
+      padding: 22px 16px 26px;
+    }
+
+    .l-page--thanks .thanks-card__tel-line {
+      font-size: 14px;
+    }
   }
   
   .guide-section {

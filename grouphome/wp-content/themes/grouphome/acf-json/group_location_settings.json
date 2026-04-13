@@ -117,8 +117,8 @@
       "preview_size": "medium",
       "insert": "append",
       "library": "all",
-      "min": 0,
-      "max": 0,
+      "min": "",
+      "max": "",
       "min_width": "",
       "min_height": "",
       "min_size": "",
@@ -137,8 +137,8 @@
       "preview_size": "medium",
       "insert": "append",
       "library": "all",
-      "min": 0,
-      "max": 0,
+      "min": "",
+      "max": "",
       "min_width": "",
       "min_height": "",
       "min_size": "",
@@ -193,5 +193,5 @@
   "active": true,
   "description": "",
   "show_in_rest": 0,
-  "modified": 1775000000
+  "modified": 1775100000
 }

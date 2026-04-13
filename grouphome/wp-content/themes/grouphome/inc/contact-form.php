@@ -20,36 +20,64 @@ function grouphome_contact_inquiry_types() {
  */
 function grouphome_get_contact_mail_templates() {
 	$defaults = array(
-		'admin_subject' => '{{inquiry_type}}｜お問い合わせ（わおん花園）',
+		'admin_subject' => '【サイトお問い合わせ】{{inquiry_type}}｜{{your_name}} 様より',
 		'admin_body'    => <<<'TXT'
-以下のとおりお問い合わせがありました。
+ウェブサイトのお問い合わせフォームより、以下の内容が送信されました。
 
-種類: {{inquiry_type}}
-お名前: {{your_name}}
-メール: {{your_email}}
-電話: {{your_tel}}
-連絡方法: {{preferred_contact}}
-件名・補足: {{your_subject}}
+━━━━━━━━━━━━━━━━
+■お問い合わせ種別
+{{inquiry_type}}
 
----- 本文 ----
+■お名前
+{{your_name}}
+
+■メールアドレス
+{{your_email}}
+
+■電話番号
+{{your_tel}}
+
+■ご希望の連絡方法
+{{preferred_contact}}
+
+■件名・補足
+{{your_subject_display}}
+
+■お問い合わせ内容
 {{your_message}}
+━━━━━━━━━━━━━━━━
 
-----
-{{date_time}} / {{remote_ip}}
+受信日時: {{date_time}}
+送信元IP: {{remote_ip}}
 TXT
 		,
-		'mail2_subject' => '【自動返信】{{inquiry_type}}（わおん花園）',
+		'mail2_subject' => '【わおん花園】お問い合わせを承りました（自動返信）',
 		'mail2_body'    => <<<'TXT'
 {{your_name}} 様
 
-お問い合わせありがとうございます。下記内容で受け付けました。
-ご希望の連絡方法: {{preferred_contact}}
+この度は、ペット共生型グループホームわおん花園へお問い合わせをお寄せいただき、誠にありがとうございます。
+下記の内容にて、お問い合わせをお受けいたしました。内容を確認のうえ、担当より{{preferred_contact}}にて順次ご連絡申し上げます。今しばらくお待ちくださいますようお願い申し上げます。
 
-種類: {{inquiry_type}}
-----
+━━━━━━━━━━━━━━━━
+■お問い合わせ種別
+{{inquiry_type}}
+
+■ご希望の連絡方法
+{{preferred_contact}}
+
+■件名・補足
+{{your_subject_display}}
+
+■お問い合わせ内容
 {{your_message}}
+━━━━━━━━━━━━━━━━
 
-※自動送信です。心当たりがない場合は破棄してください。
+※本メールは、お問い合わせフォーム送信の確認のため、自動的にお送りしております。
+※本メールにお心当たりがない場合は、お手数ですが破棄いただけますようお願いいたします。
+
+──────────────────
+ペット共生型グループホームわおん花園
+{{site_url}}
 TXT
 		,
 	);
@@ -61,15 +89,17 @@ TXT
  */
 function grouphome_contact_format_template( $template, array $data ) {
 	$map = array(
-		'{{inquiry_type}}'      => $data['inquiry_type'],
-		'{{your_name}}'         => $data['your_name'],
-		'{{your_email}}'        => $data['your_email'],
-		'{{your_tel}}'          => $data['your_tel'],
-		'{{preferred_contact}}' => $data['preferred_contact'],
-		'{{your_subject}}'      => $data['your_subject'],
-		'{{your_message}}'      => $data['your_message'],
-		'{{date_time}}'         => $data['date_time'],
-		'{{remote_ip}}'         => $data['remote_ip'],
+		'{{inquiry_type}}'         => $data['inquiry_type'],
+		'{{your_name}}'            => $data['your_name'],
+		'{{your_email}}'           => $data['your_email'],
+		'{{your_tel}}'             => $data['your_tel'],
+		'{{preferred_contact}}'    => $data['preferred_contact'],
+		'{{your_subject}}'         => $data['your_subject'],
+		'{{your_subject_display}}' => $data['your_subject_display'],
+		'{{your_message}}'         => $data['your_message'],
+		'{{date_time}}'            => $data['date_time'],
+		'{{remote_ip}}'            => $data['remote_ip'],
+		'{{site_url}}'             => $data['site_url'],
 	);
 	return strtr( $template, $map );
 }
@@ -102,6 +132,48 @@ function grouphome_contact_mail_to() {
 		'kubo@nono-hana.co.jp',
 	);
 	return apply_filters( 'grouphome_contact_mail_to', $default );
+}
+
+/**
+ * お問い合わせメールの From（差出人メール）。同一ドメインの noreply 推奨。フィルタ grouphome_contact_mail_from_email で変更可。
+ */
+function grouphome_contact_default_from_email() {
+	$host = wp_parse_url( home_url(), PHP_URL_HOST );
+	$host = is_string( $host ) && $host !== '' ? $host : 'nono-hana.co.jp';
+	$default = 'noreply@' . $host;
+	return apply_filters( 'grouphome_contact_mail_from_email', $default );
+}
+
+/**
+ * お問い合わせメールの差出人表示名。
+ */
+function grouphome_contact_default_from_name() {
+	$name = function_exists( 'grouphome_site_display_name' ) ? grouphome_site_display_name() : get_bloginfo( 'name' );
+	return apply_filters( 'grouphome_contact_mail_from_name', $name );
+}
+
+/**
+ * wp_mail の From を一時的に差し替え（contact 送信時のみ）。
+ */
+function grouphome_contact_filter_wp_mail_from( $email ) {
+	return grouphome_contact_default_from_email();
+}
+
+/**
+ * @param string $name
+ */
+function grouphome_contact_filter_wp_mail_from_name( $name ) {
+	return grouphome_contact_default_from_name();
+}
+
+function grouphome_contact_begin_wp_mail_identity() {
+	add_filter( 'wp_mail_from', 'grouphome_contact_filter_wp_mail_from', 999 );
+	add_filter( 'wp_mail_from_name', 'grouphome_contact_filter_wp_mail_from_name', 999 );
+}
+
+function grouphome_contact_end_wp_mail_identity() {
+	remove_filter( 'wp_mail_from', 'grouphome_contact_filter_wp_mail_from', 999 );
+	remove_filter( 'wp_mail_from_name', 'grouphome_contact_filter_wp_mail_from_name', 999 );
 }
 
 /**
@@ -186,16 +258,19 @@ function grouphome_contact_handle_post() {
 	}
 
 	$date_time = wp_date( 'Y-m-d H:i:s' );
+	$tel_disp  = $tel !== '' ? $tel : '（未入力）';
 	$data      = array(
-		'inquiry_type'      => $inquiry,
-		'your_name'         => $name,
-		'your_email'        => $email,
-		'your_tel'          => $tel,
-		'preferred_contact' => $pref,
-		'your_subject'      => $subject_extra,
-		'your_message'      => $message,
-		'date_time'         => $date_time,
-		'remote_ip'         => $ip,
+		'inquiry_type'         => $inquiry,
+		'your_name'            => $name,
+		'your_email'           => $email,
+		'your_tel'             => $tel_disp,
+		'preferred_contact'    => $pref,
+		'your_subject'         => $subject_extra,
+		'your_subject_display' => $subject_extra !== '' ? $subject_extra : '（未入力）',
+		'your_message'         => $message,
+		'date_time'            => $date_time,
+		'remote_ip'            => $ip,
+		'site_url'             => home_url( '/' ),
 	);
 
 	$templates = grouphome_get_contact_mail_templates();
@@ -208,13 +283,21 @@ function grouphome_contact_handle_post() {
 	);
 
 	$to = grouphome_contact_mail_to();
+
+	grouphome_contact_begin_wp_mail_identity();
 	$sent = wp_mail( $to, $subj, $body, $headers );
 
 	if ( apply_filters( 'grouphome_contact_send_auto_reply', true ) && $sent ) {
 		$subj2 = grouphome_contact_format_template( $templates['mail2_subject'], $data );
 		$body2 = grouphome_contact_format_template( $templates['mail2_body'], $data );
-		wp_mail( $email, $subj2, $body2, array( 'Content-Type: text/plain; charset=UTF-8' ) );
+		$reply_to_office = apply_filters( 'grouphome_contact_auto_reply_reply_to', '' );
+		$headers2        = array( 'Content-Type: text/plain; charset=UTF-8' );
+		if ( is_string( $reply_to_office ) && $reply_to_office !== '' && is_email( $reply_to_office ) ) {
+			$headers2[] = 'Reply-To: ' . $reply_to_office;
+		}
+		wp_mail( $email, $subj2, $body2, $headers2 );
 	}
+	grouphome_contact_end_wp_mail_identity();
 
 	if ( $sent ) {
 		set_transient( $rl_key, 1, 60 );
