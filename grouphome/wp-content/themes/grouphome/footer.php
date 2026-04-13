@@ -22,13 +22,20 @@
           <ul class="footer-sitemap__list" aria-labelledby="<?php echo esc_attr( $fsg_hid ); ?>">
             <?php foreach ( $group['links'] as $item ) : ?>
               <?php
-              $t = isset( $item['text'] ) ? (string) $item['text'] : '';
-              $u = isset( $item['url'] ) ? (string) $item['url'] : '';
+              $t      = isset( $item['text'] ) ? (string) $item['text'] : '';
+              $u      = isset( $item['url'] ) ? (string) $item['url'] : '';
+              $target = isset( $item['target'] ) ? (string) $item['target'] : '';
+              $rel    = isset( $item['rel'] ) ? (string) $item['rel'] : '';
               if ( $t === '' || $u === '' ) {
                 continue;
               }
               ?>
-            <li><a href="<?php echo esc_url( $u ); ?>"><?php echo esc_html( $t ); ?></a></li>
+            <li>
+              <a href="<?php echo esc_url( $u ); ?>"
+                <?php if ( $target !== '' ) : ?> target="<?php echo esc_attr( $target ); ?>"<?php endif; ?>
+                <?php if ( $rel !== '' ) : ?> rel="<?php echo esc_attr( $rel ); ?>"<?php endif; ?>
+              ><?php echo esc_html( $t ); ?></a>
+            </li>
             <?php endforeach; ?>
           </ul>
         </div>

@@ -760,7 +760,7 @@ function grouphome_get_news_archive_url() {
 /**
  * フッターサイトマップ（内部リンク・クローラ向け）。固定ページはテンプレート／スラッグから実URLを解決。
  *
- * @return array<int, array{heading: string, links: array<int, array{text: string, url: string}>}>
+ * @return array<int, array{heading: string, links: array<int, array{text: string, url: string, target?: string, rel?: string}>}>
  */
 function grouphome_get_footer_sitemap_groups() {
 	$message_slug = apply_filters( 'grouphome_message_page_slug', 'message' );
@@ -798,12 +798,18 @@ function grouphome_get_footer_sitemap_groups() {
 		];
 	}
 
-	$groups[] = [
+	$company_outline_url = apply_filters( 'grouphome_footer_company_outline_url', 'https://nono-hana.co.jp/#company' );
+	$groups[]              = [
 		'heading' => '情報・お問い合わせ',
 		'links'   => [
 			[ 'text' => 'お知らせ', 'url' => grouphome_get_news_archive_url() ],
 			[ 'text' => '採用について', 'url' => grouphome_get_public_page_url( 'recruit', 'page-recruit.php' ) ],
-			[ 'text' => '会社概要', 'url' => grouphome_get_public_page_url( 'company', 'page-company.php' ) ],
+			[
+				'text'   => '会社概要',
+				'url'    => is_string( $company_outline_url ) && $company_outline_url !== '' ? $company_outline_url : grouphome_get_public_page_url( 'company', 'page-company.php' ),
+				'target' => '_blank',
+				'rel'    => 'noopener noreferrer',
+			],
 			[ 'text' => 'お問い合わせ・ご相談', 'url' => grouphome_get_public_page_url( 'contact', 'page-contact.php' ) ],
 		],
 	];
