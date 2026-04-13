@@ -1,4 +1,17 @@
 <?php
+/**
+ * 管理画面「外観 → カスタマイズ → サイトアイコン」未設定時のみ、テーマ同梱のファビコンを出力する。
+ */
+function grouphome_default_favicon() {
+	if ( function_exists( 'has_site_icon' ) && has_site_icon() ) {
+		return;
+	}
+	$url = get_template_directory_uri() . '/assets/img/favicon-waon.png';
+	echo '<link rel="icon" href="' . esc_url( $url ) . '" type="image/png" sizes="512x512">' . "\n";
+	echo '<link rel="apple-touch-icon" href="' . esc_url( $url ) . '">' . "\n";
+}
+add_action( 'wp_head', 'grouphome_default_favicon', 1 );
+
 function grouphome_output_json_ld() {
 	if ( ! function_exists( 'get_field' ) ) {
 		return;

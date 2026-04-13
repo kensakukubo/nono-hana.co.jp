@@ -1,6 +1,8 @@
 <?php
 function grouphome_setup() {
     add_theme_support( 'post-thumbnails' );
+    // 固定ページでもアイキャッチ（アイキャッチ画像）を使えるようにする（拠点ページの写真管理用）。
+    add_post_type_support( 'page', 'thumbnail' );
     add_theme_support( 'title-tag' );
     add_theme_support( 'html5', [
         'search-form', 'comment-form', 'comment-list', 'gallery', 'caption',
