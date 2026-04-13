@@ -134,19 +134,15 @@
       "name": "exterior_gallery",
       "type": "gallery",
       "instructions": "「画像を追加」で複数枚を選べます（アップロードまたはメディアライブラリ）。建物の外観など。未設定の場合はこのブロックは表示されません。",
+      "required": 0,
+      "conditional_logic": 0,
       "return_format": "array",
       "preview_size": "medium",
       "insert": "append",
       "library": "all",
-      "min": "",
-      "max": "",
-      "min_width": "",
-      "min_height": "",
-      "min_size": "",
-      "max_width": "",
-      "max_height": "",
-      "max_size": "",
-      "mime_types": ""
+      "min": 0,
+      "max": 99,
+      "mime_types": "jpg,jpeg,png,webp,gif"
     },
     {
       "key": "field_room_gallery",
@@ -154,19 +150,15 @@
       "name": "room_gallery",
       "type": "gallery",
       "instructions": "複数枚選ぶと1枚ずつ切り替えて表示します。未設定の場合はサイト既定の写真を1枚表示します。",
+      "required": 0,
+      "conditional_logic": 0,
       "return_format": "array",
       "preview_size": "medium",
       "insert": "append",
       "library": "all",
-      "min": "",
-      "max": "",
-      "min_width": "",
-      "min_height": "",
-      "min_size": "",
-      "max_width": "",
-      "max_height": "",
-      "max_size": "",
-      "mime_types": ""
+      "min": 0,
+      "max": 99,
+      "mime_types": "jpg,jpeg,png,webp,gif"
     },
     {
       "key": "field_pricing_variant",
@@ -213,6 +205,6 @@
   "hide_on_screen": "",
   "active": true,
   "description": "このグループは「テンプレート」が「拠点」の固定ページでのみ表示されます。施設紹介ハブ（施設紹介テンプレート）では表示されません。",
-  "show_in_rest": 1,
-  "modified": 1775200000
+  "show_in_rest": 0,
+  "modified": 1775300000
 }
