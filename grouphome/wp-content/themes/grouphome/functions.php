@@ -9,3 +9,4 @@ require_once get_template_directory() . '/inc/image-processing.php';
 require_once get_template_directory() . '/inc/block-patterns.php';
 require_once get_template_directory() . '/inc/helpers.php';
 require_once get_template_directory() . '/inc/contact-form.php';
+require_once get_template_directory() . '/inc/column-ai.php';
