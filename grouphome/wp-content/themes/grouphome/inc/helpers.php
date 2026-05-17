@@ -421,8 +421,15 @@ function grouphome_room_slide_urls_for_dedup( $slides ) {
 }
 
 /**
+ * わおん西天下茶屋の外観写真（テーマ同梱・デプロイで更新）。
+ */
+function grouphome_nishitenkachaya_exterior_image_url() {
+	return get_template_directory_uri() . '/assets/img/nishi-tengachaya-exterior.jpg';
+}
+
+/**
  * 拠点ページ・メイン写真（概要左・テーブル横）：ACF「施設写真」が空のときの既定URL。
- * 花園・千本・西天下茶屋は uploads の固定ファイル（西天下茶屋は外観写真）。
+ * 花園・千本は uploads の固定ファイル。西天下茶屋はテーマ内の外観写真。
  */
 function grouphome_location_default_facility_image_url( $post = null ) {
 	$post = $post ?: get_post();
@@ -437,7 +444,7 @@ function grouphome_location_default_facility_image_url( $post = null ) {
 		return grouphome_uploads_public_url( '2026/04/S__56811553.jpg' );
 	}
 	if ( grouphome_location_matches_nishitenkachaya( $post ) ) {
-		return grouphome_uploads_public_url( '2026/04/Gemini_Generated_Image_xk2mm7xk2mm7xk2m.png' );
+		return grouphome_nishitenkachaya_exterior_image_url();
 	}
 	return '';
 }
@@ -447,7 +454,7 @@ function grouphome_location_default_facility_image_url( $post = null ) {
  *
  * 本番URL:
  * - 花園 …/uploads/2026/04/S__56811553.jpg
- * - 西天下茶屋 …/uploads/2026/04/Gemini_Generated_Image_xk2mm7xk2mm7xk2m.png
+ * - 西天下茶屋 …/themes/grouphome/assets/img/nishi-tengachaya-exterior.jpg
  * - 千本 …/uploads/2026/04/わおん千本.webp
  *
  * @return string 相対パス（例 2026/04/わおん千本.webp）／該当なしは空文字
@@ -455,9 +462,8 @@ function grouphome_location_default_facility_image_url( $post = null ) {
 function grouphome_location_card_fixed_upload_relative( $post_name ) {
 	$post_name = is_string( $post_name ) ? $post_name : '';
 	$map       = [
-		'hanazono'         => '2026/04/S__56811553.jpg',
-		'nishi-tengachaya' => '2026/04/Gemini_Generated_Image_xk2mm7xk2mm7xk2m.png',
-		'senboncho'        => '2026/04/わおん千本.webp',
+		'hanazono'  => '2026/04/S__56811553.jpg',
+		'senboncho' => '2026/04/わおん千本.webp',
 	];
 	return isset( $map[ $post_name ] ) ? $map[ $post_name ] : '';
 }
@@ -475,7 +481,13 @@ function grouphome_get_location_card_image( $post_id ) {
 	}
 	$title = get_the_title( $post_id );
 	$post  = get_post( $post_id );
-	$img   = get_field( 'location_card_image', $post_id );
+	if ( $post instanceof WP_Post && grouphome_location_matches_nishitenkachaya( $post ) ) {
+		return [
+			'url' => grouphome_nishitenkachaya_exterior_image_url(),
+			'alt' => $title,
+		];
+	}
+	$img = get_field( 'location_card_image', $post_id );
 	if ( is_array( $img ) && ! empty( $img['ID'] ) ) {
 		$url = wp_get_attachment_image_url( (int) $img['ID'], 'large' );
 		if ( $url ) {
@@ -594,7 +606,7 @@ function grouphome_acf_gallery_rows_to_slides( $rows ) {
 }
 
 /**
- * 拠点ページ「外観」用スライド。ACF exterior_gallery のみ（未設定は空）。
+ * 拠点ページ「外観」用スライド。西天下茶屋はテーマ既定1枚、その他は ACF exterior_gallery。
  *
  * @return array<int, array{id?:int, url?:string, alt:string, caption:string}>
  */
@@ -602,6 +614,17 @@ function grouphome_get_exterior_gallery_slides( $post_id ) {
 	$post_id = (int) $post_id;
 	if ( ! $post_id || ! function_exists( 'get_field' ) ) {
 		return [];
+	}
+	$post = get_post( $post_id );
+	if ( $post instanceof WP_Post && grouphome_location_matches_nishitenkachaya( $post ) ) {
+		$title = get_the_title( $post_id );
+		return [
+			[
+				'url'     => grouphome_nishitenkachaya_exterior_image_url(),
+				'alt'     => $title !== '' ? $title . ' 外観' : 'わおん西天下茶屋 外観',
+				'caption' => '',
+			],
+		];
 	}
 	$g = get_field( 'exterior_gallery', $post_id );
 	return grouphome_acf_gallery_rows_to_slides( $g );
