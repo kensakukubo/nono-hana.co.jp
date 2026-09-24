@@ -2740,7 +2740,7 @@
     }
   
     .facility-room-slider__viewport {
-      max-height: min(42vw, 260px);
+      max-height: none;
       aspect-ratio: 4 / 3;
     }
   
@@ -2754,11 +2754,30 @@
       font-size: 22px;
     }
   }
-  /* 私たちの想い */
+  /* 私たちの想い：中央寄せ・文節で改行 */
+  .l-page--message .message-text {
+    max-width: 36em;
+    margin: 0 auto;
+    text-align: center;
+  }
+
   .l-page--message .message-text p {
-    line-height: 2;
+    line-height: 2.2;
+    word-break: auto-phrase;
+    text-wrap: balance;
   }
 
   .l-page--message .message-text p + p {
-    margin-top: 0.75em;
+    margin-top: 1em;
+  }
+
+  .l-page--message .section-heading h2 {
+    word-break: auto-phrase;
+    text-wrap: balance;
+  }
+
+  @media (max-width: 600px) {
+    .l-page--message .section-heading h2 {
+      font-size: 1.35rem;
+    }
   }
