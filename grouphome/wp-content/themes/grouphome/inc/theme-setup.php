@@ -173,12 +173,13 @@ function grouphome_force_page_thanks_template( $template ) {
 add_filter( 'template_include', 'grouphome_force_page_thanks_template', 97 );
 
 /**
- * <title> のサイト名部分（管理画面「サイトのタイトル」と差があってもフロントを統一）。
+ * グローバルナビの末尾に運営元（野の花）トップへのリンクを追加。
  */
-function grouphome_document_title_parts_site( $parts ) {
-	if ( function_exists( 'grouphome_site_display_name' ) ) {
-		$parts['site'] = grouphome_site_display_name();
+function grouphome_nav_append_nonohana_link( $items, $args ) {
+	if ( isset( $args->theme_location ) && 'global_nav' === $args->theme_location ) {
+		$url    = apply_filters( 'grouphome_nonohana_top_url', 'https://nono-hana.co.jp/' );
+		$items .= '<li class="menu-item menu-item-nonohana"><a href="' . esc_url( $url ) . '">訪問看護 野の花</a></li>';
 	}
-	return $parts;
+	return $items;
 }
-add_filter( 'document_title_parts', 'grouphome_document_title_parts_site' );
+add_filter( 'wp_nav_menu_items', 'grouphome_nav_append_nonohana_link', 10, 2 );
