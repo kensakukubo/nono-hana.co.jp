@@ -32,7 +32,7 @@ if ($newUri !== $requestUri) {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:description" content="<?php echo $description; ?>"" />
 <meta name=" twitter:image:src" content="<?php echo $path; ?>assets/img/common/ogp.webp" />
-    <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css" />
+    <link rel="stylesheet" href="<?php echo $path; ?>assets/css/style.css?v=<?php echo (int) @filemtime( __DIR__ . '/../css/style.css' ); ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -26,11 +26,47 @@
 </section>
 <footer>
     <div class="inner">
-        <nav class="footer-nav">
-            <ul class="l-flex">
-                <li><a href="https://nono-hana.co.jp/grouphome/">ペット共生型グループホーム わおん</a></li>
-            </ul>
-        </nav>
+        <div class="footer-main">
+            <div class="footer-info">
+                <p class="footer-name">訪問看護ステーション野の花</p>
+                <p>株式会社野の花</p>
+                <p>〒557-0011<br>大阪府大阪市西成区天下茶屋東２丁目10番24号</p>
+                <p>TEL <a href="tel:06-4393-8474">06-4393-8474</a>（24時間対応）</p>
+                <p>営業時間 9:00~18:00／定休日なし</p>
+            </div>
+            <nav class="footer-sitemap" aria-label="サイトマップ">
+                <div class="footer-sitemap__col">
+                    <p class="footer-sitemap__heading">訪問看護</p>
+                    <ul>
+                        <li><a href="https://nono-hana.co.jp/#service">サービス内容</a></li>
+                        <li><a href="https://nono-hana.co.jp/#question">よくある質問</a></li>
+                        <li><a href="https://nono-hana.co.jp/#flow">お申し込みの流れ</a></li>
+                        <li><a href="https://nono-hana.co.jp/#voice">ご利用者様の声</a></li>
+                        <li><a href="https://nono-hana.co.jp/#price">ご利用料金</a></li>
+                    </ul>
+                </div>
+                <div class="footer-sitemap__col">
+                    <p class="footer-sitemap__heading">野の花について</p>
+                    <ul>
+                        <li><a href="https://nono-hana.co.jp/#company">会社概要</a></li>
+                        <li><a href="https://nono-hana.co.jp/misson/">理念・ミッション</a></li>
+                        <li><a href="https://nono-hana.co.jp/news/">お知らせ</a></li>
+                        <li><a href="https://nono-hana.co.jp/recruit/">採用情報</a></li>
+                        <li><a href="https://nono-hana.co.jp/contact/">お問い合わせ</a></li>
+                        <li><a href="https://nono-hana.co.jp/privacy/">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+                <div class="footer-sitemap__col">
+                    <p class="footer-sitemap__heading">グループホーム</p>
+                    <ul>
+                        <li><a href="https://nono-hana.co.jp/grouphome/">グループホーム わおん</a></li>
+                        <li><a href="https://nono-hana.co.jp/grouphome/hanazono/">わおん花園</a></li>
+                        <li><a href="https://nono-hana.co.jp/grouphome/nishi-tengachaya/">わおん西天下茶屋</a></li>
+                        <li><a href="https://nono-hana.co.jp/grouphome/senboncho/">わおん千本</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
         <p class="copyright">Copyright © 野の花 All Rights Reserved.</p>
     </div>
 </footer>

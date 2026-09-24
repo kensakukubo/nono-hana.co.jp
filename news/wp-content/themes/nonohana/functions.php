@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', 'my_script_init' );
 function my_enqueue_styles() {
     wp_enqueue_style( 'fontawesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css', [], null );
     wp_enqueue_style( 'Maru',        '//fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap', [], null );
-    wp_enqueue_style( 'style',       '//nono-hana.co.jp/assets/css/style.css', [], '1.0.0' );
+    wp_enqueue_style( 'style',       '//nono-hana.co.jp/assets/css/style.css', [], (string) (int) @filemtime( dirname( ABSPATH ) . '/assets/css/style.css' ) );
 }
 add_action( 'wp_enqueue_scripts', 'my_enqueue_styles' );
 
