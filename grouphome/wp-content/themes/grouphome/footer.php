@@ -8,6 +8,7 @@
       <p class="footer-tel">TEL：<a href="tel:<?php echo esc_attr( grouphome_phone_main_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_main_display() ); ?></a></p>
       <p class="footer-tel footer-tel--emergency">緊急連絡先：<a href="tel:<?php echo esc_attr( grouphome_phone_emergency_tel_digits() ); ?>"><?php echo esc_html( grouphome_phone_emergency_display() ); ?></a></p>
       <p class="footer-home-link"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">トップページ</a></p>
+      <p class="footer-home-link"><a href="<?php echo esc_url( apply_filters( 'grouphome_nonohana_top_url', 'https://nono-hana.co.jp/' ) ); ?>">運営：訪問看護ステーション 野の花</a></p>
     </div>
     <?php if ( function_exists( 'grouphome_get_footer_sitemap_groups' ) ) : ?>
     <nav class="footer-sitemap" aria-label="<?php echo esc_attr__( 'サイト内の主要ページ', 'grouphome' ); ?>">

@@ -2754,3 +2754,11 @@
       font-size: 22px;
     }
   }
+  /* 私たちの想い */
+  .l-page--message .message-text p {
+    line-height: 2;
+  }
+
+  .l-page--message .message-text p + p {
+    margin-top: 0.75em;
+  }

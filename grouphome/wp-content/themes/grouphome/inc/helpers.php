@@ -305,6 +305,7 @@ function grouphome_recruit_section_image_url() {
  * @return array<int, array{url:string, alt:string, caption:string}>
  */
 function grouphome_get_nishitenkachaya_extra_room_slides() {
+	$base = get_template_directory_uri() . '/assets/img/';
 	return [
 		[
 			'url'     => grouphome_uploads_public_url( '2026/04/千本_2.png' ),
@@ -315,6 +316,41 @@ function grouphome_get_nishitenkachaya_extra_room_slides() {
 			'url'     => grouphome_uploads_public_url( '2026/04/千本_1.jpg' ),
 			'alt'     => 'わおん西天下茶屋',
 			'caption' => '',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-common-1.jpg',
+			'alt'     => 'わおん西天下茶屋 共用スペース',
+			'caption' => '共用スペース',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-common-2.jpg',
+			'alt'     => 'わおん西天下茶屋 共用スペース',
+			'caption' => '共用スペース',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-kitchen.jpg',
+			'alt'     => 'わおん西天下茶屋 共用スペースで料理も可能です',
+			'caption' => '共用スペースで料理も可能です',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-water-server.jpg',
+			'alt'     => 'わおん西天下茶屋 ウォーターサーバー',
+			'caption' => 'ウォーターサーバー',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-bookshelf.jpg',
+			'alt'     => 'わおん西天下茶屋 入居者のリクエストに応えて設置した本棚',
+			'caption' => '入居者のリクエストに応えて設置した本棚',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-common-3.jpg',
+			'alt'     => 'わおん西天下茶屋 共用スペース',
+			'caption' => '共用スペース',
+		],
+		[
+			'url'     => $base . 'nishi-tengachaya-room.jpg',
+			'alt'     => 'わおん西天下茶屋 鍵付きの専用個室',
+			'caption' => '鍵付きの専用個室',
 		],
 	];
 }
@@ -421,6 +457,38 @@ function grouphome_room_slide_urls_for_dedup( $slides ) {
 }
 
 /**
+ * 拠点がわおん千本か（外観写真・カード画像など）。
+ */
+function grouphome_location_matches_senbon( $post = null ) {
+	$post = $post ?: get_post();
+	if ( ! $post instanceof WP_Post ) {
+		return false;
+	}
+	if ( function_exists( 'grouphome_location_matches_nishitenkachaya' ) && grouphome_location_matches_nishitenkachaya( $post ) ) {
+		return false;
+	}
+	$pn = strtolower( $post->post_name );
+	if ( false !== strpos( $pn, 'senbon' ) ) {
+		return true;
+	}
+	if ( function_exists( 'mb_strpos' ) ) {
+		$utf8     = 'UTF-8';
+		$facility = function_exists( 'get_field' ) ? get_field( 'facility_name', $post->ID ) : '';
+		$facility = is_string( $facility ) ? $facility : '';
+		$title    = get_post_field( 'post_title', $post );
+		$title    = is_string( $title ) ? $title : '';
+		$blob     = $facility . $title;
+		if ( false !== mb_strpos( $blob, '西天下茶屋', 0, $utf8 ) ) {
+			return false;
+		}
+		if ( false !== mb_strpos( $blob, '千本', 0, $utf8 ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
  * わおん西天下茶屋の外観写真（テーマ同梱・デプロイで更新）。
  */
 function grouphome_nishitenkachaya_exterior_image_url() {
@@ -428,8 +496,41 @@ function grouphome_nishitenkachaya_exterior_image_url() {
 }
 
 /**
+ * わおん千本の外観写真（テーマ同梱・デプロイで更新）。
+ */
+function grouphome_senbon_exterior_image_url() {
+	return get_template_directory_uri() . '/assets/img/senbon-exterior.jpg';
+}
+
+/**
+ * わおん千本「室内の様子」の写真（テーマ同梱・デプロイで更新）。
+ *
+ * @return array<int, array{url:string, alt:string, caption:string}>
+ */
+function grouphome_get_senbon_room_slides() {
+	$base = get_template_directory_uri() . '/assets/img/';
+	return [
+		[
+			'url'     => $base . 'senbon-room.jpg',
+			'alt'     => 'わおん千本 鍵付きの専用個室',
+			'caption' => '鍵付きの専用個室',
+		],
+		[
+			'url'     => $base . 'senbon-common-living.jpg',
+			'alt'     => 'わおん千本 共用スペース',
+			'caption' => '共用スペース',
+		],
+		[
+			'url'     => $base . 'senbon-cat-room.jpg',
+			'alt'     => 'わおん千本 猫専用の部屋',
+			'caption' => '猫専用の部屋',
+		],
+	];
+}
+
+/**
  * 拠点ページ・メイン写真（概要左・テーブル横）：ACF「施設写真」が空のときの既定URL。
- * 花園・千本は uploads の固定ファイル。西天下茶屋はテーマ内の外観写真。
+ * 花園は uploads の固定ファイル。千本・西天下茶屋はテーマ内の外観写真。
  */
 function grouphome_location_default_facility_image_url( $post = null ) {
 	$post = $post ?: get_post();
@@ -437,8 +538,8 @@ function grouphome_location_default_facility_image_url( $post = null ) {
 		return '';
 	}
 	$pn = strtolower( $post->post_name );
-	if ( false !== strpos( $pn, 'senbon' ) ) {
-		return grouphome_uploads_public_url( '2026/04/わおん千本.webp' );
+	if ( grouphome_location_matches_senbon( $post ) ) {
+		return grouphome_senbon_exterior_image_url();
 	}
 	if ( false !== strpos( $pn, 'hanazon' ) ) {
 		return grouphome_uploads_public_url( '2026/04/S__56811553.jpg' );
@@ -455,15 +556,14 @@ function grouphome_location_default_facility_image_url( $post = null ) {
  * 本番URL:
  * - 花園 …/uploads/2026/04/S__56811553.jpg
  * - 西天下茶屋 …/themes/grouphome/assets/img/nishi-tengachaya-exterior.jpg
- * - 千本 …/uploads/2026/04/わおん千本.webp
+ * - 千本 …/themes/grouphome/assets/img/senbon-exterior.jpg
  *
  * @return string 相対パス（例 2026/04/わおん千本.webp）／該当なしは空文字
  */
 function grouphome_location_card_fixed_upload_relative( $post_name ) {
 	$post_name = is_string( $post_name ) ? $post_name : '';
 	$map       = [
-		'hanazono'  => '2026/04/S__56811553.jpg',
-		'senboncho' => '2026/04/わおん千本.webp',
+		'hanazono' => '2026/04/S__56811553.jpg',
 	];
 	return isset( $map[ $post_name ] ) ? $map[ $post_name ] : '';
 }
@@ -484,6 +584,12 @@ function grouphome_get_location_card_image( $post_id ) {
 	if ( $post instanceof WP_Post && grouphome_location_matches_nishitenkachaya( $post ) ) {
 		return [
 			'url' => grouphome_nishitenkachaya_exterior_image_url(),
+			'alt' => $title,
+		];
+	}
+	if ( $post instanceof WP_Post && grouphome_location_matches_senbon( $post ) ) {
+		return [
+			'url' => grouphome_senbon_exterior_image_url(),
 			'alt' => $title,
 		];
 	}
@@ -606,7 +712,7 @@ function grouphome_acf_gallery_rows_to_slides( $rows ) {
 }
 
 /**
- * 拠点ページ「外観」用スライド。西天下茶屋はテーマ既定1枚、その他は ACF exterior_gallery。
+ * 拠点ページ「外観」用スライド。千本・西天下茶屋はテーマ既定1枚、その他は ACF exterior_gallery。
  *
  * @return array<int, array{id?:int, url?:string, alt:string, caption:string}>
  */
@@ -622,6 +728,26 @@ function grouphome_get_exterior_gallery_slides( $post_id ) {
 			[
 				'url'     => grouphome_nishitenkachaya_exterior_image_url(),
 				'alt'     => $title !== '' ? $title . ' 外観' : 'わおん西天下茶屋 外観',
+				'caption' => '',
+			],
+			[
+				'url'     => get_template_directory_uri() . '/assets/img/nishi-tengachaya-exterior-2.jpg',
+				'alt'     => $title !== '' ? $title . ' 外観' : 'わおん西天下茶屋 外観',
+				'caption' => '',
+			],
+		];
+	}
+	if ( $post instanceof WP_Post && grouphome_location_matches_senbon( $post ) ) {
+		$title = get_the_title( $post_id );
+		return [
+			[
+				'url'     => grouphome_senbon_exterior_image_url(),
+				'alt'     => $title !== '' ? $title . ' 外観' : 'わおん千本 外観',
+				'caption' => '',
+			],
+			[
+				'url'     => get_template_directory_uri() . '/assets/img/senbon-corridor.jpg',
+				'alt'     => $title !== '' ? $title . ' 共用廊下' : 'わおん千本 共用廊下',
 				'caption' => '',
 			],
 		];
@@ -667,6 +793,14 @@ function grouphome_get_room_gallery_slides( $post_id ) {
 			$filtered_senbon[] = $slide;
 		}
 		$slides = $filtered_senbon;
+		$known  = grouphome_room_slide_urls_for_dedup( $slides );
+		foreach ( grouphome_get_senbon_room_slides() as $extra ) {
+			$u = $extra['url'];
+			if ( $u !== '' && empty( $known[ $u ] ) ) {
+				$slides[] = $extra;
+				$known[ $u ] = true;
+			}
+		}
 	}
 	if ( $post_obj instanceof WP_Post && grouphome_location_matches_nishitenkachaya( $post_obj ) ) {
 		$known = grouphome_room_slide_urls_for_dedup( $slides );
