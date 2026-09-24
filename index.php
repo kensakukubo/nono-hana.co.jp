@@ -626,6 +626,10 @@ include 'assets/inc/head.php';
                                         <dt>事業所番号</dt>
                                         <dd>2763390404</dd>
                                     </dl>
+                                    <dl class="l-flex">
+                                        <dt>運営施設</dt>
+                                        <dd><a href="<?php echo $path; ?>grouphome/">ペット共生型グループホーム わおん</a><span class="block min">花園・西天下茶屋・千本（大阪市西成区）</span></dd>
+                                    </dl>
                                 </div>
                                 <div class="col map">
                                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1674.9438789224805!2d135.50067614809146!3d34.63983752186727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000dd920960d3e7%3A0x7b40807f4101e3ac!2z44CSNTU3LTAwMTEg5aSn6Ziq5bqc5aSn6Ziq5biC6KW_5oiQ5Yy65aSp5LiL6Iy25bGL5p2x77yS5LiB55uu77yR77yQ4oiS77yS77yU!5e0!3m2!1sja!2sjp!4v1736497897892!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -633,6 +637,29 @@ include 'assets/inc/head.php';
                             </div>
                             <div class="btn">
                                 <a href="./misson/">理念・ミッション</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="border-section l-container long"></div>
+                <section class="recruit grouphome" id="grouphome">
+                    <div class="inner">
+                        <article class="subttl">
+                            <h2>グループホーム</h2>
+                        </article>
+                        <div class="l-container long">
+                            <div class="content l-flex">
+                                <div class="col image">
+                                    <img src="<?php echo $path; ?>grouphome/wp-content/uploads/2026/04/S__56811553.jpg" alt="ペット共生型グループホーム わおん花園 外観" loading="lazy">
+                                </div>
+                                <article class="col details">
+                                    <h3>ペット共生型グループホーム わおん</h3>
+                                    <p>障がいのある方が、犬や猫と一緒に暮らせるグループホームです。</p>
+                                    <p>大阪市西成区に花園・西天下茶屋・千本の3拠点があります。</p>
+                                    <div class="btn">
+                                        <a href="<?php echo $path; ?>grouphome/">グループホームを見る</a>
+                                    </div>
+                                </article>
                             </div>
                         </div>
                     </div>

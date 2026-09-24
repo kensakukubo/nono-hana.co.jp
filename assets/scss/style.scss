@@ -2253,6 +2253,57 @@ footer {
 #footer
 *********************/
 
+/* グループホーム導線 */
+.grouphome {
+    .inner {
+        .content {
+            background: none;
+        }
+    }
+}
+
+.company {
+    .inner {
+        .content {
+            .col.details {
+                dl {
+                    dd {
+                        a {
+                            color: $m-c;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+footer {
+    .inner {
+        .footer-nav {
+            ul {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: .5rem 1.5rem;
+                margin-bottom: .5rem;
+
+                li {
+                    a {
+                        color: #fff;
+                        font-size: $fs-min;
+                        text-decoration: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 /*----------1920px↑----------*/
 @include mq(high-inch) {}

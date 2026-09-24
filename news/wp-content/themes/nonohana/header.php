@@ -66,6 +66,7 @@
                                 <li><a href="../#flow" class="main">お申し込みの流れ</a></li>
                                 <li><a href="../#voice" class="main">ご利用者様の声</a></li>
                                 <li><a href="../#price" class="main">ご利用料金</a></li>
+                                <li><a href="https://nono-hana.co.jp/grouphome/" class="main">グループホーム</a></li>
                                 <li><a href="../#company" class="main">会社概要</a></li>
 							            	<li><a href="https://nono-hana.co.jp/news/" class="main">お知らせ</a></li>
                                 <li><a href="../#recruit" class="main">採用情報</a></li>
